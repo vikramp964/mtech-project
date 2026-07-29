@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+
+# HuggingFace cache
+hf_cache/
+.cache/
+
+# Hugging Face downloaded models
+models/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large checkpoints
+outputs/**/checkpoint-*/
+
+# OS
+.DS_Store
+Thumbs.db
+
