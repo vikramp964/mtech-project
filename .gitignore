@@ -17,12 +17,8 @@ models/
 
 # Large checkpoints
 outputs/**/checkpoint-*/
+outputs/**/*.pt
 
 # OS
 .DS_Store
 Thumbs.db
-
-
-# Training checkpoints
-outputs/**/checkpoint-*/
-outputs/**/*.pt
