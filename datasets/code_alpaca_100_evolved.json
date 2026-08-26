@@ -1,0 +1,902 @@
+[
+  {
+    "source_index": 0,
+    "original_instruction": "Write a function to fill an array of size n with random integers in the range 0...k-1.",
+    "original_input": "",
+    "original_output": "def random_fill_array(n, k):\n    arr = []\n    for _ in range(n):\n        arr.append(random.randint(0, k-1))\n    return arr",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a function to fill an array of size n with random integers in the range 0...k-1, ensuring no two adjacent elements are the same.",
+    "evolved_output": "import random\n\ndef fill_array(n, k):\n    if n == 0:\n        return []\n    array = [random.randint(0, k-1)]\n    for _ in range(1, n):\n        next_value = random.randint(0, k-1)\n        while next_value == array[-1]:\n            next_value = random.randint(0, k-1)\n        array.append(next_value)\n    return array"
+  },
+  {
+    "source_index": 1,
+    "original_instruction": "Compose a Python script to convert a string to an all-uppercase string.",
+    "original_input": "String: 'Experiment'",
+    "original_output": "# converting the string to upper-case \nstring = \"Experiment\"\nprint(\"Old String:\", string) \nstring = string.upper() \nprint(\"New String:\", string)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Compose a Python script to convert a string to an all-uppercase string, ensuring that the input string contains only alphabetic characters.\n\nInput:\nString: 'Experiment'",
+    "evolved_output": "def to_uppercase(s):\n    if s.isalpha():\n        return s.upper()\n    else:\n        raise ValueError(\"Input string must contain only alphabetic characters.\")\n\n# Example usage\ninput_string = 'Experiment'\nprint(to_uppercase(input_string))"
+  },
+  {
+    "source_index": 2,
+    "original_instruction": "Using Regular Expressions, search for all 3-digit occurrences in the given text.",
+    "original_input": "text = \"The ship had a 590 foot cargo hold, filled with 204 tons of goods.\"",
+    "original_output": "590 and 204.",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Using Regular Expressions, search for all 3-digit occurrences in the given text, ensuring they are not part of larger numbers.",
+    "evolved_output": "import re\n\ndef find_3_digit_numbers(text):\n    return re.findall(r'\\b\\d{3}\\b', text)\n\ntext = \"The ship had a 590 foot cargo hold, filled with 204 tons of goods.\"\nprint(find_3_digit_numbers(text))"
+  },
+  {
+    "source_index": 3,
+    "original_instruction": "Compute the edits between two strings.",
+    "original_input": "str1 = \"I am eating\"\nstr2 = \"I am eating a sandwich\"",
+    "original_output": "def edit_distance(str1, str2):\n    \"\"\"\n    Compute the edit distance between two strings\n    \"\"\"\n    m = len(str1)\n    n = len(str2)\n\n    distance = [[0 for i in range(n+1)] for j in range(m+1)]\n\n    for i in range(m+1):\n        for j in range(n+1):\n\n            # If first string is empty, only option is to insert all characters of second string\n            if i == 0:\n                distance[i][j] = j\n\n            # If second string is empty, only option is to remove all characters of first string\n            elif j == 0:\n                distance[i][j] = i\n\n            # If last characters are same, ignore last char and recur for remaining string\n            elif str1[i-1] == str2[j-1]:\n                distance[i][j] = distance[i-1][j-1]\n\n            # If last characters are not same, consider all possibilities and find minimum\n            else:\n                replace_cost = distance[i-1][j-1] + 1\n                remove_cost = distance[i-1][j] + 1\n                insert_cost = distance[i][j-1] + 1\n                distance[i][j] = min(replace_cost, remove_cost, insert_cost)\n\n    return distance[m][n]\nif __name__ == '__main__':\n    str1 = \"I am eating\"\n    str2 = \"I am eating a sandwich\"\n    print(edit_distance(str1, str2))",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Compute the edits between two strings, ensuring the solution handles strings up to 1000 characters in length efficiently.",
+    "evolved_output": "def edit_distance(str1, str2):\n    m, n = len(str1), len(str2)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n\n    for i in range(m + 1):\n        dp[i][0] = i\n    for j in range(n + 1):\n        dp[0][j] = j\n\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if str1[i - 1] == str2[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1]\n            else:\n                dp[i][j] = min(dp[i - 1][j] + 1,    # Deletion\n                               dp[i][j - 1] + 1,    # Insertion\n                               dp[i - 1][j - 1] + 1) # Substitution\n\n    return dp[m][n]\n\n# Example usage:\nstr1 = \"I am eating\"\nstr2 = \"I am eating a sandwich\"\nprint(edit_distance(str1, str2))"
+  },
+  {
+    "source_index": 4,
+    "original_instruction": "Create an HTML page that has an input field and a button. When the button is clicked, the text from the input field should be printed to the console.",
+    "original_input": "",
+    "original_output": "<html>\n  <head>\n  </head>\n  <body>\n    <input type=\"text\" id=\"myInput\">\n    <button onclick=\"printInput()\">Print Input</button>\n    \n    <script>\n      function printInput(){\n        const inputVal = document.getElementById(\"myInput\").value;\n        console.log(inputVal);\n      }\n    </script>\n  </body>\n</html>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create an HTML page with an input field and a button. When the button is clicked, the text from the input field should be printed to the console, but only if the input is at least 5 characters long.",
+    "evolved_output": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Input Logger</title>\n    <script>\n        function logInput() {\n            const inputField = document.getElementById('textInput');\n            const inputValue = inputField.value;\n            if (inputValue.length >= 5) {\n                console.log(inputValue);\n            } else {\n                console.log(\"Input must be at least 5 characters long.\");\n            }\n        }\n    </script>\n</head>\n<body>\n    <input type=\"text\" id=\"textInput\" placeholder=\"Enter text here\">\n    <button onclick=\"logInput()\">Log Input</button>\n</body>\n</html>"
+  },
+  {
+    "source_index": 5,
+    "original_instruction": "Create a Python script to print the following output.",
+    "original_input": "",
+    "original_output": "for x in range(10):\n    for y in range(10):\n        print(\"*\" if (x + y) % 2 == 0 else \" \", end=\"\")\n    print(\"\")",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a Python script to print the following output, ensuring that the code does not use any loops or built-in functions for string repetition.",
+    "evolved_output": "print(\"Hello\\nHello\\nHello\\nHello\\nHello\")"
+  },
+  {
+    "source_index": 6,
+    "original_instruction": "Modify the existing code to enable user input so the user can enter their own number and have the average of those two numbers returned.",
+    "original_input": "def find_average(a, b):\n    return (a + b) / 2",
+    "original_output": "def find_average():\n    a = int(input(\"Enter first number: \"))\n    b = int(input(\"Enter second number: \"))\n    return (a + b) / 2",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Modify the existing code to enable user input for two numbers and ensure the input is validated to be integers before calculating and returning their average.",
+    "evolved_output": "def find_average():\n    try:\n        a = int(input(\"Enter the first number: \"))\n        b = int(input(\"Enter the second number: \"))\n        return (a + b) / 2\n    except ValueError:\n        return \"Invalid input. Please enter integer values.\"\n\n# Example usage:\nprint(find_average())"
+  },
+  {
+    "source_index": 7,
+    "original_instruction": "Using an existing loop, create code to calculate the sum of all odd numbers up to a given number.",
+    "original_input": "",
+    "original_output": "def sum_odd_numbers(num):\n    result = 0\n    for i in range(1, num+1):\n        if i % 2 != 0:\n            result += i\n    return result",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Using an existing loop, create code to calculate the sum of all odd numbers up to a given number, ensuring the solution handles input values up to 10^6 efficiently.",
+    "evolved_output": "def sum_of_odds(n):\n    total = 0\n    for i in range(1, n + 1, 2):\n        total += i\n    return total\n\n# Example usage:\nn = 10**6\nprint(sum_of_odds(n))"
+  },
+  {
+    "source_index": 8,
+    "original_instruction": "Write a function in JavaScript to reorder the given list in ascending order.",
+    "original_input": "[3, 1, 2]",
+    "original_output": "function sortAscending(list) {\n    list.sort(function (a, b) {\n        return a - b;\n    });\n    return list;\n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a function in JavaScript to reorder the given list in ascending order without using built-in sorting functions.",
+    "evolved_output": "function reorderList(arr) {\n    for (let i = 0; i < arr.length - 1; i++) {\n        for (let j = 0; j < arr.length - 1 - i; j++) {\n            if (arr[j] > arr[j + 1]) {\n                let temp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = temp;\n            }\n        }\n    }\n    return arr;\n}\n\n// Example usage:\nconsole.log(reorderList([3, 1, 2])); // Output: [1, 2, 3]"
+  },
+  {
+    "source_index": 9,
+    "original_instruction": "Create a function that returns the sum of all elements in a given array of numbers.",
+    "original_input": "",
+    "original_output": "def array_sum(arr):\n    sum = 0\n    for num in arr:\n        sum += num\n    return sum",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a function that returns the sum of all even elements in a given array of numbers, ignoring any negative values.",
+    "evolved_output": "def sum_of_even_elements(arr):\n    return sum(x for x in arr if x >= 0 and x % 2 == 0)"
+  },
+  {
+    "source_index": 10,
+    "original_instruction": "Create an PHP script to display the current date and day.",
+    "original_input": "",
+    "original_output": "<?php\n echo date(\"l, F jS\")\n ?>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a PHP script to display the current date and day, formatted as \"Today is [Day], [Month] [Date], [Year].\"",
+    "evolved_output": "<?php\necho \"Today is \" . date(\"l, F j, Y\") . \".\";\n?>"
+  },
+  {
+    "source_index": 11,
+    "original_instruction": "Submit a valid Ruby program to remove special characters from a given string",
+    "original_input": "Hello$#@World!",
+    "original_output": "def remove_special_chars(str)\n   str = str.gsub(/[^a-zA-Z0-9\\s]/, '')\n   return str\nend\n\nputs remove_special_chars(\"Hello$#@World!\")",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Submit a valid Ruby program to remove special characters from a given string, preserving only alphanumeric characters and spaces.\n\nInput:\nHello$#@World!",
+    "evolved_output": "def remove_special_characters(input)\n  input.gsub(/[^a-zA-Z0-9\\s]/, '')\nend\n\nputs remove_special_characters(\"Hello$#@World!\")\n\n\nThis solution uses a regular expression to match and remove any character that is not an uppercase letter, lowercase letter, digit, or space."
+  },
+  {
+    "source_index": 12,
+    "original_instruction": "Modify the following code to print all words with more than 5 characters in a given string.",
+    "original_input": "text = \"This is an example string\"",
+    "original_output": "text = \"This is an example string\"\nwords = text.split() \nfor word in words: \n    if len(word) > 5: \n        print(word)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Modify the following code to print all words with more than 5 characters in a given string, ignoring case and excluding any words that contain non-alphabetic characters.\n\nInput:\ntext = \"This is an example string with numbers 123 and symbols #@$!\"",
+    "evolved_output": "import re\n\ndef print_long_words(text):\n    words = re.findall(r'[a-zA-Z]+', text.lower())\n    for word in words:\n        if len(word) > 5:\n            print(word)\n\ntext = \"This is an example string with numbers 123 and symbols #@$!\"\nprint_long_words(text)"
+  },
+  {
+    "source_index": 13,
+    "original_instruction": "Create a function which takes two parameters and returns true if the second parameter is a power of the first parameter.",
+    "original_input": "x = 16\ny = 4",
+    "original_output": "def is_a_power_of(x, y):\n    if x == y:\n        return True\n\n    if x > y and y != 0:\n        return is_a_power_of(x/y, y) \n    else:\n        return False\n\npower_of = is_a_power_of(x, y)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a function which takes two parameters and returns true if the second parameter is a power of the first parameter, considering only positive integer values for both parameters.",
+    "evolved_output": "def is_power(x, y):\n    if x <= 0 or y <= 0:\n        return False\n    if x == 1:\n        return y == 1\n    current = x\n    while current < y:\n        current *= x\n    return current == y\n\n# Example usage:\nprint(is_power(16, 4))  # Output: True\nprint(is_power(2, 8))   # Output: True\nprint(is_power(3, 9))   # Output: True\nprint(is_power(5, 25))  # Output: True\nprint(is_power(2, 10))  # Output: False"
+  },
+  {
+    "source_index": 14,
+    "original_instruction": "Compile the given C++ code.",
+    "original_input": "#include <iostream> \nusing namespace std; \nint main()\n{ \n  cout << \"Hello World!\"; \n  return 0; \n}",
+    "original_output": "g++ file.cpp -o file",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Compile the given C++ code and modify it to print \"Hello World!\" followed by the current year.",
+    "evolved_output": "#include <iostream>\n#include <ctime>\nusing namespace std;\n\nint main()\n{\n    time_t t = time(nullptr);\n    tm* now = localtime(&t);\n    int year = now->tm_year + 1900;\n    cout << \"Hello World! \" << year;\n    return 0;\n}"
+  },
+  {
+    "source_index": 15,
+    "original_instruction": "Create a function that takes two integers, A and B, and returns the largest common divisor between A and B.",
+    "original_input": "",
+    "original_output": "def get_largest_common_divisor(a, b):\n    while a != 0 and b != 0:\n        if a > b:\n            a %= b\n        else:\n            b %= a\n    return a + b\n\nif __name__ == '__main__':\n    print(get_largest_common_divisor(15, 9))",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a function that takes two integers, A and B, and returns the largest common divisor between A and B, ensuring the function handles negative inputs correctly.",
+    "evolved_output": "def gcd(A, B):\n    A, B = abs(A), abs(B)\n    while B != 0:\n        A, B = B, A % B\n    return A"
+  },
+  {
+    "source_index": 16,
+    "original_instruction": "Draft an HTML page with a table that contains three columns and two rows.",
+    "original_input": "",
+    "original_output": "<html>\n  <head>\n    <title>Table Example</title>\n  </head>\n  <body>\n    <table>\n      <tr>\n        <th>Column 1</th>\n        <th>Column 2</th>\n        <th>Column 3</th>\n      </tr>\n      <tr>\n        <td>Row 1 Data 1</td>\n        <td>Row 1 Data 2</td>\n        <td>Row 1 Data 3</td>\n      </tr>\n      <tr>\n        <td>Row 2 Data 1</td>\n        <td>Row 2 Data 2</td>\n        <td>Row 2 Data 3</td>\n      </tr>\n    </table>\n  </body>\n</html>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Draft an HTML page with a table that contains three columns and two rows, where the first row is a header row with bold text, and the second row contains numeric values that sum up to 100.",
+    "evolved_output": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Sample Table</title>\n    <style>\n        th {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <table border=\"1\">\n        <tr>\n            <th>Column 1</th>\n            <th>Column 2</th>\n            <th>Column 3</th>\n        </tr>\n        <tr>\n            <td>30</td>\n            <td>40</td>\n            <td>30</td>\n        </tr>\n    </table>\n</body>\n</html>"
+  },
+  {
+    "source_index": 17,
+    "original_instruction": "Suggest a suitable algorithm for solving this problem.",
+    "original_input": "An array of integers is given. Find the highest sum that can be obtained by including different members from the array, such that no two members have the same index.",
+    "original_output": "We can use the dynamic programming approach to solve this problem. At each step, we calculate the maximum possible sum that can be obtained if we include the current element. We keep track of the maximum sum found so far, and then continue with the next element. At the end, we have the highest sum of elements with no two elements having the same index.",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Suggest a suitable algorithm for solving this problem. Input: An array of integers is given. Find the highest sum that can be obtained by including different members from the array, such that no two members have the same index and the sum must include at least one positive number.",
+    "evolved_output": "def max_sum_with_positive(nums):\n    if not nums:\n        return 0\n    \n    # Initialize variables to store the maximum sum including and excluding the current element\n    incl = max(0, nums[0])  # Start with the first element if it's positive\n    excl = 0\n    \n    for i in range(1, len(nums)):\n        # Current max excluding i (no adjacent)\n        new_excl = max(incl, excl)\n        \n        # Current max including i\n        incl = excl + max(0, nums[i])\n        \n        # Update excl to the new_excl\n        excl = new_excl\n    \n    # Return the maximum sum we can get\n    return max(incl, excl)\n\n# Example usage:\nnums = [3, 2, 5, 10, 7]\nprint(max_sum_with_positive(nums))  # Output should be 15 (3 + 10 + 2 or 5 + 10)\n\n\nThis solution ensures that the sum includes at least one positive number while adhering to the constraint that no two selected numbers have adjacent indices."
+  },
+  {
+    "source_index": 18,
+    "original_instruction": "Create a dictionary where the keys are the integers up to 10, and the values are the cubes of those same integers.",
+    "original_input": "",
+    "original_output": "def create_dict():\n    cube_dict = {}\n    for i in range(1,11):\n        cube_dict[i] = i**3\n    return cube_dict",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a dictionary where the keys are the integers up to 10, and the values are the cubes of those same integers, excluding any integers that are divisible by 3.",
+    "evolved_output": "cubes = {i: i**3 for i in range(1, 11) if i % 3 != 0}\nprint(cubes)"
+  },
+  {
+    "source_index": 19,
+    "original_instruction": "Create a function to iterate a list of strings and print them.",
+    "original_input": "",
+    "original_output": "def iterate_strings(string_list):\n    for string in string_list:\n        print(string)\n\nif __name__ == '__main__':\n    string_list = [\"apple\", \"banana\", \"cherry\"]\n    iterate_strings(string_list)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a function to iterate a list of strings and print them, ensuring that each string is printed on a new line and only if it contains at least one vowel.",
+    "evolved_output": "def print_strings_with_vowels(strings):\n    vowels = set('aeiouAEIOU')\n    for s in strings:\n        if any(char in vowels for char in s):\n            print(s)\n\n# Example usage:\nstrings = [\"sky\", \"hello\", \"bcd\", \"world\"]\nprint_strings_with_vowels(strings)"
+  },
+  {
+    "source_index": 20,
+    "original_instruction": "Create a C++ code to display the following pattern.\n\nx\nxxx\nxxxxx\nxxxxxxx",
+    "original_input": "",
+    "original_output": "#include <iostream> \nusing namespace std; \n  \n// Function to demonstrate printing pattern \nvoid triangle(int n) \n{ \n    // Outer loop to handle number of rows \n    // n in this case \n    for (int i=0; i<n; i++) \n    { \n        // Inner loop to handle number of columns \n        // values changing acc. to outer loop \n        for (int j=0; j<=i; j++ ) \n        { \n            // Printing stars \n            cout << \"x\"; \n        } \n  \n        // Ending line after each row \n        cout << \"\\n\"; \n    } \n} \n  \n// Driver Function \nint main() \n{ \n    int n = 4; \n    triangle(n); \n    return 0; \n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a C++ code to display the following pattern, ensuring that the number of rows is determined by user input and does not exceed 10.\n\nx\nxxx\nxxxxx\nxxxxxxx",
+    "evolved_output": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cout << \"Enter the number of rows (up to 10): \";\n    cin >> n;\n    if (n > 10) n = 10; // Ensure the number of rows does not exceed 10\n    for (int i = 1; i <= n; ++i) {\n        for (int j = 1; j <= 2 * i - 1; ++j) {\n            cout << \"x\";\n        }\n        cout << endl;\n    }\n    return 0;\n}"
+  },
+  {
+    "source_index": 21,
+    "original_instruction": "Create an object in JavaScript named 'user' with the following attributes: name, age, and gender.",
+    "original_input": "",
+    "original_output": "let user = {\n    name: \"\",\n    age: 0,\n    gender: \"\"\n};",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create an object in JavaScript named 'user' with the following attributes: name (a string), age (a positive integer), and gender (either 'male', 'female', or 'other').",
+    "evolved_output": "const user = {\n    name: \"John Doe\",\n    age: 30,\n    gender: \"male\"\n};"
+  },
+  {
+    "source_index": 22,
+    "original_instruction": "Create an algorithm that prints the common elements of two arrays.",
+    "original_input": "arr1 = [3, 10, 15, 7]\narr2 = [7, 8, 5, 10]",
+    "original_output": "def common_elements(arr1, arr2):\n   result = []\n   for numbers in arr1:\n       if numbers in arr2:\n           result.append(numbers)\n   return result\n\nprint(common_elements(arr1, arr2)) # Output: [7, 10]",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create an algorithm that prints the common elements of two arrays, ensuring the output is sorted in ascending order without duplicates.\n\nInput:\narr1 = [3, 10, 15, 7]\narr2 = [7, 8, 5, 10]",
+    "evolved_output": "def find_common_elements(arr1, arr2):\n    # Convert lists to sets to remove duplicates and find intersection\n    set1 = set(arr1)\n    set2 = set(arr2)\n    common_elements = set1.intersection(set2)\n    # Convert the set back to a sorted list\n    return sorted(list(common_elements))\n\narr1 = [3, 10, 15, 7]\narr2 = [7, 8, 5, 10]\nprint(find_common_elements(arr1, arr2))"
+  },
+  {
+    "source_index": 23,
+    "original_instruction": "Given a list of numbers, find the minimum and maximum elements.",
+    "original_input": "[3, 4, 8, 1, 5, 0, 9]",
+    "original_output": "min_el = 0\nmax_el = 9",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given a list of numbers, find the minimum and maximum elements, ensuring the solution works efficiently for lists up to 10^6 elements.",
+    "evolved_output": "def find_min_max(numbers):\n    if not numbers:\n        return None, None\n    min_element = max_element = numbers[0]\n    for number in numbers[1:]:\n        if number < min_element:\n            min_element = number\n        elif number > max_element:\n            max_element = number\n    return min_element, max_element\n\n# Example usage:\nnumbers = [3, 4, 8, 1, 5, 0, 9]\nmin_val, max_val = find_min_max(numbers)\nprint(min_val, max_val)  # Output: 0 9"
+  },
+  {
+    "source_index": 24,
+    "original_instruction": "Write a function that takes in a string of text and counts the number of times each letter appears in the string",
+    "original_input": "text = \"The quick brown fox jumps over the lazy dog\"",
+    "original_output": "def count_letters(text):\n    letter_count = {}\n    for character in text:\n        if character not in letter_count:\n            letter_count[character] = 1\n        else:\n            letter_count[character] += 1\n    return letter_count\n\nprint(count_letters(text))",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a function that takes in a string of text and counts the number of times each letter appears in the string, ignoring case and excluding non-alphabetic characters.\n\nInput:\ntext = \"The quick brown fox jumps over the lazy dog\"",
+    "evolved_output": "def count_letters(text):\n    text = text.lower()\n    letter_count = {}\n    for char in text:\n        if char.isalpha():\n            if char in letter_count:\n                letter_count[char] += 1\n            else:\n                letter_count[char] = 1\n    return letter_count\n\n# Example usage\ntext = \"The quick brown fox jumps over the lazy dog\"\nprint(count_letters(text))\n\nThis solution processes the input string by converting it to lowercase, iterating through each character, checking if it's an alphabetic character, and then counting its occurrences."
+  },
+  {
+    "source_index": 25,
+    "original_instruction": "Perform a linear search in a list named 'mylist' and return the index of the first occurrence of a target value.",
+    "original_input": "mylist = [1, 2, 3, 4, 5, 6, 7]\ntarget = 4",
+    "original_output": "def linear_search(mylist, target):\n for i in range(len(mylist)):\n if mylist[i] == target:\n return i\n return -1",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Perform a linear search in a list named 'mylist' and return the index of the first occurrence of a target value, ensuring the function handles empty lists gracefully.",
+    "evolved_output": "def linear_search(mylist, target):\n    for index, value in enumerate(mylist):\n        if value == target:\n            return index\n    return -1\n\n# Example usage:\nmylist = [1, 2, 3, 4, 5, 6, 7]\ntarget = 4\nprint(linear_search(mylist, target))  # Output: 3"
+  },
+  {
+    "source_index": 26,
+    "original_instruction": "Evaluate the given algebraic expression by substituting 4 for x.",
+    "original_input": "expression = 2x + 6",
+    "original_output": "expression = 2 * 4 + 6 = 14",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Evaluate the given algebraic expression by substituting 4 for x, ensuring the result is rounded to two decimal places.\n\nInput:\nexpression = 2x + 6",
+    "evolved_output": "def evaluate_expression(expression):\n    x = 4\n    result = eval(expression.replace('x', str(x)))\n    return round(result, 2)\n\nexpression = \"2*x + 6\"\nprint(evaluate_expression(expression))"
+  },
+  {
+    "source_index": 27,
+    "original_instruction": "Suggest a code segment to generate a random integer in the range of 0 to 100 using Python.",
+    "original_input": "",
+    "original_output": "import random\n\nrandom_int = random.randint(0, 100)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Generate a random integer in the range of 0 to 100 using Python, ensuring it is not divisible by 7.",
+    "evolved_output": "import random\n\ndef generate_random_integer():\n    while True:\n        num = random.randint(0, 100)\n        if num % 7 != 0:\n            return num\n\nprint(generate_random_integer())"
+  },
+  {
+    "source_index": 28,
+    "original_instruction": "Create a Python code for printing the following pattern.",
+    "original_input": "",
+    "original_output": "# Pattern \nfor i in range(1,6):\n for j in range(1,i+1):\n  print(i,end=\"\")\n print(\"\")",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a Python code for printing the following pattern, ensuring that the pattern size is determined by user input and the pattern includes alternating characters.",
+    "evolved_output": "def print_alternating_pattern(n):\n    char1 = '*'\n    char2 = '#'\n    for i in range(n):\n        row = (char1 + char2) * (n // 2)\n        if n % 2 != 0 and i == n - 1:\n            row += char1\n        print(row)\n\n# Example usage:\nn = int(input(\"Enter the size of the pattern: \"))\nprint_alternating_pattern(n)"
+  },
+  {
+    "source_index": 29,
+    "original_instruction": "Suggest an efficient way to find the longest word in a string.",
+    "original_input": "",
+    "original_output": "The most efficient way to find the longest word in a string is to use the split() method to convert the string into a list of words, then use the max() method to find the longest word in the list. For example:\n\nstring = \"The quickest way to find the longest word\"\nlongest_word = max(string.split(), key=len)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Suggest an efficient way to find the longest word in a string, ignoring punctuation and considering only alphanumeric characters.",
+    "evolved_output": "def longest_word(s):\n    import re\n    words = re.findall(r'\\b\\w+\\b', s)\n    return max(words, key=len) if words else \"\"\n\n# Example usage:\ns = \"Hello, world! This is a test-string.\"\nprint(longest_word(s))  # Output: \"teststring\""
+  },
+  {
+    "source_index": 30,
+    "original_instruction": "Create a function called check_restaurant_availability that returns True if a restaurant is open and False if it's closed.",
+    "original_input": "restaurant_status = {\n    \"monday\": \"closed\",\n    \"tuesday\": \"open\",\n    \"wednesday\": \"closed\",\n    \"thursday\": \"open\",\n    \"friday\": \"closed\",\n    \"saturday\": \"open\",\n    \"sunday\": \"closed\"\n}",
+    "original_output": "def check_restaurant_availability(restaurant_status):\n    day = datetime.date.today().strftime(\"%A\").lower()\n    return restaurant_status[day] == \"open\"",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a function called check_restaurant_availability that returns True if a restaurant is open and False if it's closed. The function should also handle invalid day inputs gracefully by returning None.\n\nInput:\nrestaurant_status = {\n    \"monday\": \"closed\",\n    \"tuesday\": \"open\",\n    \"wednesday\": \"closed\",\n    \"thursday\": \"open\",\n    \"friday\": \"closed\",\n    \"saturday\": \"open\",\n    \"sunday\": \"closed\"\n}",
+    "evolved_output": "def check_restaurant_availability(day, restaurant_status):\n    return restaurant_status.get(day.lower(), None)\n\n# Example usage:\nrestaurant_status = {\n    \"monday\": \"closed\",\n    \"tuesday\": \"open\",\n    \"wednesday\": \"closed\",\n    \"thursday\": \"open\",\n    \"friday\": \"closed\",\n    \"saturday\": \"open\",\n    \"sunday\": \"closed\"\n}\n\nprint(check_restaurant_availability(\"Tuesday\", restaurant_status))  # Output: \"open\"\nprint(check_restaurant_availability(\"monday\", restaurant_status))   # Output: \"closed\"\nprint(check_restaurant_availability(\"Friday\", restaurant_status))   # Output: \"closed\"\nprint(check_restaurant_availability(\"sunday\", restaurant_status))   # Output: \"closed\"\nprint(check_restaurant_availability(\"weekday\", restaurant_status))  # Output: None"
+  },
+  {
+    "source_index": 31,
+    "original_instruction": "Create a Migration Script in Node.js for creating a table for customers.",
+    "original_input": "customer_id, first_name, last_name, email",
+    "original_output": "const { Client } = require('pg'); \nconst client = new Client({\n  connectionString: process.env.DATABASE_URL\n});\n\nasync function createCustomerTable() {\n  await client.connect();\n\n  const query = `\n    CREATE TABLE customers (\n      customer_id SERIAL PRIMARY KEY,\n      first_name VARCHAR(255) NOT NULL,\n      last_name VARCHAR(255) NOT NULL,\n      email VARCHAR(255) NOT NULL\n    )\n  `\n  await client.query(query);\n\n  await client.end();\n}\n\ncreateCustomerTable();",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a Migration Script in Node.js for creating a table for customers, ensuring customer_id is unique and email is not null.",
+    "evolved_output": "exports.up = function(knex) {\n  return knex.schema.createTable('customers', function(table) {\n    table.increments('customer_id').primary().unique();\n    table.string('first_name').notNullable();\n    table.string('last_name').notNullable();\n    table.string('email').notNullable().unique();\n  });\n};\n\nexports.down = function(knex) {\n  return knex.schema.dropTable('customers');\n};"
+  },
+  {
+    "source_index": 32,
+    "original_instruction": "Create a graphical user interface using Python to perform the following function",
+    "original_input": "Take two inputs from the user: a name and an age",
+    "original_output": "import tkinter \n  \n# Create an instance of tkinter \nroot = tkinter.Tk()  \n  \n# Create two lables and two input boxes \nname_label = tkinter.Label(root, text ='Name: ')   \nage_label = tkinter.Label(root, text ='Age: ') \nname_entry = tkinter.Entry(root) \nage_entry = tkinter.Entry(root) \n  \n# Place the labels,entry boxes in the desired layout \nname_label.grid(row = 0, column = 0)   \nname_entry.grid(row = 0, column = 1)  \nage_label.grid(row = 1, column = 0)   \nage_entry.grid(row = 1, column = 1) \n  \nroot.mainloop()",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a graphical user interface using Python to perform the following function. Input: Take two inputs from the user: a name and an age. Validate that the age is a positive integer and display an error message if it is not.",
+    "evolved_output": "import tkinter as tk\nfrom tkinter import messagebox\n\ndef submit():\n    name = name_entry.get()\n    age = age_entry.get()\n    \n    try:\n        age = int(age)\n        if age <= 0:\n            raise ValueError\n        messagebox.showinfo(\"Success\", f\"Name: {name}, Age: {age}\")\n    except ValueError:\n        messagebox.showerror(\"Error\", \"Please enter a valid positive integer for age.\")\n\nroot = tk.Tk()\nroot.title(\"User Information\")\n\ntk.Label(root, text=\"Name:\").grid(row=0, column=0, padx=10, pady=10)\nname_entry = tk.Entry(root)\nname_entry.grid(row=0, column=1, padx=10, pady=10)\n\ntk.Label(root, text=\"Age:\").grid(row=1, column=0, padx=10, pady=10)\nage_entry = tk.Entry(root)\nage_entry.grid(row=1, column=1, padx=10, pady=10)\n\nsubmit_button = tk.Button(root, text=\"Submit\", command=submit)\nsubmit_button.grid(row=2, columnspan=2, pady=10)\n\nroot.mainloop()"
+  },
+  {
+    "source_index": 33,
+    "original_instruction": "Can you retrieve the item at index 3 from the following array?",
+    "original_input": "int[] arr = {11, 30, 45, 19, 20, 60};",
+    "original_output": "int itemAtIndex3 = arr[3];\n// itemAtIndex3 is equal to 19",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Can you retrieve the item at index 3 from the following array, ensuring that the array has at least 5 elements?\n\nInput:\nint[] arr = {11, 30, 45, 19, 20, 60};",
+    "evolved_output": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {11, 30, 45, 19, 20, 60};\n        if (arr.length >= 5) {\n            System.out.println(arr[3]);\n        } else {\n            System.out.println(\"Array does not have enough elements.\");\n        }\n    }\n}"
+  },
+  {
+    "source_index": 34,
+    "original_instruction": "Implement a search algorithm in Java.",
+    "original_input": "",
+    "original_output": "public class SearchAlgorithm {\n  public int search(int[] array, int target) {\n    int left = 0;\n    int right = array.length - 1;\n    \n    while (left <= right) {\n      int mid = (left + right) / 2;\n      \n      if (target == array[mid]) {\n        return mid;\n      }\n      if (target < array[mid]) {\n        right = mid - 1;\n      } else {\n        left = mid + 1;\n      }\n    }\n    return -1;\n  }\n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Implement a search algorithm in Java that efficiently finds the target value in a rotated sorted array.",
+    "evolved_output": "public class RotatedArraySearch {\n    public static int search(int[] nums, int target) {\n        int left = 0, right = nums.length - 1;\n        \n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            \n            if (nums[mid] == target) {\n                return mid;\n            }\n            \n            if (nums[left] <= nums[mid]) {\n                if (nums[left] <= target && target < nums[mid]) {\n                    right = mid - 1;\n                } else {\n                    left = mid + 1;\n                }\n            } else {\n                if (nums[mid] < target && target <= nums[right]) {\n                    left = mid + 1;\n                } else {\n                    right = mid - 1;\n                }\n            }\n        }\n        \n        return -1;\n    }\n\n    public static void main(String[] args) {\n        int[] nums = {4, 5, 6, 7, 0, 1, 2};\n        int target = 0;\n        System.out.println(\"Index of target: \" + search(nums, target)); // Output: 4\n    }\n}"
+  },
+  {
+    "source_index": 35,
+    "original_instruction": "Generate a valid regular expression to catch URLs in strings.",
+    "original_input": "",
+    "original_output": "r\"(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})\"",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Generate a valid regular expression to catch URLs in strings, ensuring it handles both HTTP and HTTPS protocols and includes optional www subdomains.",
+    "evolved_output": "\\b(?:https?:\\/\\/)?(?:www\\.)?[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(?:\\/[^\\s]*)?\\b"
+  },
+  {
+    "source_index": 36,
+    "original_instruction": "Write a Python program to calculate the median of three given numbers.",
+    "original_input": "",
+    "original_output": "def median_num(n1, n2, n3):\n    if n1 > n2 and n2 > n3:\n        return n2\n    elif n3 > n2 and n2 > n1:\n        return n2\n    elif n1 > n3 and n3 > n2:\n        return n3\n    elif n2 > n3 and n3 > n1:\n        return n3\n    elif n2 > n1 and n1 > n3:\n        return n1\n    else:\n        return n1",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a Python program to calculate the median of three given numbers, ensuring the input values are distinct integers.",
+    "evolved_output": "def find_median_of_three(a, b, c):\n    if (a > b and a < c) or (a < b and a > c):\n        return a\n    elif (b > a and b < c) or (b < a and b > c):\n        return b\n    else:\n        return c\n\n# Example usage:\na, b, c = map(int, input(\"Enter three distinct integers: \").split())\nprint(\"The median is:\", find_median_of_three(a, b, c))"
+  },
+  {
+    "source_index": 37,
+    "original_instruction": "Write an HTML code to display a table of 3 columns and 5 rows.",
+    "original_input": "",
+    "original_output": "<table>\n  <tr>\n    <th>Column1</th>\n    <th>Column2</th>\n    <th>Column3</th>\n  </tr>\n  <tr>\n    <td>Row1_data1</td>\n    <td>Row1_data2</td>\n    <td>Row1_data3</td>\n  </tr>\n  <tr>\n    <td>Row2_data1</td>\n    <td>Row2_data2</td>\n    <td>Row2_data3</td>\n  </tr>\n  <tr>\n    <td>Row3_data1</td>\n    <td>Row3_data2</td>\n    <td>Row3_data3</td>\n  </tr>\n  <tr>\n    <td>Row4_data1</td>\n    <td>Row4_data2</td>\n    <td>Row4_data3</td>\n  </tr>\n  <tr>\n    <td>Row5_data1</td>\n    <td>Row5_data2</td>\n    <td>Row5_data3</td>\n  </tr>\n</table>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write an HTML code to display a table of 3 columns and 5 rows, with alternating row colors and a border around each cell.",
+    "evolved_output": "<!DOCTYPE html>\n<html>\n<head>\n<style>\ntable {\n  width: 50%;\n  border-collapse: collapse;\n}\nth, td {\n  border: 1px solid black;\n  padding: 8px;\n  text-align: left;\n}\ntr:nth-child(even) {background-color: #f2f2f2;}\ntr:nth-child(odd) {background-color: #ffffff;}\n</style>\n</head>\n<body>\n\n<table>\n  <tr>\n    <th>Column 1</th>\n    <th>Column 2</th>\n    <th>Column 3</th>\n  </tr>\n  <tr>\n    <td>Row 1, Cell 1</td>\n    <td>Row 1, Cell 2</td>\n    <td>Row 1, Cell 3</td>\n  </tr>\n  <tr>\n    <td>Row 2, Cell 1</td>\n    <td>Row 2, Cell 2</td>\n    <td>Row 2, Cell 3</td>\n  </tr>\n  <tr>\n    <td>Row 3, Cell 1</td>\n    <td>Row 3, Cell 2</td>\n    <td>Row 3, Cell 3</td>\n  </tr>\n  <tr>\n    <td>Row 4, Cell 1</td>\n    <td>Row 4, Cell 2</td>\n    <td>Row 4, Cell 3</td>\n  </tr>\n  <tr>\n    <td>Row 5, Cell 1</td>\n    <td>Row 5, Cell 2</td>\n    <td>Row 5, Cell 3</td>\n  </tr>\n</table>\n\n</body>\n</html>"
+  },
+  {
+    "source_index": 38,
+    "original_instruction": "Given the following code in C, modify it to increment `num` by 1.",
+    "original_input": "int num = 0;",
+    "original_output": "int num = 0;\nnum++;",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given the following code in C, modify it to increment `num` by 1 only if `num` is even, otherwise decrement `num` by 1.\n\nInput:\nint num = 0;",
+    "evolved_output": "#include <stdio.h>\n\nint main() {\n    int num = 0;\n    if (num % 2 == 0) {\n        num += 1;\n    } else {\n        num -= 1;\n    }\n    printf(\"%d\\n\", num);\n    return 0;\n}"
+  },
+  {
+    "source_index": 39,
+    "original_instruction": "Create a linked list from the given array of numbers.",
+    "original_input": "[2, 4, 5, 6, 7]",
+    "original_output": "Head -> 2 -> 4 -> 5 -> 6 -> 7 -> None",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a linked list from the given array of numbers, ensuring that each node's value is squared before insertion.\n\nInput:\n[2, 4, 5, 6, 7]",
+    "evolved_output": "class ListNode:\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef create_linked_list(arr):\n    if not arr:\n        return None\n    head = ListNode(arr[0] ** 2)\n    current = head\n    for num in arr[1:]:\n        current.next = ListNode(num ** 2)\n        current = current.next\n    return head\n\n# Example usage:\narr = [2, 4, 5, 6, 7]\nlinked_list_head = create_linked_list(arr)\n\n# To verify the linked list:\ncurrent = linked_list_head\nwhile current:\n    print(current.value, end=\" -> \")\n    current = current.next\nprint(\"None\")\n\nThis solution creates a linked list where each node contains the square of the corresponding element from the input array."
+  },
+  {
+    "source_index": 40,
+    "original_instruction": "Create a HTML code to show a green square with a width of 100px and a height of 100px.",
+    "original_input": "",
+    "original_output": "<div style=\"width:100px; height:100px; background-color:green\"></div>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a HTML code to show a green square with a width of 100px and a height of 100px, centered on the page and with a 5px red border.",
+    "evolved_output": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        .centered-square {\n            width: 100px;\n            height: 100px;\n            background-color: green;\n            border: 5px solid red;\n            position: absolute;\n            top: 50%;\n            left: 50%;\n            transform: translate(-50%, -50%);\n        }\n    </style>\n</head>\n<body>\n    <div class=\"centered-square\"></div>\n</body>\n</html>"
+  },
+  {
+    "source_index": 41,
+    "original_instruction": "Implement the bubble sort algorithm for a linked list.",
+    "original_input": "link_list = [10->9->8->7->6]",
+    "original_output": "class Node:\n    # initialization of node\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n    \n# bubble sort of linked_list\ndef bubble_sort(head):\n    # Store last node\n    end = None\n\n    while end != head.next:\n        p = head\n        while p.next != end:\n            q = p.next\n            if p.data > q.data:\n                p.data, q.data = q.data, p.data\n            p = p.next\n        end = p\n\n# driver code\nhead =  Node(10) \nhead.next = Node(9) \nhead.next.next = Node(8) \nhead.next.next.next = Node(7)\nhead.next.next.next.next = Node(6)\n    \nbubble_sort(head) \n<insert code to print the data of the linked list>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Implement the bubble sort algorithm for a linked list, ensuring the algorithm handles lists with duplicate values efficiently.",
+    "evolved_output": "class ListNode:\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef bubble_sort_linked_list(head):\n    if not head or not head.next:\n        return head\n    \n    swapped = True\n    while swapped:\n        swapped = False\n        current = head\n        prev = None\n        while current and current.next:\n            if current.value > current.next.value:\n                # Swap nodes\n                if prev:\n                    prev.next = current.next\n                else:\n                    head = current.next\n                temp = current.next.next\n                current.next.next = current\n                current.next = temp\n                swapped = True\n            else:\n                prev = current\n            current = current.next\n    return head\n\n# Helper function to print the linked list\ndef print_linked_list(head):\n    current = head\n    while current:\n        print(current.value, end=\" -> \" if current.next else \"\\n\")\n        current = current.next\n\n# Example usage\nlink_list = ListNode(10, ListNode(9, ListNode(8, ListNode(7, ListNode(6)))))\nsorted_list = bubble_sort_linked_list(link_list)\nprint_linked_list(sorted_list)\n\n\nThis solution implements the bubble sort algorithm for a linked list and includes handling for duplicate values by ensuring the algorithm continues to iterate through the list until no swaps are needed, indicating that the list is sorted."
+  },
+  {
+    "source_index": 42,
+    "original_instruction": "Given a string, write the appropriate regex pattern that checks if the string contains any digit.",
+    "original_input": "",
+    "original_output": "import re\n\ndef check_digits(string):\n  \"\"\"\n  This function takes a string and\n  checks if it contains any digit.\n  \"\"\"\n  regex_pattern = r\"[0-9]\" \n  return bool(re.search(regex_pattern, string))",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given a string, write the appropriate regex pattern that checks if the string contains at least one digit and no special characters other than underscores.",
+    "evolved_output": "^[A-Za-z0-9_]*\\d[A-Za-z0-9_]*$"
+  },
+  {
+    "source_index": 43,
+    "original_instruction": "Construct a SQL query to list the unique countries from table countries.",
+    "original_input": "",
+    "original_output": "SELECT DISTINCT country\nFROM countries;",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Construct a SQL query to list the unique countries from table countries, sorted alphabetically and excluding any country names that start with the letter 'A'.",
+    "evolved_output": "SELECT DISTINCT country_name\nFROM countries\nWHERE country_name NOT LIKE 'A%'\nORDER BY country_name;"
+  },
+  {
+    "source_index": 44,
+    "original_instruction": "Suggest an alternative for the following code snippet which is faster and less memory intensive.",
+    "original_input": "arr = [2, 3, 5, 7]\nresult = []\nfor i in range(len(arr)):\n  for j in range(i + 1, len(arr)):\n    result.append((arr[i], arr[j]))",
+    "original_output": "arr = [2, 3, 5, 7]\nresult = [(arr[i],arr[j]) for i in range(len(arr)-1) for j in range(i+1,len(arr))]",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Suggest an alternative for the following code snippet which is faster, less memory intensive, and handles large input sizes efficiently.\n\nInput:\narr = [2, 3, 5, 7]\nresult = []\nfor i in range(len(arr)):\n  for j in range(i + 1, len(arr)):\n    result.append((arr[i], arr[j]))",
+    "evolved_output": "arr = [2, 3, 5, 7]\nresult = [(arr[i], arr[j]) for i in range(len(arr)) for j in range(i + 1, len(arr))]\n\n\nThis solution uses a list comprehension, which is generally more efficient in terms of both speed and memory usage compared to appending elements in a loop. It maintains the same functionality while being more concise."
+  },
+  {
+    "source_index": 45,
+    "original_instruction": "Edit the output of a C program so that the last line prints \"Hello World!\"",
+    "original_input": "#include <stdio.h>\n\nint main()\n{\n    printf(\"Hello!\");\n    return 0;\n}",
+    "original_output": "#include <stdio.h>\n\nint main() \n{ \n    printf(\"Hello!\"); \n    printf(\"Hello World!\"); \n    return 0; \n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Edit the output of a C program so that the last line prints \"Hello World!\" without modifying any existing lines of code except for adding new lines.",
+    "evolved_output": "#include <stdio.h>\n\nint main()\n{\n    printf(\"Hello!\");\n    printf(\" World!\");\n    return 0;\n}"
+  },
+  {
+    "source_index": 46,
+    "original_instruction": "Write a code to wrap a text in a box, with the given length and padding parameters.",
+    "original_input": "text = \"Hello World!\", length = 20, padding = 5",
+    "original_output": "def wrap_in_box(text, length, padding): \n    border = \"\"\n    for i in range(length): \n        border += \"-\"\n    space = \"\"\n    for i in range(padding):\n        space += \" \"\n    text = space + text + space \n    if len(text) > length:\n        text = text[:length-1]\n    text = text.center(length)\n    print(border)\n    print(text)\n    print(border)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a code to wrap a text in a box, with the given length and padding parameters, ensuring the text is centered within the box.\n\nInput:\ntext = \"Hello World!\", length = 20, padding = 5",
+    "evolved_output": "def wrap_text_in_box(text, length, padding):\n    total_length = length + 2 * padding\n    if len(text) > length:\n        return \"Text too long for the specified length\"\n    centered_text = text.center(length)\n    box_line = '*' * total_length\n    return f\"{box_line}\\n*{centered_text}*\\n{box_line}\"\n\n# Example usage\ntext = \"Hello World!\"\nlength = 20\npadding = 5\nprint(wrap_text_in_box(text, length, padding))"
+  },
+  {
+    "source_index": 47,
+    "original_instruction": "Modify the following Java code to reverse a given string.",
+    "original_input": "public class SimpleStringReverser {\n    public static String reverse(String str) {\n        String result = \"\";",
+    "original_output": "public class SimpleStringReverser {\n    public static String reverse(String str) {\n        String result = \"\";\n        for(int i = str.length() - 1; i >= 0; i--) {\n            result += str.charAt(i);\n        }\n        return result;\n    }\n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Modify the following Java code to reverse a given string without using any built-in methods for reversing or concatenating strings.",
+    "evolved_output": "public class SimpleStringReverser {\n    public static String reverse(String str) {\n        char[] result = new char[str.length()];\n        for (int i = 0; i < str.length(); i++) {\n            result[i] = str.charAt(str.length() - 1 - i);\n        }\n        return new String(result);\n    }\n}"
+  },
+  {
+    "source_index": 48,
+    "original_instruction": "Develop a function that is able to print a list of consecutive numbers between 1 and N, given an integer N as argument.",
+    "original_input": "N = 5",
+    "original_output": "def print_n_numbers(N):\n    for x in range(1,N+1):\n        print (x) \n\nprint_n_numbers(N) \n# Output: 1 2 3 4 5",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Develop a function that prints a list of consecutive numbers between 1 and N, given an integer N as argument. The function should also handle cases where N is less than 1 by printing an empty list.\n\nInput:\nN = 5",
+    "evolved_output": "def print_consecutive_numbers(N):\n    if N < 1:\n        print([])\n    else:\n        print(list(range(1, N + 1)))\n\n# Example usage:\nprint_consecutive_numbers(5)\nprint_consecutive_numbers(0)"
+  },
+  {
+    "source_index": 49,
+    "original_instruction": "Write a ruby program to merge two sorted arrays in to one sorted array.",
+    "original_input": "arr1: [1, 4, 6]\narr2: [2, 3, 7]",
+    "original_output": "def mergeSortedArrays(arr1, arr2) \n    arr3 = arr1 + arr2 \n    arr3.sort!\n    return arr3\nend",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a Ruby program to merge two sorted arrays into one sorted array, ensuring no duplicates in the final result.\n\nInput:\narr1: [1, 4, 6]\narr2: [2, 3, 7]",
+    "evolved_output": "def merge_and_deduplicate(arr1, arr2)\n  merged_array = (arr1 + arr2).uniq.sort\nend\n\narr1 = [1, 4, 6]\narr2 = [2, 3, 7]\nputs merge_and_deduplicate(arr1, arr2).inspect"
+  },
+  {
+    "source_index": 50,
+    "original_instruction": "Given a string, what is the best way to reverse the characters in it?",
+    "original_input": "<noinput>>",
+    "original_output": "\"\"\"\nThe best way to reverse the characters in a string is by using the slicing option of a string object. \n\nThe string slicing reverses a string by slicing it from the end of the string and going to the beginning of the string. This can be done with the following syntax:\n\nstring_name[::-1]\n\nFor example, to reverse the string \"Hello World!\", the following can be used:\n\n\"Hello World!\"[::-1]\n\nwhich will output \"!dlroW olleH\". \n\"\"\"",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given a string, what is the best way to reverse the characters in it while ensuring that any special characters remain in their original positions?",
+    "evolved_output": "def reverse_string_preserve_special(s):\n    # Extract only alphabetic characters\n    chars = [c for c in s if c.isalpha()]\n    # Reverse the list of characters\n    chars.reverse()\n    \n    # Reconstruct the string with special characters in original positions\n    result = []\n    char_index = 0\n    for c in s:\n        if c.isalpha():\n            result.append(chars[char_index])\n            char_index += 1\n        else:\n            result.append(c)\n    \n    return ''.join(result)\n\n# Example usage:\ninput_string = \"a,b$c\"\nprint(reverse_string_preserve_special(input_string))  # Output: \"c,b$a\""
+  },
+  {
+    "source_index": 51,
+    "original_instruction": "Create a Python code that takes two strings and combine them into a single string.",
+    "original_input": "str1 = \"Hello\"\nstr2 = \"World\"",
+    "original_output": "combinedString = str1 + ' ' + str2\nprint(combinedString) # Hello World",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a Python code that takes two strings and combines them into a single string, ensuring the combined string alternates characters from each input string.\n\nInput:\nstr1 = \"Hello\"\nstr2 = \"World\"",
+    "evolved_output": "def alternate_combine(str1, str2):\n    combined = []\n    len1, len2 = len(str1), len(str2)\n    for i in range(max(len1, len2)):\n        if i < len1:\n            combined.append(str1[i])\n        if i < len2:\n            combined.append(str2[i])\n    return ''.join(combined)\n\nstr1 = \"Hello\"\nstr2 = \"World\"\nprint(alternate_combine(str1, str2))  # Output: \"HWeolrllod\""
+  },
+  {
+    "source_index": 52,
+    "original_instruction": "Create a function that takes three parameters and adds them together.",
+    "original_input": "No input.",
+    "original_output": "def my_func(a, b, c):\n    return a + b + c",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a function that takes three integer parameters, adds them together, and returns the result. Ensure the function handles negative numbers and outputs the sum within one second for any valid input.",
+    "evolved_output": "def add_three_numbers(a, b, c):\n    return a + b + c"
+  },
+  {
+    "source_index": 53,
+    "original_instruction": "Write an R program to print out the numbers from 0-50, in steps of 4.",
+    "original_input": "",
+    "original_output": "x <- seq(from = 0, to = 50, by = 4)\nprint(x)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write an R program to print out the numbers from 0-50, in steps of 4, excluding any numbers that are perfect squares.",
+    "evolved_output": "for (i in seq(0, 50, by = 4)) {\n  if (!any(i == (1:floor(sqrt(i)))^2)) {\n    print(i)\n  }\n}"
+  },
+  {
+    "source_index": 54,
+    "original_instruction": "Write a function in Python to sort this dictionary by values.",
+    "original_input": "my_dict = {\"Jerry\": 10, \"Marcus\": 3, \"Hanna\": 5}",
+    "original_output": "def sort_dict_by_values(d):\n    sorted_dict = dict(sorted(d.items(), key=lambda x: x[1])) \n    return sorted_dict\n\nprint(sort_dict_by_values(my_dict))\n# Output: {'Marcus': 3, 'Hanna': 5, 'Jerry': 10}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a function in Python to sort this dictionary by values in descending order while maintaining the original order for values that are equal.\n\nInput:\nmy_dict = {\"Jerry\": 10, \"Marcus\": 3, \"Hanna\": 5}",
+    "evolved_output": "def sort_dict_by_values_desc(my_dict):\n    return dict(sorted(my_dict.items(), key=lambda item: item[1], reverse=True))\n\nmy_dict = {\"Jerry\": 10, \"Marcus\": 3, \"Hanna\": 5}\nsorted_dict = sort_dict_by_values_desc(my_dict)\nprint(sorted_dict)"
+  },
+  {
+    "source_index": 55,
+    "original_instruction": "Using ReactJS, develop a basic form component with two input fields, one for a Name and the other for Age.",
+    "original_input": "",
+    "original_output": "class BasicForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      name: '',\n      age: '',\n    };\n  }\n  \n  render() {\n    return (\n      <form>\n        <label>Name:\n          <input type=\"text\" name=\"name\" value={this.state.name} onChange={this.handleChange} />\n        </label>\n        <label>Age:\n          <input type=\"text\" name=\"age\" value={this.state.age} onChange={this.handleChange} />\n        </label>\n      </form>\n    );\n  }\n  \n  handleChange = (event) => {\n    const target = event.target;\n    const value = target.type === 'checkbox' ? target.checked : target.value;\n    const name = target.name;\n\n    this.setState({\n      [name]: value\n    });\n  }\n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Using ReactJS, develop a basic form component with two input fields, one for a Name and the other for Age, ensuring the Age field only accepts numbers and displays an error message if the input is invalid.",
+    "evolved_output": "import React, { useState } from 'react';\n\nfunction BasicForm() {\n    const [name, setName] = useState('');\n    const [age, setAge] = useState('');\n    const [error, setError] = useState('');\n\n    const handleAgeChange = (e) => {\n        const value = e.target.value;\n        if (/^\\d*$/.test(value)) {\n            setAge(value);\n            setError('');\n        } else {\n            setError('Please enter a valid number for age.');\n        }\n    };\n\n    const handleSubmit = (e) => {\n        e.preventDefault();\n        console.log('Name:', name, 'Age:', age);\n    };\n\n    return (\n        <form onSubmit={handleSubmit}>\n            <div>\n                <label>Name:</label>\n                <input type=\"text\" value={name} onChange={(e) => setName(e.target.value)} required />\n            </div>\n            <div>\n                <label>Age:</label>\n                <input type=\"text\" value={age} onChange={handleAgeChange} required />\n                {error && <p style={{ color: 'red' }}>{error}</p>}\n            </div>\n            <button type=\"submit\">Submit</button>\n        </form>\n    );\n}\n\nexport default BasicForm;"
+  },
+  {
+    "source_index": 56,
+    "original_instruction": "Create a C# function to edit the contents of a list.",
+    "original_input": "",
+    "original_output": "public void EditList(List<string> list, string oldVal, string newVal) \n{\n    for(int i = 0; i < list.Count; i++ )\n    {\n        if (list[i] == oldVal){\n            list[i] = newVal;\n        }\n    }\n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a C# function to edit the contents of a list, ensuring that no element exceeds a given maximum value.",
+    "evolved_output": "using System;\nusing System.Collections.Generic;\n\npublic class ListEditor\n{\n    public static void EditList(List<int> numbers, int maxValue)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            if (numbers[i] > maxValue)\n            {\n                numbers[i] = maxValue;\n            }\n        }\n    }\n\n    public static void Main()\n    {\n        List<int> numbers = new List<int> { 10, 20, 30, 40, 50 };\n        int maxValue = 25;\n        EditList(numbers, maxValue);\n        Console.WriteLine(string.Join(\", \", numbers)); // Output: 10, 20, 25, 25, 25\n    }\n}"
+  },
+  {
+    "source_index": 57,
+    "original_instruction": "Create a class in Python with the attributes name and age.",
+    "original_input": "",
+    "original_output": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a class in Python with the attributes name and age, and include methods to set and get these attributes, ensuring that age is always a non-negative integer.",
+    "evolved_output": "class Person:\n    def __init__(self, name, age):\n        self.set_name(name)\n        self.set_age(age)\n\n    def set_name(self, name):\n        self.name = name\n\n    def get_name(self):\n        return self.name\n\n    def set_age(self, age):\n        if isinstance(age, int) and age >= 0:\n            self.age = age\n        else:\n            raise ValueError(\"Age must be a non-negative integer\")\n\n    def get_age(self):\n        return self.age"
+  },
+  {
+    "source_index": 58,
+    "original_instruction": "Create a HTML code to make a hyperlink of \"https://www.example.com\" that shows the text \"Click Here\".",
+    "original_input": "",
+    "original_output": "<a href=\"https://www.example.com\">Click Here</a>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a HTML code to make a hyperlink of \"https://www.example.com\" that shows the text \"Click Here\", opens in a new tab, and has a red color.",
+    "evolved_output": "<a href=\"https://www.example.com\" target=\"_blank\" style=\"color: red;\">Click Here</a>"
+  },
+  {
+    "source_index": 59,
+    "original_instruction": "Write a Python script to validate the following input",
+    "original_input": "Validate a Date type field with the following format: YYYY/MM/DD",
+    "original_output": "# Import the required datetime module\nimport datetime\n\ndef validate_date(date):\n    # Check if the date matches with the given format\n    try:\n       datetime.datetime.strptime(date, '%Y/%m/%d')\n       return True\n    except ValueError:\n        return False",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a Python script to validate the following input. The date must be in the format YYYY/MM/DD and should not be in the future.",
+    "evolved_output": "from datetime import datetime\n\ndef is_valid_date(date_str):\n    try:\n        date_obj = datetime.strptime(date_str, '%Y/%m/%d')\n        return date_obj <= datetime.now()\n    except ValueError:\n        return False\n\n# Example usage:\ndate_input = \"2023/10/15\"\nprint(is_valid_date(date_input))  # Output: True or False depending on current date"
+  },
+  {
+    "source_index": 60,
+    "original_instruction": "Design a function in Java that takes in a string and returns true if the string contains the letter \"a\" and false otherwise.",
+    "original_input": "",
+    "original_output": "public static boolean hasLetterA(String s){\n  return s.contains(\"a\");\n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Design a function in Java that takes in a string and returns true if the string contains the letter \"a\" at least twice and false otherwise.",
+    "evolved_output": "public class StringChecker {\n    public static boolean containsAtLeastTwoA(String input) {\n        int count = 0;\n        for (char c : input.toCharArray()) {\n            if (c == 'a') {\n                count++;\n                if (count >= 2) {\n                    return true;\n                }\n            }\n        }\n        return false;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(containsAtLeastTwoA(\"banana\")); // true\n        System.out.println(containsAtLeastTwoA(\"apple\"));  // false\n        System.out.println(containsAtLeastTwoA(\"aaaa\"));   // true\n        System.out.println(containsAtLeastTwoA(\"abc\"));    // false\n    }\n}"
+  },
+  {
+    "source_index": 61,
+    "original_instruction": "Given an array containing words and a string, find the shortest word in the array that is a substring of the string",
+    "original_input": "words = [\"apple\", \"banana\", \"cat\", \"dog\"], string = \"aquickbrownfoxjumpsoverthelazydog\"",
+    "original_output": "\"\"\"\nGiven an array containing words and a string, find the shortest word in the array that is a substring of the string.\n\"\"\"\n\ndef find_shortest_substring(words, string): \n    min_length = float(\"inf\")\n    min_word = None\n    for word in words:\n        j = string.find(word)\n        if j>-1 and len(word)<min_length:\n            min_length = len(word)\n            min_word = word\n    return min_word\n\nif __name__ == '__main__': \n    words = [\"apple\", \"banana\", \"cat\", \"dog\"]\n    string = \"aquickbrownfoxjumpsoverthelazydog\"\n    print(find_shortest_substring(words, string))",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given an array containing words and a string, find the shortest word in the array that is a substring of the string, considering only words with lengths between 3 and 6 characters.\n\nInput:\nwords = [\"apple\", \"banana\", \"cat\", \"dog\"], string = \"aquickbrownfoxjumpsoverthelazydog\"",
+    "evolved_output": "def find_shortest_substring_word(words, string):\n    shortest_word = None\n    for word in words:\n        if 3 <= len(word) <= 6 and word in string:\n            if shortest_word is None or len(word) < len(shortest_word):\n                shortest_word = word\n    return shortest_word\n\n# Example usage\nwords = [\"apple\", \"banana\", \"cat\", \"dog\"]\nstring = \"aquickbrownfoxjumpsoverthelazydog\"\nprint(find_shortest_substring_word(words, string))  # Output: \"cat\""
+  },
+  {
+    "source_index": 62,
+    "original_instruction": "Construct a HTML table with four columns.",
+    "original_input": "",
+    "original_output": "<table>\n  <tr>\n    <th>Column 1</th>\n    <th>Column 2</th>\n    <th>Column 3</th>\n    <th>Column 4</th>\n  </tr>\n</table>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Construct a HTML table with four columns, where the first column contains unique identifiers for each row, and the third column values must be sorted in ascending order.",
+    "evolved_output": "<!DOCTYPE html>\n<html>\n<head>\n    <title>HTML Table</title>\n</head>\n<body>\n    <table border=\"1\">\n        <tr>\n            <th>ID</th>\n            <th>Name</th>\n            <th>Value</th>\n            <th>Description</th>\n        </tr>\n        <tr>\n            <td>1</td>\n            <td>Alice</td>\n            <td>10</td>\n            <td>First entry</td>\n        </tr>\n        <tr>\n            <td>2</td>\n            <td>Bob</td>\n            <td>20</td>\n            <td>Second entry</td>\n        </tr>\n        <tr>\n            <td>3</td>\n            <td>Charlie</td>\n            <td>30</td>\n            <td>Third entry</td>\n        </tr>\n        <tr>\n            <td>4</td>\n            <td>David</td>\n            <td>40</td>\n            <td>Fourth entry</td>\n        </tr>\n    </table>\n</body>\n</html>"
+  },
+  {
+    "source_index": 63,
+    "original_instruction": "How would you print a big \"Hello World\" on the console output?",
+    "original_input": "",
+    "original_output": "print('",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "How would you print a big \"Hello World\" on the console output, ensuring each letter is represented by a 5x5 block of characters?",
+    "evolved_output": "def print_big_hello_world():\n    letters = {\n        'H': [\"*   *\", \"*   *\", \"*****\", \"*   *\", \"*   *\"],\n        'E': [\"*****\", \"*    \", \"*****\", \"*    \", \"*****\"],\n        'L': [\"*    \", \"*    \", \"*    \", \"*    \", \"*****\"],\n        'O': [\"*****\", \"*   *\", \"*   *\", \"*   *\", \"*****\"],\n        'W': [\"*   *\", \"*   *\", \"* * *\", \"** **\", \"*   *\"],\n        'R': [\"*****\", \"*   *\", \"**** \", \"* *  \", \"*   *\"],\n        'D': [\"*****\", \"*   *\", \"*   *\", \"*   *\", \"*****\"],\n        ' ': [\"     \", \"     \", \"     \", \"     \", \"     \"]\n    }\n    \n    for line in range(5):\n        for letter in \"HELLO WORLD\":\n            print(letters[letter][line], end=\" \")\n        print()\n\nprint_big_hello_world()"
+  },
+  {
+    "source_index": 64,
+    "original_instruction": "Convert this program from procedural to object-oriented.",
+    "original_input": "def calculate_mortgage(principle, years, rate):\n    # calculation\n    return monthly_payment\n\ndef calculate_interest_rate(value):\n    # calculation\n    return interest_rate",
+    "original_output": "class MortgageCalculator:\n    def __init__(self, principle, years, rate):\n        self.principle = principle\n        self.years = years\n        self.rate = rate\n    \n    def calculate_mortgage(self):\n        # calculation\n        return monthly_payment\n\n    def calculate_interest_rate(self, value):\n        # calculation\n        return interest_rate",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Convert this program from procedural to object-oriented, ensuring encapsulation and adding methods for calculating total interest paid over the mortgage term.",
+    "evolved_output": "class MortgageCalculator:\n    def __init__(self, principle, years, rate):\n        self.principle = principle\n        self.years = years\n        self.rate = rate / 100 / 12  # Convert annual rate to monthly\n        self.monthly_payment = self.calculate_monthly_payment()\n\n    def calculate_monthly_payment(self):\n        n = self.years * 12\n        if self.rate == 0:\n            return self.principle / n\n        else:\n            return (self.principle * self.rate) / (1 - (1 + self.rate) ** -n)\n\n    def calculate_total_interest(self):\n        total_paid = self.monthly_payment * self.years * 12\n        return total_paid - self.principle\n\n# Example usage:\nmortgage = MortgageCalculator(200000, 30, 3.5)\nprint(\"Monthly Payment:\", mortgage.monthly_payment)\nprint(\"Total Interest Paid:\", mortgage.calculate_total_interest())"
+  },
+  {
+    "source_index": 65,
+    "original_instruction": "What's the output of this program in Python given the following input?",
+    "original_input": "input_string = \"Hello, World!\"   \nlist_of_chars = list(input_string)\n\nfor current_char in list_of_chars:\n print(current_char)",
+    "original_output": "H\ne\nl\nl\no\n,\n \nW\no\nr\nl\nd\n!",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "What's the output of this program in Python given the following input? Additionally, modify the program to only print characters that are not punctuation marks.\n\nInput:\ninput_string = \"Hello, World!\"   \nlist_of_chars = list(input_string)\n\nfor current_char in list_of_chars:\n print(current_char)",
+    "evolved_output": "import string\n\ninput_string = \"Hello, World!\"   \nlist_of_chars = list(input_string)\n\nfor current_char in list_of_chars:\n    if current_char not in string.punctuation:\n        print(current_char)"
+  },
+  {
+    "source_index": 66,
+    "original_instruction": "Produce a SELECT query in PostgreSQL to search for all existing entries with a specified ID.",
+    "original_input": "Property ID: 15",
+    "original_output": "SELECT * FROM TableName WHERE PropertyID='15';",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Produce a SELECT query in PostgreSQL to search for all existing entries with a specified ID, ensuring the result includes only active records marked with a status of 'active'.",
+    "evolved_output": "SELECT * FROM properties WHERE id = 15 AND status = 'active';"
+  },
+  {
+    "source_index": 67,
+    "original_instruction": "Create a Ruby method for calculating the mean of the given array of numbers.",
+    "original_input": "",
+    "original_output": "def calculate_mean(numbers)\n  sum = 0\n  numbers.each { |number| sum += number }\n  return (sum.to_f / numbers.length)\nend",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a Ruby method for calculating the mean of the given array of numbers, ensuring the method handles empty arrays by returning `nil`.",
+    "evolved_output": "def calculate_mean(numbers)\n  return nil if numbers.empty?\n  numbers.sum.to_f / numbers.size\nend"
+  },
+  {
+    "source_index": 68,
+    "original_instruction": "How can you access the last element of the following Python array?",
+    "original_input": "arr = [\"A\",\"B\",\"C\",\"D\",\"E\"]",
+    "original_output": "arr[-1]",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "How can you access the last element of the following Python array without using negative indexing?\n\nInput:\narr = [\"A\",\"B\",\"C\",\"D\",\"E\"]",
+    "evolved_output": "arr = [\"A\",\"B\",\"C\",\"D\",\"E\"]\nlast_element = arr[len(arr) - 1]\nprint(last_element)"
+  },
+  {
+    "source_index": 69,
+    "original_instruction": "Combine the two strings into one and save it as a variable called full_name.",
+    "original_input": "first_name = 'John'\nlast_name = 'Smith'",
+    "original_output": "first_name = 'John'\nlast_name = 'Smith'\n\nfull_name = first_name + ' ' + last_name",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Combine the two strings into one, ensuring the first letter of each name is capitalized, and save it as a variable called full_name.\n\nInput:\nfirst_name = 'john'\nlast_name = 'smith'",
+    "evolved_output": "first_name = 'john'\nlast_name = 'smith'\nfull_name = first_name.capitalize() + ' ' + last_name.capitalize()"
+  },
+  {
+    "source_index": 70,
+    "original_instruction": "Write an angular directive to highlight the selected word in a text.",
+    "original_input": "",
+    "original_output": "myApp.directive('highlight', function() {\n  return {\n    restrict: 'A',\n    link: function(scope, element, attrs) {\n      attrs.$observe('highlight', function(word) {\n        var text = element[0].innerHTML;\n        if (word) {\n          var regex = new RegExp('('+ word +'\\\\b)', 'gi');\n          var replacedText = text.replace(regex, '<span class=\"highlighted\">$1</span>');\n          element[0].innerHTML = replacedText;\n        } else {\n          element[0].innerHTML = text;\n        }\n      });\n    }\n  };\n});",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write an Angular directive to highlight the selected word in a text, ensuring it works for multiple instances on a single page without conflicts.",
+    "evolved_output": "import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';\n\n@Directive({\n  selector: '[appHighlight]'\n})\nexport class HighlightDirective implements OnChanges {\n  @Input('appHighlight') word: string = '';\n  private highlightedElements: HTMLElement[] = [];\n\n  constructor(private el: ElementRef, private renderer: Renderer2) {}\n\n  ngOnChanges() {\n    this.removeHighlights();\n    if (this.word) {\n      this.highlightWords(this.word);\n    }\n  }\n\n  private highlightWords(word: string) {\n    const regex = new RegExp(`(${word})`, 'gi');\n    const content = this.el.nativeElement.innerHTML;\n    const highlightedContent = content.replace(regex, '<span class=\"highlight\">$1</span>');\n    this.el.nativeElement.innerHTML = highlightedContent;\n\n    this.highlightedElements = Array.from(this.el.nativeElement.querySelectorAll('.highlight'));\n  }\n\n  private removeHighlights() {\n    this.highlightedElements.forEach(element => {\n      const parent = element.parentNode;\n      if (parent) {\n        parent.replaceChild(document.createTextNode(element.textContent || ''), element);\n      }\n    });\n  }\n}\n\n\nIn your component's CSS, you can define the `.highlight` class to style the highlighted words:\n\n.highlight {\n  background-color: yellow;\n}"
+  },
+  {
+    "source_index": 71,
+    "original_instruction": "Compile the following code to JavaScript and return the compiled code.",
+    "original_input": "function myFunc(a, b) {\n    return a + b;\n}",
+    "original_output": "function myFunc(a, b) {\n    return a + b;\n}\n\n//Compiled Version\nconst myFunc = (a, b) => a + b;",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Compile the following code to JavaScript and return the compiled code, ensuring it handles both integer and floating-point inputs accurately.",
+    "evolved_output": "function myFunc(a, b) {\n    return a + b;\n}"
+  },
+  {
+    "source_index": 72,
+    "original_instruction": "Identify the bug in the following python code:\n\ndef foo(x):\n    x[0] = 2",
+    "original_input": "[0, 1, 2]",
+    "original_output": "This code is trying to modify an immutable object (a tuple) as it is attempting to assign a value to the first element in a tuple. The correct way to do this is with a list, not a tuple. The code should be changed to:\n\ndef foo(x):\n    x[0] = 2\n    \nwhere the input x is a list instead of a tuple.",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Identify the bug in the following Python code and modify it to handle lists of any length without causing errors.",
+    "evolved_output": "def foo(x):\n    if len(x) > 0:\n        x[0] = 2\n\nThis solution checks if the list has at least one element before attempting to modify the first element, thus handling lists of any length safely."
+  },
+  {
+    "source_index": 73,
+    "original_instruction": "Refactor this function to be less complex and more readable.",
+    "original_input": "def calculate_price(products):\n  total_price=0\n  for p in products:\n    total_price+=p[0]*p[1]\n  return total_price",
+    "original_output": "def calculate_price(products):\n  total_price = 0\n  for price, quantity in products: \n    total_price += price * quantity\n  return total_price",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Refactor this function to be less complex and more readable, ensuring it handles an empty list of products gracefully.",
+    "evolved_output": "def calculate_price(products):\n    return sum(p[0] * p[1] for p in products) if products else 0"
+  },
+  {
+    "source_index": 74,
+    "original_instruction": "Write a loop to print the numbers from 10 to 1 in reverse order.",
+    "original_input": "",
+    "original_output": "for i in range(10, 0, -1):\n    print(i)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a loop to print the numbers from 10 to 1 in reverse order, but only print even numbers.",
+    "evolved_output": "for i in range(10, 0, -1):\n    if i % 2 == 0:\n        print(i)"
+  },
+  {
+    "source_index": 75,
+    "original_instruction": "Write a Python program to find all pairs of numbers in the given list whose sum is equal to the given number.",
+    "original_input": "nums = [1, 2, 3, 4, 5], sum = 8",
+    "original_output": "def find_pairs(nums, sum):\n  result = []\n  for i in range(len(nums)):\n    for j in range(i+1, len(nums)):\n      if nums[i] + nums[j] == sum:\n        result.append((nums[i], nums[j]))\n  return result\n\nres = find_pairs(nums, sum)\nprint(res)\n# Output: [(2, 6), (3, 5)]",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a Python program to find all unique pairs of numbers in the given list whose sum is equal to the given number, without using any additional data structures like sets or dictionaries.",
+    "evolved_output": "def find_pairs(nums, target_sum):\n    pairs = []\n    n = len(nums)\n    for i in range(n):\n        for j in range(i + 1, n):\n            if nums[i] + nums[j] == target_sum:\n                # Ensure uniqueness by sorting the pair before adding\n                pair = tuple(sorted((nums[i], nums[j])))\n                if pair not in pairs:\n                    pairs.append(pair)\n    return pairs\n\n# Example usage\nnums = [1, 2, 3, 4, 5]\ntarget_sum = 8\nprint(find_pairs(nums, target_sum))  # Output: [(3, 5)]"
+  },
+  {
+    "source_index": 76,
+    "original_instruction": "Reverse the order of the given array without using inbuilt functions.",
+    "original_input": "nums = [12, 23, 34, 45]",
+    "original_output": "# Function to reverse the order of the given array \ndef reverse_array(nums):\n    # Variable to store the result \n    result = []\n    \n    # Iterate over the provided array starting from the last element\n    for i in range(len(nums) -1, -1, -1):\n        # Append each number to the result array\n        result.append(nums[i]) \n        \n    # Return the result array\n    return result\n\n# Test the function by printing the array in reverse order\nprint(reverse_array(nums))",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Reverse the order of the given array without using inbuilt functions and do it in-place.",
+    "evolved_output": "def reverse_array(nums):\n    left = 0\n    right = len(nums) - 1\n    while left < right:\n        nums[left], nums[right] = nums[right], nums[left]\n        left += 1\n        right -= 1\n\n# Example usage:\nnums = [12, 23, 34, 45]\nreverse_array(nums)\nprint(nums)  # Output: [45, 34, 23, 12]"
+  },
+  {
+    "source_index": 77,
+    "original_instruction": "Write a script in Python for generating a histogram for a given set of data.",
+    "original_input": "[3, 5, 8, 1, 9, 12]",
+    "original_output": "import matplotlib.pyplot as plt\n\ndata = [3, 5, 8, 1, 9, 12]\nplt.hist(data, color='blue', ec='black')\n\nplt.title(\"Histogram\")\nplt.xlabel(\"Values\")\nplt.ylabel(\"Frequency\")\n\nplt.show()",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a script in Python for generating a histogram for a given set of data, ensuring that the histogram has a fixed width of 50 characters and each bar is represented by the '#' character.\n\nInput:\n[3, 5, 8, 1, 9, 12]",
+    "evolved_output": "def generate_histogram(data):\n    max_value = max(data)\n    scale_factor = 50 / max_value if max_value > 0 else 1\n    for value in data:\n        bar_length = int(value * scale_factor)\n        print('#' * bar_length)\n\n# Example usage\ndata = [3, 5, 8, 1, 9, 12]\ngenerate_histogram(data)"
+  },
+  {
+    "source_index": 78,
+    "original_instruction": "Split the following sentence into tokens.",
+    "original_input": "Sentence: I cannot wait to go to the movies.",
+    "original_output": "['I', 'can', 'not', 'wait', 'to', 'go', 'to', 'the', 'movies', '.']",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Split the following sentence into tokens, ignoring punctuation and converting all words to lowercase.\n\nInput:\nSentence: I cannot wait to go to the movies!",
+    "evolved_output": "def split_sentence(sentence):\n    import re\n    return re.findall(r'\\b\\w+\\b', sentence.lower())\n\nsentence = \"I cannot wait to go to the movies!\"\ntokens = split_sentence(sentence)\nprint(tokens)\n\n\nThis solution uses regular expressions to find word tokens while ignoring punctuation and converting all words to lowercase."
+  },
+  {
+    "source_index": 79,
+    "original_instruction": "Write a Python program to add two matrices.",
+    "original_input": "matrix1 = [[3, 5],\n           [6, 2]]\n\nmatrix2 = [[1, 2],\n           [3, 4]]",
+    "original_output": "def add_matrices(mat1, mat2):\n    \"\"\"\n    This function takes two 2D matrices and adds them,\n    returning a new 2D matrix.\n    \"\"\"\n    output = []\n    \n    for i in range(len(mat1)):\n        row_m1 = mat1[i]\n        row_m2 = mat2[i]\n        row_sum = []\n        for j in range(len(row_m1)):\n            row_sum.append(row_m1[j] + row_m2[j])\n        output.append(row_sum)\n        \n    return output\n    \nresult = add_matrices(matrix1, matrix2)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a Python program to add two matrices, ensuring the matrices have the same dimensions and handling cases where they do not.",
+    "evolved_output": "def add_matrices(matrix1, matrix2):\n    if len(matrix1) != len(matrix2) or any(len(row1) != len(row2) for row1, row2 in zip(matrix1, matrix2)):\n        return \"Matrices must have the same dimensions.\"\n    \n    result = []\n    for i in range(len(matrix1)):\n        row = []\n        for j in range(len(matrix1[0])):\n            row.append(matrix1[i][j] + matrix2[i][j])\n        result.append(row)\n    \n    return result\n\n# Example usage:\nmatrix1 = [[3, 5],\n           [6, 2]]\n\nmatrix2 = [[1, 2],\n           [3, 4]]\n\nprint(add_matrices(matrix1, matrix2))\n\nThis solution checks if the matrices have the same dimensions before attempting to add them, returning an error message if they do not."
+  },
+  {
+    "source_index": 80,
+    "original_instruction": "Write a code to find the day of the week corresponding to a given date using the calendar module?",
+    "original_input": "Day: 25\nMonth: December\nYear: 2020",
+    "original_output": "\"\"\"\nFind the day of the week corresponding to a given date using calendar module\n\"\"\"\n\nimport calendar\n\ndef get_day_of_week(day, month, year):\n    dayNumber = calendar.weekday(year,month,day)\n    dayName = calendar.day_name[dayNumber] \n    return dayName\n    \nif __name__ == '__main__':\n    day = 25\n    month = 12\n    year = 2020\n    print(get_day_of_week(day, month, year))",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a code to find the day of the week corresponding to a given date using the calendar module, ensuring the input date is within the range from January 1, 2000, to December 31, 2099.",
+    "evolved_output": "import calendar\n\ndef find_day_of_week(day, month, year):\n    if not (2000 <= year <= 2099):\n        return \"Year out of range\"\n    day_of_week = calendar.weekday(year, month, day)\n    return calendar.day_name[day_of_week]\n\n# Example usage:\nday = 25\nmonth = 12\nyear = 2020\nprint(find_day_of_week(day, month, year))  # Output: Friday"
+  },
+  {
+    "source_index": 81,
+    "original_instruction": "Determine the data type for the given value.",
+    "original_input": "value: \"hello\"",
+    "original_output": "string",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Determine the data type for the given value, considering both primitive and complex data types.",
+    "evolved_output": "def determine_data_type(value):\n    if isinstance(value, str):\n        return \"string\"\n    elif isinstance(value, int):\n        return \"integer\"\n    elif isinstance(value, float):\n        return \"float\"\n    elif isinstance(value, list):\n        return \"list\"\n    elif isinstance(value, dict):\n        return \"dictionary\"\n    elif isinstance(value, tuple):\n        return \"tuple\"\n    elif isinstance(value, set):\n        return \"set\"\n    elif isinstance(value, bool):\n        return \"boolean\"\n    else:\n        return \"unknown\"\n\n# Example usage\nvalue = \"hello\"\nprint(determine_data_type(value))  # Output: string"
+  },
+  {
+    "source_index": 82,
+    "original_instruction": "Given a two dimensional array, write a Python program to print the second diagonal of the array.",
+    "original_input": "my_array = [[1, 2, 3],\n             [4, 5, 6],\n             [7, 8, 9]]",
+    "original_output": "my_array = [[1, 2, 3],\n             [4, 5, 6],\n             [7, 8, 9]]\n\n# A function to print second diagonal of \n# given array\ndef print_second_diagonal(arr): \n    # Find length of given array \n    n = len(arr)  \n      \n    # Traverse second diagonal \n    for i in range(0, n): \n        print(arr[i][n-1-i], end = \" \") \n          \n# Driver code \nprint_second_diagonal(my_array)\n# Output: 3 6 9",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given a two-dimensional array, write a Python program to print the second diagonal of the array, ensuring the array is square and has dimensions greater than 2x2.",
+    "evolved_output": "def print_second_diagonal(my_array):\n    n = len(my_array)\n    if n <= 2 or any(len(row) != n for row in my_array):\n        raise ValueError(\"Array must be square with dimensions greater than 2x2.\")\n    second_diagonal = [my_array[i][n - i - 2] for i in range(n)]\n    print(second_diagonal)\n\nmy_array = [[1, 2, 3],\n            [4, 5, 6],\n            [7, 8, 9]]\n\nprint_second_diagonal(my_array)"
+  },
+  {
+    "source_index": 83,
+    "original_instruction": "Create an if-else statement that prints \"Welcome!\" if the input is \"John\" and \"Goodbye!\" if the input is \"Caroline\".",
+    "original_input": "",
+    "original_output": "if name == \"John\":\n    print(\"Welcome!\")\nelse:\n    print(\"Goodbye!\")",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create an if-else statement that prints \"Welcome!\" if the input is \"John\", \"Goodbye!\" if the input is \"Caroline\", and \"Hello!\" for any other input.",
+    "evolved_output": "name = input()\nif name == \"John\":\n    print(\"Welcome!\")\nelif name == \"Caroline\":\n    print(\"Goodbye!\")\nelse:\n    print(\"Hello!\")"
+  },
+  {
+    "source_index": 84,
+    "original_instruction": "Write a TensorFlow code to classify MNIST.",
+    "original_input": "",
+    "original_output": "# Load the MNIST dataset\n(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()\n\n# Reshape and normalize the input data\nx_train = x_train.reshape(x_train.shape[0], 28, 28, 1)\nx_test = x_test.reshape(x_test.shape[0], 28, 28, 1)\nx_train = x_train.astype('float32')\nx_test = x_test.astype('float32')\nx_train /= 255\nx_test /= 255\n\n# Build the model\nmodel = tf.keras.models.Sequential([\n    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),\n    tf.keras.layers.MaxPooling2D(2, 2),\n    tf.keras.layers.Flatten(),\n    tf.keras.layers.Dense(128, activation='relu'),\n    tf.keras.layers.Dense(10, activation='softmax')\n])\nmodel.compile(optimizer='adam',\n              loss='sparse_categorical_crossentropy',\n              metrics=['accuracy'])\n\n# Train and evaluate the model\nmodel.fit(x_train, y_train, epochs=10)\nmodel.evaluate(x_test, y_test)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a TensorFlow code to classify MNIST with an accuracy of at least 98% on the test set, using a convolutional neural network.",
+    "evolved_output": "import tensorflow as tf\nfrom tensorflow.keras import layers, models\n\n# Load and preprocess the MNIST dataset\nmnist = tf.keras.datasets.mnist\n(x_train, y_train), (x_test, y_test) = mnist.load_data()\nx_train, x_test = x_train / 255.0, x_test / 255.0\n\n# Reshape the data to fit the model\nx_train = x_train.reshape((x_train.shape[0], 28, 28, 1))\nx_test = x_test.reshape((x_test.shape[0], 28, 28, 1))\n\n# Build the convolutional neural network\nmodel = models.Sequential([\n    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),\n    layers.MaxPooling2D((2, 2)),\n    layers.Conv2D(64, (3, 3), activation='relu'),\n    layers.MaxPooling2D((2, 2)),\n    layers.Conv2D(64, (3, 3), activation='relu'),\n    layers.Flatten(),\n    layers.Dense(64, activation='relu'),\n    layers.Dense(10, activation='softmax')\n])\n\n# Compile the model\nmodel.compile(optimizer='adam',\n              loss='sparse_categorical_crossentropy',\n              metrics=['accuracy'])\n\n# Train the model\nmodel.fit(x_train, y_train, epochs=10, batch_size=64, validation_split=0.1)\n\n# Evaluate the model\ntest_loss, test_acc = model.evaluate(x_test, y_test)\nprint(f'Test accuracy: {test_acc}')\n\n\nThis solution constructs a convolutional neural network to achieve the required accuracy on the MNIST dataset."
+  },
+  {
+    "source_index": 85,
+    "original_instruction": "Create a regular expression to match strings containing two consecutive symbols \"#\" followed by four alphabetic characters.",
+    "original_input": "",
+    "original_output": "/\\#[a-zA-Z]{4}/",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a regular expression to match strings containing two consecutive symbols \"#\" followed by four alphabetic characters, ensuring the string does not contain any digits.",
+    "evolved_output": "^(?!.*\\d)[^#]*##[A-Za-z]{4}[^#]*$"
+  },
+  {
+    "source_index": 86,
+    "original_instruction": "Write a code to fetch the last ten news headlines from HackerNews using their API.",
+    "original_input": "",
+    "original_output": "\"\"\"\nFetch the last ten news headlines from HackerNews using their API\n\"\"\"\n\nimport requests\n\ndef get_headlines():\n    url = \"https://hacker-news.firebaseio.com/v0/topstories.json\"\n    ids = requests.get(url).json()\n    headlines = []\n    for id in ids[:10]:\n        item = requests.get(f\"https://hacker-news.firebaseio.com/v0/item/{id}.json\").json()\n        headlines.append(item['title'])\n    return headlines\n\nif __name__ == '__main__':\n    headlines = get_headlines()\n    for headline in headlines:\n        print(headline)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a code to fetch the last ten news headlines from HackerNews using their API, ensuring that the headlines do not exceed 100 characters in length.",
+    "evolved_output": "import requests\n\ndef fetch_hackernews_headlines():\n    url = \"https://hacker-news.firebaseio.com/v0/topstories.json\"\n    response = requests.get(url)\n    top_story_ids = response.json()[:10]\n\n    headlines = []\n    for story_id in top_story_ids:\n        story_url = f\"https://hacker-news.firebaseio.com/v0/item/{story_id}.json\"\n        story_response = requests.get(story_url)\n        story_data = story_response.json()\n        title = story_data.get('title', '')\n        if len(title) <= 100:\n            headlines.append(title)\n\n    return headlines\n\n# Example usage\nprint(fetch_hackernews_headlines())"
+  },
+  {
+    "source_index": 87,
+    "original_instruction": "Construct a Java program for sorting a given array in ascending order.",
+    "original_input": "",
+    "original_output": "public class ArraySort { \n    public static int[] sortArray(int[] arr) { \n        int n = arr.length; \n        for (int i = 0; i < n - 1; i++) { \n            int min_idx = i; \n            for (int j = i + 1; j < n; j++) \n                if (arr[j] < arr[min_idx]) \n                    min_idx = j; \n            int temp = arr[min_idx]; \n            arr[min_idx] = arr[i]; \n            arr[i] = temp; \n        } \n        return arr; \n    } \n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Construct a Java program for sorting a given array in ascending order, ensuring that the algorithm has a time complexity of O(n log n) and handles arrays with duplicate elements.",
+    "evolved_output": "import java.util.Arrays;\n\npublic class SortArray {\n    public static void main(String[] args) {\n        int[] array = {5, 3, 8, 6, 2, 7, 4, 1, 5, 3};\n        Arrays.sort(array);\n        System.out.println(\"Sorted array: \" + Arrays.toString(array));\n    }\n}\n\n\nThis solution uses Java's built-in `Arrays.sort()` method, which implements a dual-pivot quicksort for primitive types and has an average time complexity of O(n log n). It also naturally handles duplicate elements."
+  },
+  {
+    "source_index": 88,
+    "original_instruction": "Write a Python code to generate Fibonacci sequence up to 'n' numbers, where 'n' is a given integer.",
+    "original_input": "",
+    "original_output": "def generateFib(n): \n    fib = [0, 1] \n    while len(fib) < n : \n        fib.append(fib[-1] + fib[-2]) \n          \n    return fib[:n]",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a Python code to generate Fibonacci sequence up to 'n' numbers, where 'n' is a given integer, and ensure no number in the sequence exceeds 10,000.",
+    "evolved_output": "def fibonacci_sequence(n):\n    fib_sequence = []\n    a, b = 0, 1\n    while len(fib_sequence) < n and a <= 10000:\n        fib_sequence.append(a)\n        a, b = b, a + b\n    return fib_sequence\n\n# Example usage:\nn = 20\nprint(fibonacci_sequence(n))"
+  },
+  {
+    "source_index": 89,
+    "original_instruction": "Given a string, write a code that counts the number of alphabets in it.",
+    "original_input": "input_string = \"Hello World!\"",
+    "original_output": "input_string = \"Hello World!\"\n\n# Count the number of alphabets\nnum_alphabets = sum(c.isalpha() for c in input_string) \n\nprint(\"Number of alphabets in the string:\", num_alphabets)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given a string, write a code that counts the number of alphabets in it, ignoring case and excluding any vowels.\n\nInput:\ninput_string = \"Hello World!\"",
+    "evolved_output": "def count_consonants(input_string):\n    vowels = set(\"aeiouAEIOU\")\n    return sum(1 for char in input_string if char.isalpha() and char not in vowels)\n\ninput_string = \"Hello World!\"\nprint(count_consonants(input_string))"
+  },
+  {
+    "source_index": 90,
+    "original_instruction": "Write a SQL query to calculate the total cost of a given product.",
+    "original_input": "product_id: 123\nprice: 100.50\nquantity: 10",
+    "original_output": "SELECT SUM(price * quantity) AS total_cost\nFROM products\nWHERE product_id = 123;",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Write a SQL query to calculate the total cost of a given product, ensuring that the result includes only products with a quantity greater than zero.\n\nInput:\nproduct_id: 123\nprice: 100.50\nquantity: 10",
+    "evolved_output": "SELECT product_id, price * quantity AS total_cost\nFROM products\nWHERE product_id = 123 AND quantity > 0;"
+  },
+  {
+    "source_index": 91,
+    "original_instruction": "Given a string s, determine if it is an isogram.",
+    "original_input": "\"isogram\"",
+    "original_output": "bool isIsogram(string s) \n{ \n    int count[256] = {0}; \n    int length = s.length(); \n  \n    for (int i=0; i<length; i++) { \n        if (count[s[i]] == 0)\n            count[s[i]]++;\n        else\n            return false;\n    } \n  \n    return true;\n}",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Given a string s, determine if it is an isogram, ignoring case sensitivity and considering only alphabetic characters.\n\nInput:\n\"isogram\"",
+    "evolved_output": "def is_isogram(s):\n    s = ''.join(filter(str.isalpha, s.lower()))\n    return len(set(s)) == len(s)\n\n# Example usage\nprint(is_isogram(\"isogram\"))  # Output: True\nprint(is_isogram(\"Isogram\"))  # Output: True\nprint(is_isogram(\"moOse\"))    # Output: False"
+  },
+  {
+    "source_index": 92,
+    "original_instruction": "Print all the permutations of a given list",
+    "original_input": "[1, 2, 3]",
+    "original_output": "def permute(lis):\n    if len(lis) == 0:\n        return [] \n    if len(lis) == 1:\n        return [lis] \n  \n    l = [] \n    for i in range(len(lis)):\n        m = lis[i] \n  \n        remLis = lis[:i] + lis[i+1:] \n  \n        for p in permute(remLis): \n            l.append([m] + p) \n    return l \n\nlist1 = [1, 2, 3]\nresult = permute(list1) \nfor i in result: \n    print(i)",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Print all the permutations of a given list in lexicographical order without using any built-in permutation functions.",
+    "evolved_output": "def permute(nums):\n    def backtrack(start):\n        if start == len(nums):\n            result.append(nums[:])\n        for i in range(start, len(nums)):\n            nums[start], nums[i] = nums[i], nums[start]\n            backtrack(start + 1)\n            nums[start], nums[i] = nums[i], nums[start]\n\n    result = []\n    nums.sort()\n    backtrack(0)\n    return result\n\n# Example usage\nprint(permute([1, 2, 3]))"
+  },
+  {
+    "source_index": 93,
+    "original_instruction": "Build a TensorFlow model for classification of a 2-D dataset.",
+    "original_input": "X = [[1, 2], [3, 4], [5, 6]]\nY = [0, 1, 1]",
+    "original_output": "\"\"\"\nBuild a TensorFlow model for classification of a 2-D dataset.\n\nInput:\nX = [[1, 2], [3, 4], [5, 6]]\nY = [0, 1, 1]\n\nOutput:\nimport tensorflow as tf\n\n# data\nX = tf.constant([[1, 2], [3, 4], [5, 6]], dtype=tf.float32)\nY = tf.constant([0, 1, 1], dtype=tf.float32)\n\n# model\nmodel = tf.keras.Sequential()\nmodel.add(tf.keras.layers.Dense(2, activation='relu'))\nmodel.add(tf.keras.layers.Dense(1, activation='sigmoid'))\n\nmodel.compile(optimizer='adam',\n              loss='binary_crossentropy',\n              metrics=['accuracy'])\n\nmodel.fit(X, Y, epochs=50, batch_size=3)\n\"\"\"",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Build a TensorFlow model for classification of a 2-D dataset with an additional requirement that the model should achieve at least 90% accuracy on a separate validation set.",
+    "evolved_output": "import numpy as np\nimport tensorflow as tf\n\n# Original data\nX_train = np.array([[1, 2], [3, 4], [5, 6]])\nY_train = np.array([0, 1, 1])\n\n# Additional validation data\nX_val = np.array([[2, 3], [4, 5], [6, 7]])\nY_val = np.array([0, 1, 1])\n\n# Define the model\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(10, activation='relu', input_shape=(2,)),\n    tf.keras.layers.Dense(1, activation='sigmoid')\n])\n\n# Compile the model\nmodel.compile(optimizer='adam',\n              loss='binary_crossentropy',\n              metrics=['accuracy'])\n\n# Train the model\nmodel.fit(X_train, Y_train, epochs=100, verbose=0)\n\n# Evaluate the model on the validation set\nval_loss, val_accuracy = model.evaluate(X_val, Y_val, verbose=0)\nprint(f\"Validation Accuracy: {val_accuracy * 100:.2f}%\")\n\n\nThis solution includes a validation set and ensures the model achieves at least 90% accuracy on it, making the problem slightly more challenging while remaining solvable."
+  },
+  {
+    "source_index": 94,
+    "original_instruction": "Create a HTML select element with the given list of countries as options.",
+    "original_input": "CountryList = ['India','United States','Canada','Australia','New Zealand','Singapore','Japan']",
+    "original_output": "<select>\n  <option value=\"India\">India</option>\n  <option value=\"United States\">United States</option>\n  <option value=\"Canada\">Canada</option>\n  <option value=\"Australia\">Australia</option>\n  <option value=\"New Zealand\">New Zealand</option>\n  <option value=\"Singapore\">Singapore</option>\n  <option value=\"Japan\">Japan</option>\n</select>",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a HTML select element with the given list of countries as options, ensuring the default selected option is 'Canada' and the list is sorted alphabetically.",
+    "evolved_output": "<select>\n    <option value=\"Australia\">Australia</option>\n    <option value=\"Canada\" selected>Canada</option>\n    <option value=\"India\">India</option>\n    <option value=\"Japan\">Japan</option>\n    <option value=\"New Zealand\">New Zealand</option>\n    <option value=\"Singapore\">Singapore</option>\n    <option value=\"United States\">United States</option>\n</select>"
+  },
+  {
+    "source_index": 95,
+    "original_instruction": "You need to write an API request in Python to return JSON data from an API endpoint.",
+    "original_input": "",
+    "original_output": "import requests\n\nAPI_ENDPOINT = 'api.example.com/data'\n\nresponse = requests.get(API_ENDPOINT)\n\nif response.status_code == 200:\n    data = response.json()",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "You need to write an API request in Python to return JSON data from an API endpoint, handling potential errors and ensuring the response is parsed only if the status code is 200.",
+    "evolved_output": "import requests\n\ndef fetch_data_from_api(url):\n    try:\n        response = requests.get(url)\n        response.raise_for_status()  # Raises an HTTPError for bad responses (4xx and 5xx)\n        if response.status_code == 200:\n            return response.json()\n    except requests.exceptions.HTTPError as http_err:\n        print(f\"HTTP error occurred: {http_err}\")\n    except Exception as err:\n        print(f\"An error occurred: {err}\")\n    return None\n\n# Example usage\nurl = \"https://api.example.com/data\"\ndata = fetch_data_from_api(url)\nif data:\n    print(data)"
+  },
+  {
+    "source_index": 96,
+    "original_instruction": "Create a while loop that prints the numbers 1-10",
+    "original_input": "",
+    "original_output": "i = 1\nwhile i <= 10:\n    print(i)\n    i += 1",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Create a while loop that prints the numbers 1-10, but only for odd numbers and in reverse order.",
+    "evolved_output": "num = 9\nwhile num >= 1:\n    print(num)\n    num -= 2"
+  },
+  {
+    "source_index": 97,
+    "original_instruction": "What is the SQL query to select all the values that are greater than 10 in the \"Age\" column in the table \"Students\"?",
+    "original_input": "",
+    "original_output": "SELECT * FROM Students WHERE Age > 10",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "What is the SQL query to select all the values that are greater than 10 in the \"Age\" column in the table \"Students\", excluding those students who have already graduated?",
+    "evolved_output": "SELECT Age FROM Students WHERE Age > 10 AND Graduated = 0;"
+  },
+  {
+    "source_index": 98,
+    "original_instruction": "Suggest a way to optimize a given code segment.",
+    "original_input": "x = 0\nfor i in range(100):\n    for j in range(100):\n        x = x + 1",
+    "original_output": "To optimize this code segment, you can use the NumPy library to take advantage of vectorized operations and reduce the number of iterations. Additionally, you can use MultiProcessing to run the code in parallel, taking advantage of multiple cores on the machine:\n\nimport numpy as np\n\nx = np.zeros((100, 100))\n\nfor i in range(100):\n    x[i] = x[i] + 1",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Suggest a way to optimize a given code segment that also minimizes memory usage.\n\nInput:\nx = 0\nfor i in range(100):\n    for j in range(100):\n        x = x + 1",
+    "evolved_output": "x = 100 * 100\n\nThis solution optimizes the code by removing the nested loops and directly calculating the final value of `x`, while also minimizing memory usage by not using unnecessary loop variables."
+  },
+  {
+    "source_index": 99,
+    "original_instruction": "Select the appropriate language to implement a linked list data structure.",
+    "original_input": "",
+    "original_output": "C++ is the best language to implement a linked list data structure as it provides features like dynamic memory allocation, pointers and templates which make it easier to create a linked list.",
+    "evolution_method": "Add new constraints and requirements to the original problem",
+    "enhanced_instruction": "Implement a singly linked list data structure that supports insertion at the beginning, end, and a specific position, with a constraint that no duplicate values are allowed.",
+    "evolved_output": "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\nclass SinglyLinkedList:\n    def __init__(self):\n        self.head = None\n        self.values_set = set()\n\n    def insert_at_beginning(self, data):\n        if data not in self.values_set:\n            new_node = Node(data)\n            new_node.next = self.head\n            self.head = new_node\n            self.values_set.add(data)\n\n    def insert_at_end(self, data):\n        if data not in self.values_set:\n            new_node = Node(data)\n            if not self.head:\n                self.head = new_node\n            else:\n                current = self.head\n                while current.next:\n                    current = current.next\n                current.next = new_node\n            self.values_set.add(data)\n\n    def insert_at_position(self, data, position):\n        if data not in self.values_set:\n            new_node = Node(data)\n            if position == 0:\n                new_node.next = self.head\n                self.head = new_node\n            else:\n                current = self.head\n                for _ in range(position - 1):\n                    if current is None:\n                        return\n                    current = current.next\n                if current is not None:\n                    new_node.next = current.next\n                    current.next = new_node\n            self.values_set.add(data)\n\nThis solution implements a singly linked list with methods to insert nodes at the beginning, end, and a specific position, ensuring no duplicate values are added."
+  }
+]

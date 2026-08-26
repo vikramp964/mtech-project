@@ -1,0 +1,3 @@
+[submodule "external/mxeval"]
+	path = external/mxeval
+	url = https://github.com/amazon-science/mxeval.git

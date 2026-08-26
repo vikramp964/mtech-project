@@ -1,0 +1,11 @@
+Model: Qwen2.5-Coder-7B-Instruct
+Method: LoRA
+Dataset: Code Alpaca
+Train samples: 19020
+Validation samples: 1002
+Epochs: 1
+Train Loss: 0.5706
+Validation Loss: 0.5575
+Training Time: 41m 41s
+GPU: NVIDIA A40 (46 GB)
+Status: Training Successful

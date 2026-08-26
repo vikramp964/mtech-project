@@ -1,0 +1,1909 @@
+
+================================================================================
+CASE 1: MBCPP/1
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to find the minimum cost path to reach (m, n) from (0, 0) for the given cost matrix cost[][] and a position (m, n) in cost[][].
+ * > minCost(vector<vector<int>>{{1, 2, 3}, {4, 8, 2}, {1, 5, 3}}, 2, 2)
+ * 8
+ * > minCost(vector<vector<int>>{{2, 3, 4}, {5, 9, 3}, {2, 6, 4}}, 2, 2)
+ * 12
+ * > minCost(vector<vector<int>>{{3, 4, 5}, {6, 10, 4}, {3, 7, 5}}, 2, 2)
+ * 16
+ */
+int minCost(vector<vector<int>> cost, int m, int n) {
+
+
+--- ENTRY POINT ---
+minCost
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    vector<int> dp(m + 1, n + 1);
+    dp[0][0] = 0;
+    for (int i = 1; i <= m; i++) {
+        dp[i][0] = dp[i - 1][0] + cost[i - 1][0];
+    }
+    for (int i = 1; i <= n; i++) {
+        dp[0][i] = dp[0][i - 1] + cost[0][i - 1];
+    }
+    for (int i = 1; i <= m; i++) {
+        for (int j = 1; j <= n; j++) {
+            dp[i][j] = cost[i - 1][j - 1] + Math.min(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp[m][n];
+
+
+--- BASELINE COMPLETION ---
+vector<vector<int>> dp(m + 1, vector<int>(n + 1, INT_MAX));
+    dp[0][0] = 0;
+
+    for (int i = 0; i <= m; ++i) {
+        for (int j = 0; j <= n; ++j) {
+            if (i == 0 && j == 0) continue;
+            if (i > 0) dp[i][j] = min(dp[i][j], dp[i - 1][j]);
+            if (j > 0) dp[i][j] = min(dp[i][j], dp[i][j - 1]);
+            if (i > 0 && j > 0) dp[i][j] = min(dp[i][j], dp[i - 1][j - 1]);
+            if (dp[i][j] != INT_MAX) dp[i][j] += cost[i - 1][j - 1];
+        }
+    }
+
+    return dp[m][n];
+}
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to find the minimum cost path to reach the bottom-right corner of a grid from the top-left corner. The cost is accumulated as we move through the grid. Here's a step-by-step approach to solving this problem:
+
+### Step 1: Understand the Problem
+- We have a cost matrix `cost[][]` where each cell `(i, j)` contains the cost to pass through that cell.
+- We start at the top-left corner `(0, 0)` and need to reach the bottom-right corner `(m, n)`.
+- We can only move right or down at any point in time.
+
+### Step 2: Identify Important Edge Cases
+- If the input matrix is empty, return 0 or throw an exception.
+- If the destination `(m, n)` is out of bounds, return INT_MAX or throw an exception.
+- If the starting point `(0, 0)` is blocked, return INT_MAX or throw an exception.
+
+### Step 3: Formulate the Algorithm
+We can use dynamic programming to solve this problem efficiently:
+- Create a DP table `dp[][]` where `dp[i][j]` represents the minimum cost to reach cell `(i, j)`.
+- Initialize the first row and
+
+--- SCoT COMPLETION ---
+if (m == -1 || n == -1) return INT_MAX;
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, INT_MAX));
+    dp[0][0] = cost[0][0];
+    for (int i = 1; i <= m; ++i) dp[i][0] = dp[i - 1][0] + cost[i][0];
+    for (int j = 1; j <= n; ++j) dp[0][j] = dp[0][j - 1] + cost[0][j];
+    for (int i = 1; i <= m; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + cost[i][j];
+        }
+    }
+    return dp[m][n];
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'wqQwyltglq.cpp: In function ‘int minCost(std::vector<std::vector<int> >, int, int)’:\nwqQwyltglq.cpp:26:1: error: a template declaration cannot appear at block scope\n   26 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nwqQwyltglq.cpp:47:2: error: expected ‘}’ at end of input\n   47 | }\n      |  ^\nwqQwyltglq.cpp:14:53: note: to match this ‘{’\n   14 | int minCost(vector<vector<int>> cost, int m, int n) {\n      |                                                     ^\n'
+
+================================================================================
+CASE 2: MBCPP/2
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to find the similar elements from the given two tuple lists.
+ * > similarElements(vector<int>{3, 4, 5, 6}, vector<int>{5, 7, 4, 10})
+ * {4, 5}
+ * > similarElements(vector<int>{1, 2, 3, 4}, vector<int>{5, 4, 3, 7})
+ * {3, 4}
+ * > similarElements(vector<int>{11, 12, 14, 13}, vector<int>{17, 15, 14, 13})
+ * {13, 14}
+ */
+vector<int> similarElements(vector<int> testTup1, vector<int> testTup2) {
+
+
+--- ENTRY POINT ---
+similarElements
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    vector<int> result;
+    int i;
+    int j;
+    int count;
+
+    result.reserve(testTup1.size());
+    count = 0;
+    for (i = 0; i < testTup1.size(); i++) {
+        for (j = 0; j < testTup2.size(); j++) {
+            if (testTup1[i] == testTup2[j]) {
+                result[count] = testTup1[i];
+                count++;
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+set<int> set1(testTup1.begin(), testTup1.end());
+set<int> set2(testTup2.begin(), testTup2.end());
+
+vector<int> result;
+for (int num : set1) {
+    if (set2.find(num) != set2.end()) {
+        result.push_back(num);
+    }
+}
+
+sort(result.begin(), result.end());
+return result;
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'jmfCjxMuRI.cpp: In function ‘std::vector<int> similarElements(std::vector<int>, std::vector<int>)’:\njmfCjxMuRI.cpp:27:1: error: a template declaration cannot appear at block scope\n   27 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\njmfCjxMuRI.cpp:48:2: error: expected ‘}’ at end of input\n   48 | }\n      |  ^\njmfCjxMuRI.cpp:14:73: note: to match this ‘{’\n   14 | vector<int> similarElements(vector<int> testTup1, vector<int> testTup2) {\n      |                                                                         ^\n'
+
+--- SCoT REASONING ---
+### Problem Analysis
+
+The task is to identify common elements between two vectors of integers. The solution should return a vector containing these common elements in ascending order.
+
+### Algorithm
+
+1. **Initialize an empty set** to store unique common elements found in both vectors.
+   - Using a set ensures that each element is stored only once and avoids duplicates in the result.
+   
+2. **Iterate through the first vector (testTup1)**:
+   - For each element, check if it exists in the second vector (testTup2).
+   - If the element is found in testTup2, insert it into the set.
+
+3. **Convert the set to a sorted vector**:
+   - Since sets automatically sort their elements, converting the set to a vector will give us the common elements sorted in ascending order.
+
+4. **Return the sorted vector** as the result.
+
+### Edge Cases
+
+- Both input vectors could be empty.
+- One or both input vectors could contain negative numbers.
+- One or both input vectors could have duplicate elements.
+
+### Implementation Steps
+
+1. Create a set named `commonElements` to store unique common elements.
+2. Loop through `testTup1`. For each element, check its presence in `testTup2`.
+
+--- SCoT COMPLETION ---
+set<int> commonElements;
+
+for(int i = 0; i < testTup1.size(); i++) {
+    for(int j = 0; j < testTup2.size(); j++) {
+        if(testTup1[i] == testTup2[j]) {
+            commonElements.insert(testTup1[i]);
+            break;
+        }
+    }
+}
+
+return vector<int>(commonElements.begin(), commonElements.end());
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'TLTMyGGQfL.cpp: In function ‘std::vector<int> similarElements(std::vector<int>, std::vector<int>)’:\nTLTMyGGQfL.cpp:27:1: error: a template declaration cannot appear at block scope\n   27 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nTLTMyGGQfL.cpp:48:2: error: expected ‘}’ at end of input\n   48 | }\n      |  ^\nTLTMyGGQfL.cpp:14:73: note: to match this ‘{’\n   14 | vector<int> similarElements(vector<int> testTup1, vector<int> testTup2) {\n      |                                                                         ^\n'
+
+================================================================================
+CASE 3: MBCPP/4
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to find the largest integers from a given list of numbers using heap queue algorithm.
+ * > heapQueueLargest(vector<int>{25, 35, 22, 85, 14, 65, 75, 22, 58}, 3)
+ * {85, 75, 65}
+ * > heapQueueLargest(vector<int>{25, 35, 22, 85, 14, 65, 75, 22, 58}, 2)
+ * {85, 75}
+ * > heapQueueLargest(vector<int>{25, 35, 22, 85, 14, 65, 75, 22, 58}, 5)
+ * {85, 75, 65, 58, 35}
+ */
+vector<int> heapQueueLargest(vector<int> nums, int n) {
+
+
+--- ENTRY POINT ---
+heapQueueLargest
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    // Create a min heap with the first n elements of nums.
+    min_heap<int> heap = new min_heap<int>(n);
+    for (int i = 0; i < n; i++) {
+        heap.push_back(nums[i]);
+    }
+
+    // Pop the first n elements of nums and put them in the result vector.
+    vector<int> result = new vector<int>(n);
+    for (int i = 0; i < n; i++) {
+        result[i] = heap.pop_front();
+    }
+
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+priority_queue<int> pq(nums.begin(), nums.end());
+    vector<int> result;
+    while (n--) {
+        result.push_back(pq.top());
+        pq.pop();
+    }
+    return result;
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'yOSkJaZnQv.cpp: In function ‘std::vector<int> heapQueueLargest(std::vector<int>, int)’:\nyOSkJaZnQv.cpp:22:1: error: a template declaration cannot appear at block scope\n   22 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nyOSkJaZnQv.cpp:43:2: error: expected ‘}’ at end of input\n   43 | }\n      |  ^\nyOSkJaZnQv.cpp:14:55: note: to match this ‘{’\n   14 | vector<int> heapQueueLargest(vector<int> nums, int n) {\n      |                                                       ^\n'
+
+--- SCoT REASONING ---
+To solve this problem, we need to implement a function that finds the largest 'n' integers from a given list of numbers using the heap queue (priority queue) algorithm. Here's a step-by-step approach:
+
+1. **Understand the Problem**: We need to extract the top 'n' largest elements from a list of integers. The order of these elements in the output does not matter.
+
+2. **Choose the Right Data Structure**: A max-heap (priority queue) is suitable for this task because it allows us to efficiently access the maximum element.
+
+3. **Algorithm**:
+   - Use a priority queue to store the elements of the list.
+   - Since priority queues are typically min-heaps in most languages, insert negative values into the queue to simulate a max-heap.
+   - Pop the smallest element ('n' times) from the priority queue to get the 'n' largest elements.
+   - Convert the negative values back to positive before returning the result.
+
+4. **Edge Cases**:
+   - If the input list has fewer than 'n' elements, return all elements in descending order.
+   - Handle empty lists gracefully.
+
+5. **Implementation Steps**:
+   - Initialize an empty priority queue.
+   - Iterate through the list and push
+
+--- SCoT COMPLETION ---
+priority_queue<int> pq;
+    for (int num : nums) {
+        pq.push(-num);
+    }
+    vector<int> result;
+    while (!pq.empty() && n--) {
+        result.push_back(-pq.top());
+        pq.pop();
+    }
+    return result;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'ieyErdreqY.cpp: In function ‘std::vector<int> heapQueueLargest(std::vector<int>, int)’:\nieyErdreqY.cpp:25:1: error: a template declaration cannot appear at block scope\n   25 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nieyErdreqY.cpp:46:2: error: expected ‘}’ at end of input\n   46 | }\n      |  ^\nieyErdreqY.cpp:14:55: note: to match this ‘{’\n   14 | vector<int> heapQueueLargest(vector<int> nums, int n) {\n      |                                                       ^\n'
+
+================================================================================
+CASE 4: MBCPP/5
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to find the number of ways to fill it with 2 x 1 dominoes for the given 3 x n board.
+ * > countWays(2)
+ * 3
+ * > countWays(8)
+ * 153
+ * > countWays(12)
+ * 2131
+ */
+int countWays(int n) {
+
+
+--- ENTRY POINT ---
+countWays
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+	int A[n+1];
+	int B[n+1];
+	A[0] = 1;
+	A[1] = 0;
+	B[0] = 0;
+	B[1] = 1;
+	for(int i = 2; i <= n; i++) {
+		A[i] = A[i-2] + 2 * B[i-1];
+		B[i] = A[i-1] + B[i-2];
+	}
+	return A[n];
+}
+
+--- BASELINE COMPLETION ---
+if (n <= 0) return 0;
+    if (n == 1) return 1;
+    int a = 1, b = 1, c;
+    for (int i = 2; i <= n; ++i) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'wiOBiJqlSI.cpp: In function ‘int countWays(int)’:\nwiOBiJqlSI.cpp:24:1: error: a template declaration cannot appear at block scope\n   24 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nwiOBiJqlSI.cpp:45:2: error: expected ‘}’ at end of input\n   45 | }\n      |  ^\nwiOBiJqlSI.cpp:14:22: note: to match this ‘{’\n   14 | int countWays(int n) {\n      |                      ^\n'
+
+--- SCoT REASONING ---
+To solve this problem, we need to determine the number of ways to tile a 3xN board using 2x1 dominoes. This is a classic dynamic programming problem where each state depends on previous states.
+
+### Algorithm Steps:
+
+1. **Define the State:**
+   - Let `dp[i]` represent the number of ways to tile a 3x(i+1) board.
+
+2. **Base Cases:**
+   - For `n = 0`, there's one way to tile an empty board (doing nothing), so `dp[0] = 1`.
+   - For `n = 1`, you can either place two vertical dominoes or one horizontal domino, so `dp[1] = 2`.
+
+3. **Transition:**
+   - To build a 3x(n+1) board, consider how the last column can be tiled:
+     - If you place a vertical domino in the last column, it covers the top and bottom cells of the last column, reducing the problem to tiling a 3xn board (`dp[n-1]`).
+     - If you place two horizontal dominoes in the last column, they cover the middle row of the last two columns,
+
+--- SCoT COMPLETION ---
+if (n == 0) return 1;
+    if (n == 1) return 2;
+
+    vector<int> dp(n + 1);
+    dp[0] = 1;
+    dp[1] = 2;
+
+    for (int i = 2; i <= n; ++i) {
+        dp[i] = dp[i - 1] + 2 * dp[i - 2];
+    }
+
+    return dp[n];
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'yeTEEWjPRv.cpp: In function ‘int countWays(int)’:\nyeTEEWjPRv.cpp:27:1: error: a template declaration cannot appear at block scope\n   27 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nyeTEEWjPRv.cpp:48:2: error: expected ‘}’ at end of input\n   48 | }\n      |  ^\nyeTEEWjPRv.cpp:14:22: note: to match this ‘{’\n   14 | int countWays(int n) {\n      |                      ^\n'
+
+================================================================================
+CASE 5: MBCPP/6
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to check whether the two numbers differ at one bit position only or not.
+ * > differAtOneBitPos(13, 9)
+ * true
+ * > differAtOneBitPos(15, 8)
+ * false
+ * > differAtOneBitPos(2, 4)
+ * false
+ */
+bool differAtOneBitPos(int a, int b) {
+
+
+--- ENTRY POINT ---
+differAtOneBitPos
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    return (((a ^ b) - (a & b)) & (a ^ b)) == 0;
+}
+
+--- BASELINE COMPLETION ---
+return (a ^ b) == 0x01;
+}
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: "terminate called after throwing an instance of 'std::runtime_error'\n  what():  Exception -- test case 0 did not pass.\n"
+
+--- SCoT REASONING ---
+To determine if two integers differ at exactly one bit position, we can follow these steps:
+
+### Algorithm Steps:
+1. **XOR Operation**: Compute the XOR of the two numbers. The result will have bits set to `1` where the corresponding bits of the two numbers differ, and bits set to `0` where they are the same.
+   
+   ```cpp
+   int xorResult = a ^ b;
+   ```
+
+2. **Check Single Bit Set**: Check if the resulting XOR value has exactly one bit set to `1`. This can be done using the property that a number with exactly one bit set to `1` is a power of two (i.e., `n & (n - 1)` should be `0`).
+
+   ```cpp
+   bool singleBitSet = (xorResult != 0) && ((xorResult & (xorResult - 1)) == 0);
+   ```
+
+3. **Return Result**: Return the boolean result indicating whether there is exactly one bit difference.
+
+   ```cpp
+   return singleBitSet;
+   ```
+
+### Important Edge Cases:
+- **Equal Numbers**: If `a` and `b` are equal (`a == b`), their XOR will be `0`, which means
+
+--- SCoT COMPLETION ---
+int xorResult = a ^ b;
+    return (xorResult != 0) && ((xorResult & (xorResult - 1)) == 0);
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'jklMUxuFmM.cpp: In function ‘bool differAtOneBitPos(int, int)’:\njklMUxuFmM.cpp:17:1: error: a template declaration cannot appear at block scope\n   17 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\njklMUxuFmM.cpp:38:2: error: expected ‘}’ at end of input\n   38 | }\n      |  ^\njklMUxuFmM.cpp:14:38: note: to match this ‘{’\n   14 | bool differAtOneBitPos(int a, int b) {\n      |                                      ^\n'
+
+================================================================================
+CASE 6: MBCPP/7
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to find all words which are at least 4 characters long in a string by using regex.
+ * > findCharLong(string("Please move back to stream"))
+ * {string("Please"), string("move"), string("back"), string("stream")}
+ * > findCharLong(string("Jing Eco and Tech"))
+ * {string("Jing"), string("Tech")}
+ * > findCharLong(string("Jhingai wulu road Zone 3"))
+ * {string("Jhingai"), string("wulu"), string("road"), string("Zone")}
+ */
+vector<string> findCharLong(string text) {
+
+
+--- ENTRY POINT ---
+findCharLong
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    vector<string> result = vector<string>(0);
+    string pattern = "[a-zA-Z]{4,}";
+    string s = "";
+    for (auto ch : text) {
+        if (ch != ' ') {
+            s += ch;
+        } else {
+            if (s.length() >= 4) {
+                result.push_back(s);
+            }
+            s = "";
+        }
+    }
+    if (s.length() >= 4) {
+        result.push_back(s);
+    }
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+regex pattern("[a-zA-Z]{4,}");
+sregex_iterator iter(text.begin(), text.end(), pattern);
+sregex_iterator end;
+vector<string> result;
+while (iter != end) {
+    result.push_back(iter->str());
+    ++iter;
+}
+return result;
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'HysVhbKxzN.cpp: In function ‘std::vector<std::__cxx11::basic_string<char> > findCharLong(std::string)’:\nHysVhbKxzN.cpp:24:1: error: a template declaration cannot appear at block scope\n   24 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nHysVhbKxzN.cpp:45:2: error: expected ‘}’ at end of input\n   45 | }\n      |  ^\nHysVhbKxzN.cpp:14:42: note: to match this ‘{’\n   14 | vector<string> findCharLong(string text) {\n      |                                          ^\n'
+
+--- SCoT REASONING ---
+To solve this problem, we need to create a function that takes a string as input and returns a vector of strings containing all words that are at least 4 characters long. We will use regular expressions (regex) to identify these words.
+
+Here's a step-by-step breakdown of the solution:
+
+1. **Include Necessary Headers**: We need to include the `<bits/stdc++.h>` header to have access to standard library functions and classes, including `std::regex` and `std::smatch`.
+
+2. **Define the Function Signature**: The function should be named `findCharLong` and take a single parameter of type `std::string`. It should return a `std::vector<std::string>`.
+
+3. **Initialize Variables**:
+   - Create a `std::regex` object to match words that are at least 4 characters long. A word is defined as a sequence of alphanumeric characters or underscores (`\w+`).
+   - Use a `std::sregex_iterator` to iterate over matches in the input string.
+
+4. **Iterate Over Matches**:
+   - For each match found by the iterator, extract the matched string.
+   - Check if the length of the extracted string is at least 4 characters.
+   - If it
+
+--- SCoT COMPLETION ---
+vector<string> result;
+    regex pattern(R"(\b\w{4,}\b)");
+    sregex_iterator iter(text.begin(), text.end(), pattern);
+    sregex_iterator end;
+
+    while (iter != end) {
+        smatch match = *iter++;
+        if (match.str().length() >= 4) {
+            result.push_back(match.str());
+        }
+    }
+
+    return result;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'KRhyYTDXjM.cpp: In function ‘std::vector<std::__cxx11::basic_string<char> > findCharLong(std::string)’:\nKRhyYTDXjM.cpp:28:1: error: a template declaration cannot appear at block scope\n   28 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nKRhyYTDXjM.cpp:49:2: error: expected ‘}’ at end of input\n   49 | }\n      |  ^\nKRhyYTDXjM.cpp:14:42: note: to match this ‘{’\n   14 | vector<string> findCharLong(string text) {\n      |                                          ^\n'
+
+================================================================================
+CASE 7: MBCPP/9
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to find the minimum number of rotations required to get the same string.
+ * > findRotations(string("aaaa"))
+ * 1
+ * > findRotations(string("ab"))
+ * 2
+ * > findRotations(string("abc"))
+ * 3
+ */
+int findRotations(string str) {
+
+
+--- ENTRY POINT ---
+findRotations
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    string tmp = str + str;
+    int n = str.size();
+    for (int i = 1; i < n + 1; i++) {
+        string substring = tmp.substr(i, n);
+        if (str == substring) {
+            return i;
+        }
+    }
+    return n;
+}
+
+--- BASELINE COMPLETION ---
+int n = str.length();
+string doubled = str + str;
+for (int i = 0; i < n; ++i) {
+    if (doubled.substr(i, n) == str) {
+        return i + 1;
+    }
+}
+return n;
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'TWsmyqfkRu.cpp: In function ‘int findRotations(std::string)’:\nTWsmyqfkRu.cpp:23:1: error: a template declaration cannot appear at block scope\n   23 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nTWsmyqfkRu.cpp:44:2: error: expected ‘}’ at end of input\n   44 | }\n      |  ^\nTWsmyqfkRu.cpp:14:31: note: to match this ‘{’\n   14 | int findRotations(string str) {\n      |                               ^\n'
+
+--- SCoT REASONING ---
+To solve this problem, we need to determine the minimum number of rotations required to make the input string identical to its original form. Here's a step-by-step approach:
+
+1. **Understand the Problem**:
+   - We need to find the smallest integer `k` such that rotating the string `k` times results in the original string.
+   - A rotation means moving the first character of the string to the end.
+
+2. **Edge Cases**:
+   - If the string is empty or has only one character, no rotation is needed, so return 0.
+   - For strings with more than one character, we need to check all possible rotations until we find the smallest `k`.
+
+3. **Algorithm**:
+   - Concatenate the string with itself to handle circular rotations easily.
+   - Iterate through the concatenated string and check if any substring of length equal to the original string matches the original string.
+   - The index where the match starts will give us the minimum number of rotations required.
+
+4. **Implementation Steps**:
+   - Check for edge cases (empty or single-character string).
+   - Concatenate the string with itself.
+   - Use nested loops to compare substrings of the concatenated string with the original string.
+   - Return the minimum number
+
+--- SCoT COMPLETION ---
+int n = str.length();
+    if (n <= 1) {
+        return 0;
+    }
+    string doubled = str + str;
+    for (int i = 0; i < n; ++i) {
+        bool match = true;
+        for (int j = 0; j < n; ++j) {
+            if (doubled[i + j] != str[j]) {
+                match = false;
+                break;
+            }
+        }
+        if (match) {
+            return i + 1;
+        }
+    }
+    return n;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'vbvUUpHziN.cpp: In function ‘int findRotations(std::string)’:\nvbvUUpHziN.cpp:33:1: error: a template declaration cannot appear at block scope\n   33 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nvbvUUpHziN.cpp:54:2: error: expected ‘}’ at end of input\n   54 | }\n      |  ^\nvbvUUpHziN.cpp:14:31: note: to match this ‘{’\n   14 | int findRotations(string str) {\n      |                               ^\n'
+
+================================================================================
+CASE 8: MBCPP/11
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to remove first and last occurrence of a given character from the string.
+ * > removeOcc(string("hello"), string("l"))
+ * string("heo")
+ * > removeOcc(string("abcda"), string("a"))
+ * string("bcd")
+ * > removeOcc(string("PHP"), string("P"))
+ * string("H")
+ */
+string removeOcc(string s, string ch) {
+
+
+--- ENTRY POINT ---
+removeOcc
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    string result = "";
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] != ch[0]) {
+            result += s[i];
+        }
+    }
+    for (int i = 0; i < ch.size(); i++) {
+        if (ch[i] != ch[ch.size() - 1]) {
+            result += ch[i];
+        }
+    }
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+{
+    size_t first = s.find(ch);
+    if (first != string::npos) {
+        s.erase(first, 1);
+    }
+    size_t last = s.rfind(ch);
+    if (last != string::npos) {
+        s.erase(last, 1);
+    }
+    return s;
+}
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'sIUJgxnNwd.cpp: In function ‘std::string removeOcc(std::string, std::string)’:\nsIUJgxnNwd.cpp:26:1: error: a template declaration cannot appear at block scope\n   26 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nsIUJgxnNwd.cpp:47:2: error: expected ‘}’ at end of input\n   47 | }\n      |  ^\nsIUJgxnNwd.cpp:14:39: note: to match this ‘{’\n   14 | string removeOcc(string s, string ch) {\n      |                                       ^\n'
+
+--- SCoT REASONING ---
+To solve this problem, we need to create a function `removeOcc` that takes two strings as input: `s` (the original string) and `ch` (the character to be removed). The function should remove the first and last occurrences of the character `ch` from the string `s`.
+
+Here's a step-by-step approach to implement this:
+
+1. **Find the First Occurrence**:
+   - Iterate through the string `s` from left to right to find the index of the first occurrence of `ch`.
+   - If found, erase that character from the string.
+
+2. **Find the Last Occurrence**:
+   - Iterate through the string `s` from right to left to find the index of the last occurrence of `ch`.
+   - If found, erase that character from the string.
+
+3. **Return the Modified String**:
+   - After removing both occurrences, return the modified string.
+
+### Important Edge Cases:
+- If the character `ch` is not found in the string `s`, the string remains unchanged.
+- If the string `s` contains only one occurrence of `ch`, only that occurrence should be removed.
+- If the string `s` contains multiple consecutive occurrences of `ch`, only the first and last
+
+--- SCoT COMPLETION ---
+size_t firstPos = s.find(ch);
+    if (firstPos != string::npos) {
+        s.erase(firstPos, 1);
+    }
+
+    size_t lastPos = s.rfind(ch);
+    if (lastPos != string::npos) {
+        s.erase(lastPos, 1);
+    }
+
+    return s;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'lxonkbdimw.cpp: In function ‘std::string removeOcc(std::string, std::string)’:\nlxonkbdimw.cpp:26:1: error: a template declaration cannot appear at block scope\n   26 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nlxonkbdimw.cpp:47:2: error: expected ‘}’ at end of input\n   47 | }\n      |  ^\nlxonkbdimw.cpp:14:39: note: to match this ‘{’\n   14 | string removeOcc(string s, string ch) {\n      |                                       ^\n'
+
+================================================================================
+CASE 9: MBCPP/14
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to find the volume of a triangular prism.
+ * > findVolume(10, 8, 6)
+ * 240
+ * > findVolume(3, 2, 2)
+ * 6
+ * > findVolume(1, 2, 1)
+ * 1
+ */
+int findVolume(int l, int b, int h) {
+
+
+--- ENTRY POINT ---
+findVolume
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    // volume = (l*b*h)/2
+    return (l*b*h)/2;
+}
+
+--- BASELINE COMPLETION ---
+return (l * b * h) / 2;
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'YbHORUzJvp.cpp: In function ‘int findVolume(int, int, int)’:\nYbHORUzJvp.cpp:16:1: error: a template declaration cannot appear at block scope\n   16 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nYbHORUzJvp.cpp:37:2: error: expected ‘}’ at end of input\n   37 | }\n      |  ^\nYbHORUzJvp.cpp:14:37: note: to match this ‘{’\n   14 | int findVolume(int l, int b, int h) {\n      |                                     ^\n'
+
+--- SCoT REASONING ---
+### Problem Analysis
+
+The task is to calculate the volume of a triangular prism given its length (l), base (b), and height (h). The formula for the volume of a triangular prism is:
+\[ \text{Volume} = \frac{1}{2} \times \text{base} \times \text{height} \times \text{length} \]
+
+### Algorithm Steps
+
+1. **Input Parameters**: The function takes three integer parameters: `l` (length), `b` (base), and `h` (height).
+2. **Calculate Area of Triangle**: Compute the area of the triangular base using the formula \( \frac{1}{2} \times \text{base} \times \text{height} \).
+3. **Multiply by Length**: Multiply the area of the triangle by the length of the prism to get the total volume.
+4. **Return Volume**: Return the calculated volume as an integer.
+
+### Edge Cases
+
+- **Non-positive dimensions**: If any of the input values are non-positive (less than or equal to zero), the volume should be considered invalid or undefined.
+- **Large numbers**: Ensure that the calculations handle large integers without overflow.
+
+### Implementation Steps
+
+1. **Check for Non
+
+--- SCoT COMPLETION ---
+if (l <= 0 || b <= 0 || h <= 0) {
+        return -1; // Invalid dimensions
+    }
+    long long areaOfBase = static_cast<long long>(b) * h / 2;
+    long long volume = areaOfBase * l;
+    return static_cast<int>(volume);
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'qMEclTIVgy.cpp: In function ‘int findVolume(int, int, int)’:\nqMEclTIVgy.cpp:21:1: error: a template declaration cannot appear at block scope\n   21 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nqMEclTIVgy.cpp:42:2: error: expected ‘}’ at end of input\n   42 | }\n      |  ^\nqMEclTIVgy.cpp:14:37: note: to match this ‘{’\n   14 | int findVolume(int l, int b, int h) {\n      |                                     ^\n'
+
+================================================================================
+CASE 10: MBCPP/15
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to split a string at lowercase letters.
+ * > splitLowerstring(string("AbCd"))
+ * {string("bC"), string("d")}
+ * > splitLowerstring(string("Python"))
+ * {string("y"), string("t"), string("h"), string("o"), string("n")}
+ * > splitLowerstring(string("Programming"))
+ * {string("r"), string("o"), string("g"), string("r"), string("a"), string("m"), string("m"), string("i"), string("n"), string("g")}
+ */
+vector<string> splitLowerstring(string text) {
+
+
+--- ENTRY POINT ---
+splitLowerstring
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    vector<string> result;
+    int i;
+    for (i = 0; i &lt; text.size(); i++) {
+        if (text[i] >= 'a' &amp;&amp; text[i] &lt;= 'z') {
+            result.push_back(text[i]);
+        }
+    }
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+vector<string> result;
+    string temp = "";
+    for (char c : text) {
+        if (islower(c)) {
+            if (!temp.empty()) {
+                result.push_back(temp);
+                temp.clear();
+            }
+        }
+        temp += c;
+    }
+    if (!temp.empty()) {
+        result.push_back(temp);
+    }
+    return result;
+
+--- BASELINE RESULT ---
+PASSED: False
+RESULT: 'fTGUxhrEIc.cpp: In function ‘std::vector<std::__cxx11::basic_string<char> > splitLowerstring(std::string)’:\nfTGUxhrEIc.cpp:30:1: error: a template declaration cannot appear at block scope\n   30 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nfTGUxhrEIc.cpp:51:2: error: expected ‘}’ at end of input\n   51 | }\n      |  ^\nfTGUxhrEIc.cpp:14:46: note: to match this ‘{’\n   14 | vector<string> splitLowerstring(string text) {\n      |                                              ^\n'
+
+--- SCoT REASONING ---
+To solve this problem, we need to create a function that splits a given string into substrings whenever it encounters a lowercase letter followed by an uppercase letter. Here's a step-by-step approach:
+
+1. Initialize an empty vector of strings to store the result.
+2. Iterate through the characters of the input string.
+3. Check if the current character is a lowercase letter and the next character is an uppercase letter.
+4. If both conditions are met, split the string at the current position and add the resulting substring to the result vector.
+5. Continue this process until all characters have been processed.
+6. Handle edge cases such as empty strings or strings without any lowercase followed by uppercase transitions.
+
+This solution requires careful handling of string manipulation and condition checking to ensure accurate splitting based on the specified criteria.
+
+--- SCoT COMPLETION ---
+vector<string> result;
+    for (size_t i = 0; i < text.length(); ++i) {
+        if (islower(text[i]) && i + 1 < text.length() && isupper(text[i + 1])) {
+            result.push_back(text.substr(i + 1, 1));
+        }
+    }
+    return result;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'WwzCjHDOWG.cpp: In function ‘std::vector<std::__cxx11::basic_string<char> > splitLowerstring(std::string)’:\nWwzCjHDOWG.cpp:22:1: error: a template declaration cannot appear at block scope\n   22 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nWwzCjHDOWG.cpp:43:2: error: expected ‘}’ at end of input\n   43 | }\n      |  ^\nWwzCjHDOWG.cpp:14:46: note: to match this ‘{’\n   14 | vector<string> splitLowerstring(string text) {\n      |                                              ^\n'
+
+================================================================================
+CASE 11: MBCPP/3
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to identify non-prime numbers.
+ * > isNotPrime(2)
+ * false
+ * > isNotPrime(10)
+ * true
+ * > isNotPrime(35)
+ * true
+ */
+bool isNotPrime(int n) {
+
+
+--- ENTRY POINT ---
+isNotPrime
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    if (n == 2) {
+        return false;
+    }
+    if (n == 3) {
+        return false;
+    }
+    if (n % 2 == 0) {
+        return true;
+    }
+    if (n % 3 == 0) {
+        return true;
+    }
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0) {
+            return true;
+        }
+        if (n % (i + 2) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+--- BASELINE COMPLETION ---
+if (n <= 1) return true;
+for (int i = 2; i <= sqrt(n); ++i) {
+    if (n % i == 0) return true;
+}
+return false;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to determine if a given number `n` is not prime. A number is considered prime if it has no divisors other than 1 and itself. If it has any other divisors, it is not prime.
+
+Here's a step-by-step approach to implement the `isNotPrime` function:
+
+1. **Edge Cases**:
+   - If `n` is less than or equal to 1, it is not prime.
+   - If `n` is 2, it is prime (special case).
+
+2. **Main Logic**:
+   - For numbers greater than 2, check for divisibility from 2 up to the square root of `n`. If `n` is divisible by any number in this range, it is not prime.
+
+3. **Implementation Steps**:
+   - Check if `n` is less than or equal to 1. If so, return `true`.
+   - Check if `n` is 2. If so, return `false` because 2 is prime.
+   - Iterate from 2 to the square root of `n`. If `n` is divisible by any number in this range, return `true`.
+   - If no divisors are found,
+
+--- SCoT COMPLETION ---
+if (n <= 1) {
+        return true;
+    }
+    if (n == 2) {
+        return false;
+    }
+    for (int i = 2; i <= sqrt(n); ++i) {
+        if (n % i == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+--- SCoT RESULT ---
+PASSED: True
+RESULT: ''
+
+================================================================================
+CASE 12: MBCPP/10
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to get the n smallest items from a dataset.
+ * > smallNnum(vector<int>{10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100}, 2)
+ * {10, 20}
+ * > smallNnum(vector<int>{10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100}, 5)
+ * {10, 20, 20, 40, 50}
+ * > smallNnum(vector<int>{10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100}, 3)
+ * {10, 20, 20}
+ */
+vector<int> smallNnum(vector<int> list1, int n) {
+
+
+--- ENTRY POINT ---
+smallNnum
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    vector<int> smallN = vector<int>();
+    int k = 0;
+    int i;
+    for (i = 0; i < n; i++) {
+        int min = list1[i];
+        int index = i;
+        for (int j = i + 1; j < list1.size(); j++) {
+            if (min > list1[j]) {
+                index = j;
+                min = list1[j];
+            }
+        }
+        smallN.push_back(min);
+        list1[index] = list1[i];
+        list1[i] = min;
+        k++;
+    }
+    return smallN;
+}
+
+--- BASELINE COMPLETION ---
+sort(list1.begin(), list1.end());
+    vector<int> result;
+    for (int i = 0; i < n; ++i) {
+        result.push_back(list1[i]);
+    }
+    return result;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to find the n smallest elements in a given vector of integers. Here's a step-by-step approach:
+
+1. **Sort the Vector**: The first step is to sort the entire vector in ascending order. This will bring all the smaller elements towards the beginning of the vector.
+
+2. **Extract the First n Elements**: After sorting, the first n elements of the vector will be the smallest n elements. We can simply extract these elements using a loop or slicing if the language supports it.
+
+3. **Handle Edge Cases**:
+   - If `n` is greater than the size of the vector, return the entire sorted vector.
+   - If `n` is less than or equal to zero, return an empty vector since there are no elements to consider.
+
+4. **Return the Result**: Finally, return the extracted sub-vector containing the n smallest elements.
+
+This approach ensures that we efficiently find the smallest n elements with a time complexity dominated by the sorting step, which is O(n log n). The extraction of the first n elements is linear, making the overall complexity O(n log n).
+
+The implementation should include error handling for invalid input values of `n`.
+
+--- SCoT COMPLETION ---
+sort(list1.begin(), list1.end());
+    if (n <= 0 || n > list1.size()) {
+        return {};
+    }
+    vector<int> result;
+    for (int i = 0; i < n; ++i) {
+        result.push_back(list1[i]);
+    }
+    return result;
+}
+
+--- SCoT RESULT ---
+PASSED: True
+RESULT: ''
+
+================================================================================
+CASE 13: MBCPP/12
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to sort a given matrix in ascending order according to the sum of its rows.
+ * > sortMatrix(vector<vector<int>>{{1, 2, 3}, {2, 4, 5}, {1, 1, 1}})
+ * {{1, 1, 1}, {1, 2, 3}, {2, 4, 5}}
+ * > sortMatrix(vector<vector<int>>{{1, 2, 3}, {-2, 4, -5}, {1, -1, 1}})
+ * {{-2, 4, -5}, {1, -1, 1}, {1, 2, 3}}
+ * > sortMatrix(vector<vector<int>>{{5, 8, 9}, {6, 4, 3}, {2, 1, 4}})
+ * {{2, 1, 4}, {6, 4, 3}, {5, 8, 9}}
+ */
+vector<vector<int>> sortMatrix(vector<vector<int>> m) {
+
+
+--- ENTRY POINT ---
+sortMatrix
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    vector<vector<int>> res;
+    int n = m.size();
+    int i, j, k, sum;
+    for (i = 0; i &lt; n; i++) {
+        sum = 0;
+        for (j = 0; j &lt; n; j++) {
+            sum += m[i][j];
+        }
+        res.push_back(vector<int>(m[i], sum));
+    }
+    for (i = 0; i &lt; n; i++) {
+        for (j = i + 1; j &lt; n; j++) {
+            if (res[j - 1].second > res[j].second) {
+                k = res[j - 1].first;
+                res[j - 1].first = res[j].first;
+                res[j - 1].second = res[j].second;
+                res[j].first = k;
+               
+
+--- BASELINE COMPLETION ---
+sort(m.begin(), m.end(), [](const vector<int>& a, const vector<int>& b) {
+        return accumulate(a.begin(), a.end(), 0) < accumulate(b.begin(), b.end(), 0);
+    });
+    return m;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to follow these steps:
+
+1. **Calculate the Sum of Each Row**: We first calculate the sum of each row in the matrix. This will help us determine the order in which the rows should be sorted.
+
+2. **Pair Rows with Their Sums**: We create pairs where each pair consists of a row from the matrix and the sum of that row. This allows us to sort the rows based on their sums while keeping track of which original row they came from.
+
+3. **Sort the Pairs**: We sort the vector of pairs based on the sum of the rows. If two rows have the same sum, they can remain in any order relative to each other (this is known as stability in sorting algorithms).
+
+4. **Extract Sorted Rows**: After sorting, we extract the rows from the sorted pairs to form the new matrix.
+
+**Important Edge Cases**:
+- The matrix could be empty or contain rows of different lengths. Ensure your solution handles these cases gracefully.
+- The rows might have negative numbers, which means the sum could be negative. Sorting should still work correctly in this case.
+
+By following these steps, you can implement a function to sort a matrix based on the sum of its rows.
+
+--- SCoT COMPLETION ---
+int n = m.size();
+    vector<pair<int, vector<int>>> v(n);
+
+    // Calculate the sum of each row and store it along with the row
+    for(int i = 0; i < n; ++i) {
+        int sum = accumulate(m[i].begin(), m[i].end(), 0);
+        v[i] = make_pair(sum, m[i]);
+    }
+
+    // Sort the pairs based on the sum of the rows
+    sort(v.begin(), v.end());
+
+    // Extract the sorted rows into a new matrix
+    vector<vector<int>> sortedMatrix(n);
+    for(int i = 0; i < n; ++i) {
+        sortedMatrix[i] = v[i].second;
+    }
+
+    return sortedMatrix;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'IALvXtSWRd.cpp: In function ‘std::vector<std::vector<int> > sortMatrix(std::vector<std::vector<int> >)’:\nIALvXtSWRd.cpp:34:1: error: a template declaration cannot appear at block scope\n   34 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nIALvXtSWRd.cpp:55:2: error: expected ‘}’ at end of input\n   55 | }\n      |  ^\nIALvXtSWRd.cpp:14:55: note: to match this ‘{’\n   14 | vector<vector<int>> sortMatrix(vector<vector<int>> m) {\n      |                                                       ^\n'
+
+================================================================================
+CASE 14: MBCPP/18
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to remove characters from the first string which are present in the second string.
+ * > removeDirtyChars(string("probasscurve"), string("pros"))
+ * string("bacuve")
+ * > removeDirtyChars(string("digitalindia"), string("talent"))
+ * string("digiidi")
+ * > removeDirtyChars(string("exoticmiles"), string("toxic"))
+ * string("emles")
+ */
+string removeDirtyChars(string str, string secondString) {
+
+
+--- ENTRY POINT ---
+removeDirtyChars
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    string result = "";
+    int len = str.length();
+    for (int i = 0; i < len; i++) {
+        if (secondString.find(str[i]) == -1) {
+            result += str[i];
+        }
+    }
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+unordered_set<char> charsToRemove(secondString.begin(), secondString.end());
+    string result;
+    for (char ch : str) {
+        if (charsToRemove.find(ch) == charsToRemove.end()) {
+            result += ch;
+        }
+    }
+    return result;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to create a function that removes all characters from the first string (`str`) that are present in the second string (`secondString`). Here's a step-by-step approach to implement this:
+
+### Step 1: Understand the Problem
+- We need to iterate through each character of `str`.
+- For each character in `str`, check if it is present in `secondString`.
+- If the character is present in `secondString`, skip it; otherwise, include it in the result.
+
+### Step 2: Edge Cases
+- **Empty Strings**: If either `str` or `secondString` is empty, return the original `str`.
+- **Case Sensitivity**: The comparison should be case-sensitive.
+- **Duplicate Characters**: If a character appears multiple times in `secondString`, it should be removed only once from `str`.
+
+### Step 3: Implementation Steps
+1. Create an unordered set to store characters of `secondString` for quick lookup.
+2. Iterate through each character in `str`.
+3. Check if the current character is in the set.
+4. If not, append it to the result string.
+5. Return the result string after processing all characters.
+
+### Step 4: Pseudocode
+
+--- SCoT COMPLETION ---
+// Create a set to store characters from secondString for quick lookup
+    unordered_set<char> dirtyChars(secondString.begin(), secondString.end());
+    
+    // Initialize the result string
+    string result;
+    
+    // Iterate through each character in the first string
+    for (char c : str) {
+        // If the character is not in the set, add it to the result
+        if (dirtyChars.find(c) == dirtyChars.end()) {
+            result += c;
+        }
+    }
+    
+    // Return the resulting string
+    return result;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'jETgLLvGyX.cpp: In function ‘std::string removeDirtyChars(std::string, std::string)’:\njETgLLvGyX.cpp:31:1: error: a template declaration cannot appear at block scope\n   31 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\njETgLLvGyX.cpp:52:2: error: expected ‘}’ at end of input\n   52 | }\n      |  ^\njETgLLvGyX.cpp:14:58: note: to match this ‘{’\n   14 | string removeDirtyChars(string str, string secondString) {\n      |                                                          ^\n'
+
+================================================================================
+CASE 15: MBCPP/19
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a function to find whether a given array of integers contains any duplicate element.
+ * > testDuplicate(vector<int>{1, 2, 3, 4, 5})
+ * false
+ * > testDuplicate(vector<int>{1, 2, 3, 4, 4})
+ * true
+ * > testDuplicate(vector<int>{1, 1, 2, 2, 3, 3, 4, 4, 5})
+ * true
+ */
+bool testDuplicate(vector<int> arraynums) {
+
+
+--- ENTRY POINT ---
+testDuplicate
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    vector<int> nums;
+    int i;
+    int j;
+    int count;
+
+    nums.reserve(arraynums.size());
+    for (i = 0; i < arraynums.size(); i++) {
+        nums[i] = arraynums[i];
+    }
+
+    count = 0;
+    for (i = 0; i < arraynums.size(); i++) {
+        for (j = i + 1; j < arraynums.size(); j++) {
+            if (nums[i] == nums[j]) {
+                count++;
+            }
+        }
+    }
+    return count > 0;
+}
+
+--- BASELINE COMPLETION ---
+unordered_set<int> seen;
+    for (int num : arraynums) {
+        if (seen.count(num)) {
+            return true;
+        }
+        seen.insert(num);
+    }
+    return false;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to determine if there are any duplicate elements in the given array of integers. Here's a step-by-step approach to achieve this:
+
+### Algorithm
+
+1. **Initialize a Set**: Use a set data structure to store the elements of the array as we iterate through it. Sets automatically handle duplicates, so if an element is already present in the set, it means that the element has been seen before.
+
+2. **Iterate Through the Array**:
+   - For each element in the array, check if it is already in the set.
+   - If the element is in the set, return `true` indicating that a duplicate exists.
+   - If the element is not in the set, add it to the set.
+
+3. **Return False if No Duplicates Found**: After iterating through all elements, if no duplicates were found, return `false`.
+
+### Edge Cases
+
+- **Empty Array**: An empty array should return `false` because there are no elements to compare.
+- **Single Element Array**: A single-element array should return `false` because there can't be any duplicates.
+- **Array with All Unique Elements**: The array `{1, 2, 3, 4, 5}` should return `false
+
+--- SCoT COMPLETION ---
+unordered_set<int> seenElements;
+    for (int num : arraynums) {
+        if (seenElements.find(num) != seenElements.end()) {
+            return true;
+        }
+        seenElements.insert(num);
+    }
+    return false;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'oXbQHTgJFR.cpp: In function ‘bool testDuplicate(std::vector<int>)’:\noXbQHTgJFR.cpp:23:1: error: a template declaration cannot appear at block scope\n   23 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\noXbQHTgJFR.cpp:44:2: error: expected ‘}’ at end of input\n   44 | }\n      |  ^\noXbQHTgJFR.cpp:14:43: note: to match this ‘{’\n   14 | bool testDuplicate(vector<int> arraynums) {\n      |                                           ^\n'
+
+================================================================================
+CASE 16: MBCPP/23
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to find the maximum sum of elements of list in a list of lists.
+ * > maximumSum(vector<vector<int>>{{1, 2, 3}, {4, 5, 6}, {10, 11, 12}, {7, 8, 9}})
+ * 33
+ * > maximumSum(vector<vector<int>>{{0, 1, 1}, {1, 1, 2}, {3, 2, 1}})
+ * 6
+ * > maximumSum(vector<vector<int>>{{0, 1, 3}, {1, 2, 1}, {9, 8, 2}, {0, 1, 0}, {6, 4, 8}})
+ * 19
+ */
+int maximumSum(vector<vector<int>> list1) {
+
+
+--- ENTRY POINT ---
+maximumSum
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    int maxSum = 0;
+    for (int i = 0; i < list1.size(); i++) {
+        int sum = 0;
+        for (int j = 0; j < list1[i].size(); j++) {
+            sum += list1[i][j];
+        }
+        if (sum > maxSum) {
+            maxSum = sum;
+        }
+    }
+    return maxSum;
+}
+
+--- BASELINE COMPLETION ---
+int max_sum = INT_MIN;
+for (const auto& sublist : list1) {
+    int current_sum = accumulate(sublist.begin(), sublist.end(), 0);
+    max_sum = max(max_sum, current_sum);
+}
+return max_sum;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to find the maximum sum of elements from any one of the given sublists within the main list. Here's a step-by-step approach to achieve this:
+
+1. **Initialize Variables**: We will start by initializing a variable `max_sum` to store the maximum sum found so far. This should be set to a very small value (negative infinity) to ensure that any sublist sum will be larger initially.
+
+2. **Iterate Through Sublists**: We will loop through each sublist in the main list using a for-each loop.
+
+3. **Calculate Sum of Each Sublist**: For each sublist, calculate its sum. We can use a temporary variable `current_sum` to keep track of the sum of the current sublist.
+
+4. **Update Maximum Sum**: After calculating the sum of the current sublist, compare it with `max_sum`. If `current_sum` is greater than `max_sum`, update `max_sum` with the value of `current_sum`.
+
+5. **Return Result**: Once all sublists have been processed, return the value of `max_sum`, which now contains the maximum sum of any one sublist.
+
+**Edge Cases to Consider**:
+- If the input list is empty or contains only empty sublists, the
+
+--- SCoT COMPLETION ---
+int max_sum = INT_MIN;
+    for (const auto& sublist : list1) {
+        int current_sum = accumulate(sublist.begin(), sublist.end(), 0);
+        if (current_sum > max_sum) {
+            max_sum = current_sum;
+        }
+    }
+    return max_sum;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'paTFDnCmMO.cpp: In function ‘int maximumSum(std::vector<std::vector<int> >)’:\npaTFDnCmMO.cpp:23:1: error: a template declaration cannot appear at block scope\n   23 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\npaTFDnCmMO.cpp:44:2: error: expected ‘}’ at end of input\n   44 | }\n      |  ^\npaTFDnCmMO.cpp:14:43: note: to match this ‘{’\n   14 | int maximumSum(vector<vector<int>> list1) {\n      |                                           ^\n'
+
+================================================================================
+CASE 17: MBCPP/29
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to find the element occurring odd number of times.
+ * > getOddOccurrence(vector<int>{1, 2, 3, 1, 2, 3, 1}, 7)
+ * 1
+ * > getOddOccurrence(vector<int>{1, 2, 3, 2, 3, 1, 3}, 7)
+ * 3
+ * > getOddOccurrence(vector<int>{2, 3, 5, 4, 5, 2, 4, 3, 5, 2, 4, 4, 2}, 13)
+ * 5
+ */
+int getOddOccurrence(vector<int> arr, int arrSize) {
+
+
+--- ENTRY POINT ---
+getOddOccurrence
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    int result = 0;
+    int count = 0;
+    for (int i = 0; i < arrSize; i++) {
+        if (arr[i] % 2 != 0) {
+            count++;
+            if (count % 2 == 1) {
+                result = arr[i];
+            }
+        }
+    }
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+int xor_result = 0;
+for (int i = 0; i < arrSize; i++) {
+xor_result ^= arr[i];
+}
+return xor_result;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+### Problem Analysis
+
+The task is to find the element in an array that occurs an odd number of times. Given that there is exactly one such element, we need to identify it efficiently.
+
+### Algorithm Steps
+
+1. **Initialize a Variable**: Start with a variable initialized to zero. This will be used to XOR all elements of the array.
+2. **Iterate Through the Array**: For each element in the array, apply the XOR operation between the current value of the variable and the element.
+3. **Final Result**: After processing all elements, the variable will hold the value of the element that occurs an odd number of times.
+
+### Edge Cases
+
+- The array will always have at least one element.
+- There will always be exactly one element that occurs an odd number of times.
+
+### Implementation Steps
+
+1. Initialize a variable `result` to 0.
+2. Loop through each element in the array:
+   - Perform XOR operation between `result` and the current element.
+3. Return the value of `result`.
+
+This approach works because XORing a number with itself results in 0, and XORing a number with 0 leaves it unchanged. Since every pair of identical numbers will cancel out (resulting in 0), only the number that appears
+
+--- SCoT COMPLETION ---
+int result = 0;
+    for (int i = 0; i < arrSize; i++) {
+        result ^= arr[i];
+    }
+    return result;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'omJgMXTUnk.cpp: In function ‘int getOddOccurrence(std::vector<int>, int)’:\nomJgMXTUnk.cpp:20:1: error: a template declaration cannot appear at block scope\n   20 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nomJgMXTUnk.cpp:41:2: error: expected ‘}’ at end of input\n   41 | }\n      |  ^\nomJgMXTUnk.cpp:14:52: note: to match this ‘{’\n   14 | int getOddOccurrence(vector<int> arr, int arrSize) {\n      |                                                    ^\n'
+
+================================================================================
+CASE 18: MBCPP/32
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to find the largest prime factor of a given number.
+ * > maxPrimeFactors(15)
+ * 5
+ * > maxPrimeFactors(6)
+ * 3
+ * > maxPrimeFactors(2)
+ * 2
+ */
+int maxPrimeFactors(int n) {
+
+
+--- ENTRY POINT ---
+maxPrimeFactors
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    int max = 0;
+    int i = 2;
+    while (i * i <= n) {
+        while (n % i == 0) {
+            max = i;
+            n /= i;
+        }
+        i++;
+    }
+    if (n > 1)
+        max = n;
+    return max;
+}
+
+--- BASELINE COMPLETION ---
+int maxPrime = -1;
+
+    while (n % 2 == 0) {
+        maxPrime = 2;
+        n /= 2;
+    }
+
+    for (int i = 3; i <= sqrt(n); i += 2) {
+        while (n % i == 0) {
+            maxPrime = i;
+            n = n / i;
+        }
+    }
+
+    if (n > 2)
+        maxPrime = n;
+
+    return maxPrime;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to find the largest prime factor of a given number \( n \). Here's a step-by-step approach to achieve this:
+
+1. **Initialize Variables**:
+   - We will use an integer variable `maxPrime` to keep track of the largest prime factor found so far. Initialize it to 0 or 1, depending on whether you want to consider 1 as a prime number or not.
+
+2. **Divide by 2**:
+   - While \( n \) is divisible by 2, divide \( n \) by 2 and update `maxPrime` to 2. This handles all the even factors.
+
+3. **Check for Odd Factors**:
+   - After removing all the even factors, start checking for odd factors from 3 onwards. For each odd number \( i \), check if it divides \( n \).
+   - If \( i \) divides \( n \), update `maxPrime` to \( i \) and continue dividing \( n \) by \( i \).
+
+4. **Final Check for Prime Number**:
+   - After the loop, if \( n \) is still greater than 2, then \( n \) itself is a prime number and should be considered
+
+--- SCoT COMPLETION ---
+int maxPrime = -1;
+
+    // Divide n by 2 to remove all even factors
+    while (n % 2 == 0) {
+        maxPrime = 2;
+        n /= 2;
+    }
+
+    // Check for odd factors from 3 onwards
+    for (int i = 3; i <= sqrt(n); i += 2) {
+        while (n % i == 0) {
+            maxPrime = i;
+            n /= i;
+        }
+    }
+
+    // If n is still greater than 2, then it is a prime number
+    if (n > 2)
+        maxPrime = n;
+
+    return maxPrime;
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'BfuDRRVYIK.cpp: In function ‘int maxPrimeFactors(int)’:\nBfuDRRVYIK.cpp:36:1: error: a template declaration cannot appear at block scope\n   36 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nBfuDRRVYIK.cpp:57:2: error: expected ‘}’ at end of input\n   57 | }\n      |  ^\nBfuDRRVYIK.cpp:14:28: note: to match this ‘{’\n   14 | int maxPrimeFactors(int n) {\n      |                            ^\n'
+
+================================================================================
+CASE 19: MBCPP/33
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to convert a decimal number to binary number.
+ * > decimalToBinary(10)
+ * 1010
+ * > decimalToBinary(1)
+ * 1
+ * > decimalToBinary(20)
+ * 10100
+ */
+int decimalToBinary(int n) {
+
+
+--- ENTRY POINT ---
+decimalToBinary
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    int i = 1;
+    int result = 0;
+    while (n > 0) {
+        result = result + (n % 2) * i;
+        n = n / 2;
+        i = i * 10;
+    }
+    return result;
+}
+
+--- BASELINE COMPLETION ---
+int binaryNumber = 0;
+    int count = 0;
+
+    while (n != 0) {
+        int remainder = n % 2;
+        n /= 2;
+        binaryNumber += remainder * pow(10, count);
+        count++;
+    }
+
+    return binaryNumber;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+### Algorithm
+
+The task is to convert a given decimal number into its binary representation. The conversion can be achieved using the method of successive division by 2, keeping track of the remainders.
+
+**Algorithm:**
+1. Initialize an empty string `binary` to store the binary digits.
+2. While the decimal number `n` is greater than 0:
+   - Calculate the remainder when `n` is divided by 2.
+   - Convert the remainder to a character ('0' or '1') and prepend it to the `binary` string.
+   - Update `n` by dividing it by 2 (integer division).
+3. Return the `binary` string as the result.
+
+### Edge Cases
+
+- **Zero Input:** If the input decimal number is zero, the output should also be zero.
+- **Negative Input:** If the input decimal number is negative, the function may need to handle this case appropriately, depending on the requirements. For simplicity, let's assume the input will always be non-negative.
+- **Large Numbers:** For very large numbers, the function may encounter performance issues due to repeated division operations. However, for typical integer sizes, this approach will work efficiently.
+
+### Implementation Steps
+
+1. Check if the input number `n`
+
+--- SCoT COMPLETION ---
+{
+    int binary = 0;
+    int i = 1;
+
+    while(n != 0)
+    {
+        binary += (n % 2) * i;
+        n /= 2;
+        i *= 10;
+    }
+
+    return binary;
+}
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'XeYXEBSQuO.cpp: In function ‘int decimalToBinary(int)’:\nXeYXEBSQuO.cpp:28:1: error: a template declaration cannot appear at block scope\n   28 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nXeYXEBSQuO.cpp:49:2: error: expected ‘}’ at end of input\n   49 | }\n      |  ^\nXeYXEBSQuO.cpp:14:28: note: to match this ‘{’\n   14 | int decimalToBinary(int n) {\n      |                            ^\n'
+
+================================================================================
+CASE 20: MBCPP/34
+================================================================================
+
+--- PROBLEM ---
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/**
+ * Write a c++ function to find the missing number in a sorted array.
+ * > findMissing(vector<int>{1, 2, 3, 5}, 4)
+ * 4
+ * > findMissing(vector<int>{1, 3, 4, 5}, 4)
+ * 2
+ * > findMissing(vector<int>{1, 2, 3, 5, 6, 7}, 5)
+ * 4
+ */
+int findMissing(vector<int> ar, int n) {
+
+
+--- ENTRY POINT ---
+findMissing
+
+--- LANGUAGE ---
+cpp
+
+--- OFFICIAL COMPLETION ---
+    int i = 0;
+    int j = n - 1;
+    int missing = 0;
+
+    while (i <= j) {
+        if (ar[i] == i + 1) {
+            i++;
+        } else if (ar[j] == j - 1) {
+            j--;
+        } else {
+            int temp = ar[i];
+            ar[i] = ar[j];
+            ar[j] = temp;
+            i++;
+            j--;
+        }
+    }
+
+    for (int k = 0; k < n; k++) {
+        if (ar[k] != k + 1) {
+            missing = k + 1;
+            break;
+        }
+    }
+
+    return missing;
+}
+
+--- BASELINE COMPLETION ---
+if (n == 0) return 0;
+    if (ar[0] != 1) return 1;
+
+    int low = 0, high = n - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (ar[mid] != mid + 1 && (mid == 0 || ar[mid - 1] == mid)) {
+            return mid + 1;
+        } else if (ar[mid] != mid + 1) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return n + 1;
+}
+
+--- BASELINE RESULT ---
+PASSED: True
+RESULT: ''
+
+--- SCoT REASONING ---
+To solve this problem, we need to identify the missing number in a sorted array of integers. Here's a step-by-step approach to implement the `findMissing` function:
+
+### Step-by-Step Reasoning
+
+1. **Understand the Problem:**
+   - We are given a sorted array `ar` of length `n`.
+   - The array contains numbers from 1 to `n+1`, but one number is missing.
+   - We need to return the missing number.
+
+2. **Edge Cases:**
+   - If the array is empty or has only one element, the missing number would be 1 (since the array should contain 1 if it's non-empty).
+   - If the last element is equal to its index + 1, then all elements are present and there is no missing number.
+
+3. **Algorithm:**
+   - Use binary search to efficiently find the missing number.
+   - Initialize two pointers, `left` and `right`, to the start and end of the array respectively.
+   - Calculate the middle index `mid`.
+   - Check if the value at `mid` is equal to `mid + 1`. If true, the missing number must be in the right half, so move the `left` pointer
+
+--- SCoT COMPLETION ---
+if (n == 0 || ar[0] != 1) return 1;
+    if (ar[n - 1] == n) return n + 1;
+
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (ar[mid] == mid + 1) {
+            left = mid + 1;
+        } else {
+            if (mid == 0 || ar[mid - 1] == mid) return mid + 1;
+            right = mid - 1;
+        }
+    }
+    return -1; // This line should never be reached for valid input
+
+--- SCoT RESULT ---
+PASSED: False
+RESULT: 'rfOFNkgTSp.cpp: In function ‘int findMissing(std::vector<int>, int)’:\nrfOFNkgTSp.cpp:29:1: error: a template declaration cannot appear at block scope\n   29 | template <typename T> bool compare(T a, T b){\n      | ^~~~~~~~\nrfOFNkgTSp.cpp:50:2: error: expected ‘}’ at end of input\n   50 | }\n      |  ^\nrfOFNkgTSp.cpp:14:40: note: to match this ‘{’\n   14 | int findMissing(vector<int> ar, int n) {\n      |                                        ^\n'

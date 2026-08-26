@@ -1,0 +1,102 @@
+[
+  {
+    "instruction": "Using HTML and CSS, create a page layout with two columns and a header row.",
+    "input": "",
+    "output": "<html>\n  <head>\n    <style>\n      .table {  \n        display: table; \n        width: 100%;\n      }\n      .table-row {  \n        display: table-row;\n      }\n      .table-cell { \n        display: table-cell;\n      }\n    </style>\n  </head>\n  <body>\n    <div class=\"table\">\n      <div class=\"table-row\">\n        <div class=\"header table-cell\">Header</div>\n      </div>\n      <div class=\"table-row\">\n        <div class=\"table-cell\">Column 1</div>\n        <div class=\"table-cell\">Column 2</div>\n      </div>\n    </div>\n  </body>\n</html>"
+  },
+  {
+    "instruction": "Calculate the result of XORing two binary numbers.",
+    "input": "1010, 0101",
+    "output": "The result of XORing 1010 and 0101 is 1111."
+  },
+  {
+    "instruction": "Develop a C++ code to print the numbers 1 to 10 in descending order.",
+    "input": "",
+    "output": "for(int i=10; i>0; i--) \n    cout << i << \" \";"
+  },
+  {
+    "instruction": "How can we use the set() method to find the unique elements in a given list of integers in C#?",
+    "input": "",
+    "output": "var listOfIntegers = [1,2,3,3,2,2,3];\n\nvar uniqueElements = new HashSet<int>(listOfIntegers);\nforeach (var element in uniqueElements)\n{\n    Console.WriteLine(element);\n}"
+  },
+  {
+    "instruction": "Given two arrays of integers, find the common elements.",
+    "input": "arr1 = [1, 2, 3, 4, 5]; arr2 = [4, 5, 6, 7, 8]",
+    "output": "def common_elements(arr1, arr2):\n    common = []\n    for item in arr1:\n        if item in arr2:\n            common.append(item)\n\n    return common"
+  },
+  {
+    "instruction": "You need to code a program that prints the absolute difference between two numbers.",
+    "input": "15 and 10",
+    "output": "def difference(num1, num2):\n    return abs(num1 - num2)"
+  },
+  {
+    "instruction": "Write an R function that determines the average value of an integer array.",
+    "input": "",
+    "output": "average <- function(numbers) {\n  sum <- 0\n  for (i in numbers) {\n    sum <- sum + i\n  }\n  return(sum/length(numbers))\n}"
+  },
+  {
+    "instruction": "Explain what a constructor is and how it is used in C++.",
+    "input": "",
+    "output": "A constructor is a special member function of a class which is used to initialize objects of its class type. A constructor has the same name as the class and its purpose is to initialize the members of an object with the given values when an object of that class is declared. In C++, constructors can be either default or parameterized. The default constructor is used to construct an object without any parameters, while the parameterized constructor is used to initialize an object with given parameters."
+  },
+  {
+    "instruction": "Develop a C program to print a pattern like a pyramid.",
+    "input": "",
+    "output": "#include <stdio.h> \nint main() \n{ \nint i, j, k, rows; \nprintf(\"Enter the number of rows \\n\");\nscanf(\"%d\",&rows); \nfor(i=1; i<=rows; i++ ) \n{ \nfor(k=rows; k >= i; k--)  \nprintf(\" \"); \nfor(j=1; j<= (2*i-1) ; j++ ) \nprintf(\"*\"); \nprintf(\"\\n\"); \n} \nreturn 0; \n}"
+  },
+  {
+    "instruction": "Write a code to reverse a sentence word by word.",
+    "input": "This is a sentence",
+    "output": "def reverse_words(sentence):\n    words = sentence.split(' ')\n    reversed_words = [word[::-1] for word in words]\n    return ' '.join(reversed_words)\n    \nprint(reverse_words('This is a sentence')) # Output: sihT si a ecnetnes"
+  },
+  {
+    "instruction": "Create a Java program that print the Fibonacci sequence in the given range.",
+    "input": "min = 0, max = 10",
+    "output": "public class Fibonacci {\n    public static void main(String[] args) {\n        int min = 0, max = 10;\n        int prev = 0, next = 1;\n        System.out.print(\"Fibonacci Sequence in the given range:\");\n        for (int i = 0; i <= max; i++) {\n            if (i >= min) {\n                System.out.print(\" \" + prev);\n            }\n            int sum = prev + next;\n            prev = next;\n            next = sum;\n        }\n    }\n}"
+  },
+  {
+    "instruction": "Count the number of vowels in a sentence.",
+    "input": "\"Hi there, how are you doing?\"",
+    "output": "int countVowels = 0;\nString sentence = \"Hi there, how are you doing?\";\nfor (int i = 0; i < sentence.length(); i++) {\n    if (sentence.charAt(i) == 'a' || sentence.charAt(i) == 'e' || sentence.charAt(i) == 'i' \n    || sentence.charAt(i) == 'o' || sentence.charAt(i) == 'u') {\n        countVowels++;\n    }\n}\nSystem.out.println(\"Number of vowels in the string: \" + countVowels);"
+  },
+  {
+    "instruction": "Using the data provided, create a SQL command to get the total number of orders from customers in the USA.",
+    "input": "Table name: \"Orders\"\nColumns: \"Cust_ID\", \"Cust_Country\", \"Order_ID\"",
+    "output": "SELECT COUNT(Order_ID) AS Total_Orders \nFROM Orders \nWHERE Cust_Country=\"USA\""
+  },
+  {
+    "instruction": "Implement a Go program that takes a string as input and prints its reverse.",
+    "input": "",
+    "output": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var str string\n    fmt.Printf(\"Enter a string: \")\n    fmt.Scanf(\"%s\\n\", &str)\n    fmt.Printf(\"The reverse of the string is %s\\n\", reverse(str))\n}\n\nfunc reverse(s string) string {\n    r := []rune(s)\n    for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {\n        r[i], r[j] = r[j], r[i]\n    }\n    return string(r)\n}"
+  },
+  {
+    "instruction": "Write a function to filter a given list such that all any string starting with an 'S' is removed from the list.",
+    "input": "['Swallow', 'Duck', 'Finch', 'Parrot']",
+    "output": "def filter_list(lst):\n    return [elem for elem in lst if not elem.startswith('S')]\n\nif __name__ == \"__main__\":\n        print(filter_list(['Swallow', 'Duck', 'Finch', 'Parrot']))"
+  },
+  {
+    "instruction": "Write an HTML page to calculate the area of a circle given its radius.",
+    "input": "",
+    "output": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Area of Circle</title>\n        <script>\n            // get radius from user\n            var radius = prompt(\"Enter the radius of Circle\");\n            // calculate area \n            var area = 3.14 * radius * radius;\n            // print the area\n            document.write(\"Area of Circle : \" + area);\n        </script>\n    </head>\n    <body>\n    </body>\n</html>"
+  },
+  {
+    "instruction": "Create a MySQL table with three columns containing values from a given list.",
+    "input": "List: \nTom, 14, 80\nMary, 27, 96\nJohn, 8, 75",
+    "output": "CREATE TABLE my_table (\n  name TEXT NOT NULL,\n  age INT NOT NULL,\n  score INT NOT NULL\n);\n\nINSERT INTO my_table (name, age, score) VALUES\n('Tom', 14, 80),\n('Mary', 27, 96),\n('John', 8, 75);"
+  },
+  {
+    "instruction": "Given two numbers, find their LCM.",
+    "input": "a = 15\nb = 10",
+    "output": "30"
+  },
+  {
+    "instruction": "Generate a loop to find the largest sub-array in a given array with contiguous elements and its sum.",
+    "input": "Array: [-2, 6, -3, 5, -2, 3, 4, -2]",
+    "output": "\"\"\"\nGenerate a loop to find the largest sub-array in a given array with contiguous elements and its sum.\n\"\"\"\n\ndef largest_subarray_sum(array):\n    best_sum = 0\n    current_sum = 0\n    current_start_index = 0\n    best_start_index = -1\n    best_end_index = -1\n    for i in range(len(array)):\n        current_sum += array[i]\n        if current_sum > best_sum:\n            best_sum = current_sum\n            best_start_index = current_start_index\n            best_end_index = i\n        if current_sum < 0:\n            current_sum = 0\n            current_start_index = i + 1\n    return (best_sum, best_start_index, best_end_index)\n\nif __name__ == '__main__':\n    array = [-2, 6, -3, 5, -2, 3, 4, -2]\n    print(largest_subarray_sum(array))"
+  },
+  {
+    "instruction": "Create a class called 'Animal' that stores the attributes age and type.",
+    "input": "",
+    "output": "class Animal:\n    def __init__(self, age, type):\n        self.age = age\n        self.type = type"
+  }
+]

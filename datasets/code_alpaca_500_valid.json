@@ -1,0 +1,252 @@
+[
+  {
+    "instruction": "Calculate the distance between two points using Pythagoras theorem.",
+    "input": "Point A: (3, 4) Point B: (7, 8)",
+    "output": "distance = sqrt((7-3)^2 + (8-4)^2)\n= sqrt(16 + 16)\n= sqrt(32)\n= 5.657"
+  },
+  {
+    "instruction": "Create a function in Python which takes an integer n and an unsorted list of numbers as input and returns the nth smallest number in the list.",
+    "input": "[5, 8, 1, 9, 4], 3",
+    "output": "def nth_smallest(nums, n):\n    sorted_nums = sorted(nums)\n    return sorted_nums[n-1]\n\nprint(nth_smallest([5, 8, 1, 9, 4], 3)) # Output: 5"
+  },
+  {
+    "instruction": "Using C#, write a method that returns a list of strings containing only elements of an input string array containing the letter 'a'.",
+    "input": "string[] s = {\"apple\", \"banana\", \"cat\"};",
+    "output": "public static List<string> FilterByLetterA(string[] s)\n{\n    List<string> list = new List<string>();\n    foreach (string item in s)\n    {\n        if (item.Contains(\"a\"))\n        {\n            list.Add(item);\n        }\n    }\n    return list;\n}"
+  },
+  {
+    "instruction": "Create a basic form in HTML containing two input boxes for first name and surname.",
+    "input": "",
+    "output": "<html>\n  <head>\n    <title>User Information Form</title>\n  </head>\n  <body>\n    <form>\n      First Name:<br>\n      <input type=\"text\" name=\"firstname\"><br>\n      Surname:<br>\n      <input type=\"text\" name=\"surname\"><br><br>\n      <input type=\"submit\">\n    </form>\n  </body>\n</html>"
+  },
+  {
+    "instruction": "Write a JavaScript program that takes an array as input and prints its contents.",
+    "input": "['Hello','World','!']",
+    "output": "let inputArray = ['Hello', 'World', '!'];\n\nfor (let i = 0; i < inputArray.length; i++) {\n    console.log(inputArray[i])\n}"
+  },
+  {
+    "instruction": "Write a SQL query to filter out records that contains an empty string.",
+    "input": "Table 1:\n\nName | Job | City\n-----|-----|-------\nJohn | Programmer | \nJane | Office Assistant  | San Francisco\nBob  | Designer |",
+    "output": "SELECT * FROM Table_1 \nWHERE Job != '' AND City != '';"
+  },
+  {
+    "instruction": "Edit the given HTML code so that the header of the web page is centered.",
+    "input": "<html>\n   <head>\n      <title>Centering a header</title>\n   </head>\n   <body>\n      <h1>This header is not centered</h1>\n   </body>\n</html>",
+    "output": "<html>\n   <head>\n      <title>Centering a header</title>\n   </head>\n   <body>\n      <h1 style=\"text-align: center;\">This header is now centered</h1>\n   </body>\n</html>"
+  },
+  {
+    "instruction": "Write a code to convert a given spredsheet in csv format to json format.",
+    "input": "",
+    "output": "import csv\nimport json\n\ndef csv_to_json():\n    # Path of csv file\n    file_csv = 'mycsvfile.csv'\n    \n    # Path of json file\n    file_json = 'myjsonfile.json'\n    \n    with open(file_csv, 'r') as input_file:\n        reader = csv.DictReader(input_file)\n        data = list(reader)\n    \n    with open(file_json, 'w') as output_file:\n        json.dump(data, output_file)\n\ncsv_to_json()"
+  },
+  {
+    "instruction": "Develop a machine learning algorithm to predict stock prices.",
+    "input": "Historical stock prices",
+    "output": "The algorithm should include parts like data preprocessing, feature extraction, selecting the right model, hyperparameter optimization and evaluation."
+  },
+  {
+    "instruction": "Implement a recursive function to calculate the factorial of a number, given by the user as an argument.",
+    "input": "",
+    "output": "def calculate_factorial(num):\n    if num == 0 or num == 1:\n        return 1\n    else:\n        return num * calculate_factorial(num-1)"
+  },
+  {
+    "instruction": "Suggest a solution for validating a password which should contain at least 1 uppercase character, 1 lowercase character and 1 digit.",
+    "input": "",
+    "output": "We can use a regular expression to validate a password. A regular expression to validate a password with at least 1 uppercase character, 1 lowercase character and 1 digit should be:\n\n^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$\n\nIf the password matches the regular expression, the password is valid. Otherwise, the password is invalid."
+  },
+  {
+    "instruction": "Generate a code to reverse a string without using any loop.",
+    "input": "Input String = \"Hello World!\"",
+    "output": "input_string = 'Hello World!'\n\ndef reverse_string(input_string):\n    if len(input_string) == 0:\n        return \"\" \n    else:\n        return reverse_string(input_string[1:]) + input_string[0] \n \nres = reverse_string(input_string) \nprint(res)"
+  },
+  {
+    "instruction": "Generate a list of odd numbers from 80 to 100.",
+    "input": "",
+    "output": "[81, 83, 85, 87, 89, 91, 93, 95, 97, 99]"
+  },
+  {
+    "instruction": "Create an HTML web page that has a \"Hello World!\" heading.",
+    "input": "",
+    "output": "<!doctype html>\n<html>\n  <head>\n    <title>Hello World</title>\n  </head>\n  <body>\n    <h1>Hello World!</h1>\n  </body>\n</html>"
+  },
+  {
+    "instruction": "Delete the forth row from the following table using an SQL query.",
+    "input": "Table: \nid     | name\n-------------------\n1      | John\n2      | Jane\n3      | Jacob\n4      | Jill",
+    "output": "DELETE FROM Table\nWHERE id = 4;"
+  },
+  {
+    "instruction": "Create a Python program to remove the characters from specific index within a string.",
+    "input": "mystring = \"Hello, World!\"\nindex = 5",
+    "output": "mystring = \"Hello, World!\"\nindex = 5\n\nresult = mystring[:index] + mystring[index+1:]\n\nprint(\"Result after removing characters from index {}: {}\".format(index, result))"
+  },
+  {
+    "instruction": "How does the fadeIn() function work in jQuery?",
+    "input": "",
+    "output": "The fadeIn() function in jQuery is used to gradually increase the opacity of an element from hidden to visible, in a specified duration. The function works by adjusting the CSS property for opacity for the element, from 0 to 1, over a specified duration of time."
+  },
+  {
+    "instruction": "Write code to sort a Python list of tuples based on their second element in the tuple.",
+    "input": "list_of_tuples = [('a', 5), ('b', 1), ('c', 10)]",
+    "output": "list_of_tuples.sort(key=lambda tup: tup[1])"
+  },
+  {
+    "instruction": "Explain what API stands for and what it does.",
+    "input": "",
+    "output": "API stands for Application Programming Interface, which is a set of routines, protocols, and tools used to build software applications. It defines how two applications can interact with each other and allows for data to be exchanged between them. APIs provide developers with predefined sets of code which can be used to perform a variety of tasks and help developers build applications quickly and easily."
+  },
+  {
+    "instruction": "Write a C# program to remove all adjacent duplicates from a string.",
+    "input": "string str = \"azxxzy\";",
+    "output": "string removeAdjacentDuplicates(string str) \n{ \n    int l = str.Length; \n    char[] array = str.ToCharArray(); \n  \n    int index = 0; \n    for (int i = 0; i < l; i++) \n    { \n        if (i == 0 || array[i - 1] != array[i]) \n            array[index++] = array[i]; \n        else\n            while (i + 1 < l && array[i + 1] == array[i]) \n                i++; \n    } \n  \n    return new string(array, 0, index); \n}"
+  },
+  {
+    "instruction": "Create a looping statement in Python to print the alphabet in lowercase.",
+    "input": "",
+    "output": "for letter in \"abcdefghijklmnopqrstuvwxyz\":\n    print(letter)"
+  },
+  {
+    "instruction": "Find the position of a string within another string.",
+    "input": "haystack = \"This is a sample string with the word 'sample' in it\"\nneedle = \"sample\"",
+    "output": "const position = haystack.indexOf(needle)\nconsole.log(position) // 15"
+  },
+  {
+    "instruction": "Create a program to sum numbers in a given range m to n inclusive.",
+    "input": "m = 4, n = 8",
+    "output": "def sum_in_range(m, n):\n    sum = 0\n    for i in range(m, n+1):\n        sum+=i\n    return sum"
+  },
+  {
+    "instruction": "Implement an algorithm in C++ for finding the largest number in an array.",
+    "input": "int arr[] = {3, 7, 1, -2, 9, 5};",
+    "output": "#include <iostream> \n\nusing namespace std; \n  \nint largestNumber(int arr[], int n) \n{ \n    int max = arr[0]; \n  \n    for (int i = 0; i < n; i++) \n    { \n        if (arr[i] > max) \n            max = arr[i]; \n    } \n  \n    return max; \n} \n  \nint main() \n{ \n    int arr[] = {3, 7, 1, -2, 9, 5}; \n    int n = sizeof(arr) / sizeof(arr[0]); \n  \n    cout <<\"The largest element is \"<< largestNumber(arr, n); \n  \n    return 0; \n}"
+  },
+  {
+    "instruction": "Create a program in Java that calculates the average of two test scores.",
+    "input": "test1 = 85\ntest2 = 90",
+    "output": "public static double average(int test1, int test2){\n    double avg = (test1+test2)/2;\n    return avg;\n}"
+  },
+  {
+    "instruction": "Write a code to connect to a remote database.",
+    "input": "username: john\npassword: john123\nIP: 100.10.0.10",
+    "output": "import psycopg2\n\nconn = psycopg2.connect(host=\"100.10.0.10\", database=\"mydb\", user=\"john\", password=\"john123\")"
+  },
+  {
+    "instruction": "How is the Julia dynamic programming technique different from bottom-up dynamic programming?",
+    "input": "",
+    "output": "Julia's dynamic programming technique uses memoization, which is a method of storing and reusing the result of previous computations. Bottom-up dynamic programming is a type of dynamic programming that begins with the solution to small problem instances and gradually builds up towards larger problem instances. Julia's dynamic programming approach does not necessarily build up from solution to small problem to larger problems and therefore may provide a more efficient solution for certain problems."
+  },
+  {
+    "instruction": "Create an array of the numbers from 1 to 10.",
+    "input": "",
+    "output": "let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];"
+  },
+  {
+    "instruction": "Write a script which receives two integers as parameters and returns their average as output.",
+    "input": "",
+    "output": "def average(a, b):\n    return (a+b)/2"
+  },
+  {
+    "instruction": "Create a Python dictionary with the student's name as the key and marks as the value.",
+    "input": "data = {\n    \"Ann\": 78, \n    \"John\": 92,\n    \"Bob\": 67\n}",
+    "output": "student_marks = {\n    \"Ann\": 78, \n    \"John\": 92,\n    \"Bob\": 67\n}"
+  },
+  {
+    "instruction": "Using the following data, generate a random string in Python",
+    "input": "data = [“H”, “e”, “l”, “l”, “o”]",
+    "output": "import random\n\nrandom_string = \"\".join(random.choices(data, k=5))\n\nprint(random_string) #helll or olleh or leloh or any other combination"
+  },
+  {
+    "instruction": "Create a function that takes an array as a parameter and continuously adds each item to the total sum.",
+    "input": "arr = [6, 4, 3, 10]",
+    "output": "def addItems(arr):\n  total = 0\n  for number in arr:\n    total = total + number\n  return total"
+  },
+  {
+    "instruction": "Compare two values to check if the first one is greater than the second one, and if so, print \"A is greater than B\".",
+    "input": "A = 5\nB = 3",
+    "output": "if A > B:\n    print(\"A is greater than B\")"
+  },
+  {
+    "instruction": "Edit the following C code so that an infinite loop is created:",
+    "input": "#include <stdio.h>\nint main()\n{\n    int i = 0;\n    while(i<10)\n    {\n        printf(\"%d\\n\",i);\n        i++;\n    }\n    return 0;\n}",
+    "output": "#include <stdio.h>\nint main()\n{\n    int i = 0;\n    while(1)\n    {\n        printf(\"%d\\n\",i);\n        i++;\n    }\n    return 0;\n}"
+  },
+  {
+    "instruction": "Create a JavaScript function to validate if a given string is a valid URL.",
+    "input": "",
+    "output": "function isValidUrl(url) {\n    const regex = new RegExp(\"^(http|https)://\");\n    return regex.test(url);\n}\n\n// Example Usage\nlet url = \"https://example.com\";\nlet result = isValidUrl(url);\nconsole.log(result); // should be true"
+  },
+  {
+    "instruction": "Debug the following JavaScript code which calculates the average of an array of integers:",
+    "input": "arr = [2, 3, 4, 5]\nsum = 0\nfor (i = 0; i < arr.length; i++) {\nsum += arr[i]}\naverage = sum / arr.length",
+    "output": "arr = [2, 3, 4, 5]\nsum = 0\nfor (i = 0; i < arr.length; i++) {\n  sum += arr[i];\n}\naverage = sum / arr.length;\nconsole.log(average);"
+  },
+  {
+    "instruction": "How would you check for syntax errors in a given Java code?",
+    "input": "",
+    "output": "Syntax errors in Java code can be checked by using the Java compiler. The compiler will identify the location and reason for any syntax errors, which can then be corrected. Additionally, IDEs often have built-in syntax checkers that can highlight errors before compilation."
+  },
+  {
+    "instruction": "Implement Naive Bayes for classification.",
+    "input": "",
+    "output": "import numpy as np\n\n# Create a data set\nX = np.array([[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 0], [0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]])\ny = np.array([0, 0, 0, 0, 1, 1, 1, 1])\n\n# Build a Naive Bayes classifier\nnaive_bayes = GaussianNB()\n\n# Train the classifier using the training data\nnaive_bayes.fit(X, y)"
+  },
+  {
+    "instruction": "Transform this code fragment to use the appropriate data structure.",
+    "input": "word = \"apple\"\nfor i in range(len(word)):\n    print(word[i])",
+    "output": "word = \"apple\"\nfor letter in word:\n    print(letter)"
+  },
+  {
+    "instruction": "Break the following string into two pieces.",
+    "input": "\"HelloWorld\"",
+    "output": "String s1 = \"Hello\";\nString s2 = \"World\";"
+  },
+  {
+    "instruction": "Create a MySQL query to get the item names and their respective prices from the table \"Orders\".",
+    "input": "",
+    "output": "SELECT ItemName, ItemPrice FROM Orders;"
+  },
+  {
+    "instruction": "Write a function in Python to generate a random alphanumeric string with a length of 5 characters.",
+    "input": "",
+    "output": "import random\nimport string\n\ndef generate_random_str():\n    letters = string.ascii_letters + string.digits\n    return ''.join(random.choice(letters) for i in range(5))"
+  },
+  {
+    "instruction": "Parse a list of numbers from a string in Python.",
+    "input": "s = \"1, 2, 3, 4, 5, 6\"",
+    "output": "import re\nlist = re.findall(r'\\d+', s)"
+  },
+  {
+    "instruction": "Write a function that checks if a given string contains a valid date.",
+    "input": "",
+    "output": "function isValidDate(dateString) {\n  var regEx = /^\\d{4}-\\d{2}-\\d{2}$/;\n  if(!dateString.match(regEx)) return false;  // Invalid format\n  var d = new Date(dateString);\n  if(Number.isNaN(d.getTime())) return false; // Invalid date\n  return d.toISOString().slice(0,10) === dateString;\n};"
+  },
+  {
+    "instruction": "Write a function to classify a text as positive or negative.",
+    "input": "text = \"This is an amazing product.\"",
+    "output": "def classify_text(text):\n  score = 0\n  words = text.split(\" \")\n  for word in words:\n    if word in positive_words:\n      score += 1\n    elif word in negative_words:\n      score -= 1\n  if score > 0:\n    return \"positive\"\n  elif score == 0:\n    return \"neutral\"\n  else:\n    return \"negative\""
+  },
+  {
+    "instruction": "You are given a string and you want to sort all characters in the string alphabetically.",
+    "input": "",
+    "output": "sorted_string = ''.join(sorted(string))"
+  },
+  {
+    "instruction": "In JavaScript, what is the difference between var and let?",
+    "input": "",
+    "output": "The main difference between the \"var\" and \"let\" keywords in JavaScript is their scope. Variables declared with the \"var\" keyword have a function scope and are available throughout the entire function, while variables declared with \"let\" have a block scope and are available only in the block in which they are declared."
+  },
+  {
+    "instruction": "Write a C# script to print the string \"Hello, World!\" three times",
+    "input": "",
+    "output": "for (int i=0; i < 3; i++) {\n  Console.WriteLine(\"Hello, World!\");\n}"
+  },
+  {
+    "instruction": "Create a Python script to scrape all links from a web page.",
+    "input": "<link to web page>",
+    "output": "import requests\nfrom bs4 import BeautifulSoup\n\npage = requests.get('<link to web page>')\nsoup = BeautifulSoup(page.text, 'html.parser')\n\nlinks = []\nfor link in soup.find_all('a'):\n    links.append(link.get('href'))\n\n# Usage\nprint(links)"
+  },
+  {
+    "instruction": "Write an algorithm in Python which reads a string and reorders it alphabetically.",
+    "input": "string s = 'dcba'",
+    "output": "def reorder_string(s):\n    s = sorted(s)\n    return ''.join(s)\n\nprint(reorder_string('dcba'))"
+  }
+]
