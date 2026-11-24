@@ -1,0 +1,38 @@
+[
+  {
+    "task_id": "HumanEval/54",
+    "baseline_passed": true,
+    "scot_passed": false,
+    "baseline_completion": "    return set(s0) == set(s1)\n\n\nif __name__ == '__main__':\n    import doctest\n    doctest.testmod()",
+    "scot_completion": "def same_chars(s0: str, s1: str) -> bool:\n    if len(s0) != len(s1):\n        return False\n    set0 = set(s0)\n    set1 = set(s1)\n    return set0 == set1",
+    "problem_prompt": "\n\ndef same_chars(s0: str, s1: str):\n    \"\"\"\n    Check if two words have the same characters.\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')\n    True\n    >>> same_chars('abcd', 'dddddddabc')\n    True\n    >>> same_chars('dddddddabc', 'abcd')\n    True\n    >>> same_chars('eabcd', 'dddddddabc')\n    False\n    >>> same_chars('abcd', 'dddddddabce')\n    False\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')\n    False\n    \"\"\"\n",
+    "scot_reasoning": "Sequence:\n1. Initialize two empty sets to store unique characters from each string.\n2. Iterate through each character in the first string and add it to the set for the first string.\n3. Iterate through each character in the second string and add it to the set for the second string.\n4. Compare the two sets for equality.\n\nBranch:\n- If the lengths of the two strings are different, return False immediately.\n\nLoop:\n- For each character in both strings, add it to its respective set."
+  },
+  {
+    "task_id": "HumanEval/26",
+    "baseline_passed": true,
+    "scot_passed": false,
+    "baseline_completion": "    return [n for n in numbers if numbers.count(n) == 1]\n\n\nif __name__ == \"__main__\":\n    import doctest\n    doctest.testmod()",
+    "scot_completion": "def remove_duplicates(numbers: List[int]) -> List[int]:\n    result = []\n    for num in numbers:\n        if num not in result:\n            result.append(num)\n    return result",
+    "problem_prompt": "from typing import List\n\n\ndef remove_duplicates(numbers: List[int]) -> List[int]:\n    \"\"\" From a list of integers, remove all elements that occur more than once.\n    Keep order of elements left the same as in the input.\n    >>> remove_duplicates([1, 2, 3, 2, 4])\n    [1, 3, 4]\n    \"\"\"\n",
+    "scot_reasoning": "Sequence:\n1. Initialize an empty list called `result` to store unique numbers.\n2. Iterate through each number in the input list `numbers`.\n3. For each number, check if it is already in the `result` list.\n4. If the number is not in `result`, append it to `result`.\n\nBranch:\n- Check if the current number is in `result`.\n\nLoop:\n- Iterate through each number in the input list `numbers`."
+  },
+  {
+    "task_id": "HumanEval/116",
+    "baseline_passed": true,
+    "scot_passed": false,
+    "baseline_completion": "    return sorted(arr, key=lambda x: (bin(x).count('1'), x))",
+    "scot_completion": "def sort_array(arr):\n    if not arr or all(x < 0 for x in arr):\n        return arr\n    return sorted(arr, key=lambda x: (bin(x).count('1'), x))",
+    "problem_prompt": "\ndef sort_array(arr):\n    \"\"\"\n    In this Kata, you have to sort an array of non-negative integers according to\n    number of ones in their binary representation in ascending order.\n    For similar number of ones, sort based on decimal value.\n\n    It must be implemented like this:\n    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]\n    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]\n    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]\n    \"\"\"\n",
+    "scot_reasoning": "Sequence:\n1. Define the function `sort_array` that takes an array `arr` as input.\n2. Check if the array is empty or contains only negative numbers. If so, return the array as is since it's already sorted by default.\n3. Convert each integer in the array to its binary representation and count the number of ones.\n4. Sort the array first by the count of ones in the binary representation and then by the decimal value for ties.\n5. Return the sorted array.\n\nBranch:\n- If the array is empty or contains only negative numbers, return the array as is.\n\nLoop:\n- Iterate through the array to convert each integer to binary and count the ones.\n- Use a sorting algorithm that can handle custom sorting criteria (count of ones and decimal value)."
+  },
+  {
+    "task_id": "HumanEval/56",
+    "baseline_passed": true,
+    "scot_passed": false,
+    "baseline_completion": "    count = 0\n    for b in brackets:\n        if b == '<':\n            count += 1\n        elif b == '>':\n            count -= 1\n        if count < 0:\n            return False\n    return count == 0\n\n\nif __name__ == '__main__':\n    import doctest\n    doctest.testmod()",
+    "scot_completion": "def correct_bracketing(brackets: str) -> bool:\n    count = 0\n    for char in brackets:\n        if char == '<':\n            count += 1\n        elif char == '>':\n            count -= 1\n        else:\n            return False\n    return count == 0",
+    "problem_prompt": "\n\ndef correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"<\" and \">\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"<\")\n    False\n    >>> correct_bracketing(\"<>\")\n    True\n    >>> correct_bracketing(\"<<><>>\")\n    True\n    >>> correct_bracketing(\"><<>\")\n    False\n    \"\"\"\n",
+    "scot_reasoning": "Sequence:\n1. Initialize a counter to keep track of open brackets.\n2. Iterate through each character in the input string.\n3. For each character, check if it's an opening bracket (\"<\"):\n   - If yes, increment the counter.\n   - If no, check if it's a closing bracket (\">\"):\n     - If yes, decrement the counter.\n     - If no, return False as it's not a valid bracket.\n4. After iterating through all characters, check if the counter is zero:\n   - If yes, return True as all brackets are correctly matched.\n   - If no, return False as there are unmatched brackets."
+  }
+]
