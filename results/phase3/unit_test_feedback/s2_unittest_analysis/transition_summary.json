@@ -1,0 +1,20 @@
+{
+  "strategy": "Strategy 2: Public Unit-Test Feedback (E3)",
+  "total_tasks": 164,
+  "before_scot_pass": 114,
+  "before_scot_pass_rate": 69.51,
+  "after_s2_pass": 141,
+  "after_s2_pass_rate": 85.98,
+  "net_gain_tasks": 27,
+  "net_gain_pp": 16.46,
+  "transitions": {
+    "wrong_to_right": 27,
+    "wrong_to_wrong": 23,
+    "right_to_right": 114,
+    "right_to_wrong": 0
+  },
+  "recovered_scot_regressions": [
+    "HumanEval/54",
+    "HumanEval/56"
+  ]
+}

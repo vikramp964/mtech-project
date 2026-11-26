@@ -1,0 +1,164 @@
+{"task_id": "HumanEval/0", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/1", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/2", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/3", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/4", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/5", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/6", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/7", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/8", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/9", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/10", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'is_palindrome' is not defined"}
+{"task_id": "HumanEval/11", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/12", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/13", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/14", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/15", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/16", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/17", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/18", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/19", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/20", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/21", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/22", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/23", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/24", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/25", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/26", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/27", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/28", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/29", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'List' is not defined"}
+{"task_id": "HumanEval/30", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/31", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/32", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'poly' is not defined"}
+{"task_id": "HumanEval/33", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/34", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/35", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/36", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/37", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/38", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'encode_cyclic' is not defined"}
+{"task_id": "HumanEval/39", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/40", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/41", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/42", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/43", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/44", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/45", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/46", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/47", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/48", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/49", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/50", "initial_passed": false, "passed": false, "result": "failed: NameError: name 'encode_shift' is not defined"}
+{"task_id": "HumanEval/51", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/52", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/53", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/54", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/55", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/56", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/57", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/58", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/59", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/60", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/61", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/62", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/63", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/64", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/65", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/66", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/67", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/68", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/69", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/70", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/71", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/72", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/73", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/74", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/75", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/76", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/77", "initial_passed": false, "passed": false, "result": "failed: TypeError: type complex doesn't define __round__ method"}
+{"task_id": "HumanEval/78", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/79", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/80", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/81", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/82", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/83", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/84", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/85", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/86", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/87", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/88", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/89", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/90", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/91", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/92", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/93", "initial_passed": false, "passed": false, "result": "failed: AssertionError: This prints if this assert fails 1 (good for debugging!)"}
+{"task_id": "HumanEval/94", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/95", "initial_passed": false, "passed": false, "result": "failed: AssertionError: Fourth test error: True"}
+{"task_id": "HumanEval/96", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/97", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/98", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/99", "initial_passed": false, "passed": false, "result": "failed: AssertionError: Test 1"}
+{"task_id": "HumanEval/100", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/101", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/102", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/103", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/104", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/105", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/106", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/107", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/108", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/109", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/110", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/111", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/112", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/113", "initial_passed": false, "passed": false, "result": "failed: AssertionError: Test 1"}
+{"task_id": "HumanEval/114", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/115", "initial_passed": false, "passed": false, "result": "failed: AssertionError: Error"}
+{"task_id": "HumanEval/116", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/117", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/118", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/119", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/120", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/121", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/122", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/123", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/124", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/125", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/126", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/127", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/128", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/129", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/130", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/131", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/132", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/133", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/134", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/135", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/136", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/137", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/138", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/139", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/140", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/141", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/142", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/143", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/144", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/145", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/146", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/147", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/148", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/149", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/150", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/151", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/152", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/153", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/154", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/155", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/156", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/157", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/158", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/159", "initial_passed": false, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/160", "initial_passed": false, "passed": false, "result": "failed: AssertionError: "}
+{"task_id": "HumanEval/161", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/162", "initial_passed": true, "passed": true, "result": "passed"}
+{"task_id": "HumanEval/163", "initial_passed": false, "passed": false, "result": "failed: AssertionError: Test 1"}

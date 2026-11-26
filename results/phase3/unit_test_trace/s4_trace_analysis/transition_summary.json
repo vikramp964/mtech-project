@@ -1,0 +1,20 @@
+{
+  "strategy": "Strategy 4: Public Unit-Test Feedback + Execution Trace (E5)",
+  "total_tasks": 164,
+  "before_scot_pass": 114,
+  "before_scot_pass_rate": 69.51,
+  "after_s4_pass": 137,
+  "after_s4_pass_rate": 83.54,
+  "net_gain_tasks": 23,
+  "net_gain_pp": 14.02,
+  "truncated_generation_calls": 0,
+  "transitions": {
+    "wrong_to_right": 23,
+    "wrong_to_wrong": 27,
+    "right_to_right": 114,
+    "right_to_wrong": 0
+  },
+  "recovered_scot_regressions": [
+    "HumanEval/56"
+  ]
+}

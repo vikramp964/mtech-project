@@ -1,0 +1,531 @@
+[
+  {
+    "task_id": "HumanEval/10",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: NameError: name 'is_palindrome' is not defined",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 3,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with runtime error:\n  Test Input : make_palindrome('cat')\n  Expected   : 'catac'\n  Actual     : Raised NameError: name 'is_palindrome' is not defined",
+        "completion": "def make_palindrome(string: str) -> str:\n    n = len(string)\n    if n == 0:\n        return ''\n\n    for i in range(n, -1, -1):\n        if string[:i] == string[:i][::-1]:\n            prefix_to_reverse = string[i:]\n            break\n\n    return string + prefix_to_reverse[::-1]",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought for `make_palindrome` Function\n\n#### Sequence:\n1. Initialize variables.\n2. Identify the longest palindromic suffix.\n3. Determine the prefix that needs to be reversed and appended.\n4. Construct the resulting palindrome.\n\n#### Branches:\n- Check if the input string is empty.\n- Iterate through the string to find the longest palindromic suffix.\n- Reverse the non-palindromic prefix and append it to the original string.\n\n#### Loops:\n- Outer loop: Iterate from the end of the string towards the beginning to find the longest palindromic suffix.\n- Inner loop: Used implicitly in slicing to check substrings for being palindromes.",
+    "before_completion": "def make_palindrome(string: str) -> str:\n    n = len(string)\n    if n == 0:\n        return ''\n\n    for i in range(n, -1, -1):\n        if is_palindrome(string[:i]):\n            prefix_to_reverse = string[i:]\n            break\n\n    return string + prefix_to_reverse[::-1]",
+    "after_completion": "def make_palindrome(string: str) -> str:\n    n = len(string)\n    if n == 0:\n        return ''\n\n    for i in range(n, -1, -1):\n        if string[:i] == string[:i][::-1]:\n            prefix_to_reverse = string[i:]\n            break\n\n    return string + prefix_to_reverse[::-1]",
+    "problem_prompt": "\n\ndef is_palindrome(string: str) -> bool:\n    \"\"\" Test if given string is a palindrome \"\"\"\n    return string == string[::-1]\n\n\ndef make_palindrome(string: str) -> str:\n    \"\"\" Find the shortest palindrome that begins with a supplied string.\n    Algorithm idea is simple:\n    - Find the longest postfix of supplied string that is a palindrome.\n    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n    >>> make_palindrome('')\n    ''\n    >>> make_palindrome('cat')\n    'catac'\n    >>> make_palindrome('cata')\n    'catac'\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/26",
+    "was_scot_regression": true,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: NameError: name 'List' is not defined",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 1,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Code failed during compilation/definition:\n  Error: NameError: name 'List' is not defined",
+        "completion": "from typing import List\n\n\ndef remove_duplicates(numbers: List[int]) -> List[int]:\n    result = []\n    for num in numbers:\n        if num not in result:\n            result.append(num)\n    return result",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Initialize an empty list called `result` to store unique numbers.\n2. Iterate through each number in the input list `numbers`.\n3. For each number, check if it is already in the `result` list.\n4. If the number is not in `result`, append it to `result`.\n\nBranch:\n- Check if the current number is in `result`.\n\nLoop:\n- Iterate through each number in the input list `numbers`.",
+    "before_completion": "def remove_duplicates(numbers: List[int]) -> List[int]:\n    result = []\n    for num in numbers:\n        if num not in result:\n            result.append(num)\n    return result",
+    "after_completion": "from typing import List\n\n\ndef remove_duplicates(numbers: List[int]) -> List[int]:\n    result = []\n    for num in numbers:\n        if num not in result:\n            result.append(num)\n    return result",
+    "problem_prompt": "from typing import List\n\n\ndef remove_duplicates(numbers: List[int]) -> List[int]:\n    \"\"\" From a list of integers, remove all elements that occur more than once.\n    Keep order of elements left the same as in the input.\n    >>> remove_duplicates([1, 2, 3, 2, 4])\n    [1, 3, 4]\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/32",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: NameError: name 'poly' is not defined",
+    "after_result": "failed: NameError: name 'poly' is not defined",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 2,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with runtime error:\n  Test Input : round(find_zero([1, 2]), 2) # f(x) = 1 + 2x\n  Expected   : -0.5\n  Actual     : Raised NameError: name 'poly' is not defined",
+        "completion": "def find_zero(xs: list):\n    low = -1e10\n    high = 1e10\n    tol = 1e-7\n    \n    while high - low > tol:\n        mid = (low + high) / 2\n        if poly(xs, mid) == 0:\n            return mid\n        elif poly(xs, mid) * poly(xs, low) < 0:\n            high = mid\n        else:\n            low = mid\n            \n    return (low + high) / 2",
+        "passed": false,
+        "result": "failed: NameError: name 'poly' is not defined"
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Objective\nFind a root of a polynomial given its coefficients.\n\n#### Input\n- `xs`: List of coefficients of the polynomial.\n- `x`: Point at which to evaluate the polynomial.\n\n#### Output\n- A root of the polynomial.\n\n#### Constraints\n- The list `xs` has an even number of coefficients.\n- The largest non-zero coefficient is positive, ensuring a real root exists.\n\n#### Steps\n\n1. **Initialize Search Range**\n   - Define initial search bounds based on the coefficients.\n   \n2. **Binary Search**\n   - Use binary search to narrow down the interval where the root lies.\n   - Calculate the midpoint of the current interval.\n   - Evaluate the polynomial at the midpoint.\n   - Adjust the search range based on the sign of the polynomial value.\n\n3. **Convergence Check**\n   - Continue the binary search until the interval size is sufficiently small.\n   - Return the midpoint as the approximate root.\n\n4. **Edge Cases**\n   - Handle cases where the polynomial evaluates to zero exactly at some point within the search range.\n\n#### Detailed Steps\n\n1. **Initialize Search Range**\n   - Set `low` to a very negative value (e.g., `-1e10`",
+    "before_completion": "def find_zero(xs: list):\n    low = -1e10\n    high = 1e10\n    tol = 1e-7\n    \n    while high - low > tol:\n        mid = (low + high) / 2\n        if poly(xs, mid) == 0:\n            return mid\n        elif poly(xs, mid) * poly(xs, low) < 0:\n            high = mid\n        else:\n            low = mid\n            \n    return (low + high) / 2",
+    "after_completion": "def find_zero(xs: list):\n    low = -1e10\n    high = 1e10\n    tol = 1e-7\n    \n    while high - low > tol:\n        mid = (low + high) / 2\n        if poly(xs, mid) == 0:\n            return mid\n        elif poly(xs, mid) * poly(xs, low) < 0:\n            high = mid\n        else:\n            low = mid\n            \n    return (low + high) / 2",
+    "problem_prompt": "import math\n\n\ndef poly(xs: list, x: float):\n    \"\"\"\n    Evaluates polynomial with coefficients xs at point x.\n    return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n\n    \"\"\"\n    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])\n\n\ndef find_zero(xs: list):\n    \"\"\" xs are coefficients of a polynomial.\n    find_zero find x such that poly(x) = 0.\n    find_zero returns only only zero point, even if there are many.\n    Moreover, find_zero only takes list xs having even number of coefficients\n    and largest non zero coefficient as it guarantees\n    a solution.\n    >>> round(find_zero([1, 2]), 2) # f(x) = 1 + 2x\n    -0.5\n    >>> round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3\n    1.0\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/38",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: NameError: name 'encode_cyclic' is not defined",
+    "after_result": "failed: NameError: name 'encode_cyclic' is not defined",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def decode_cyclic(s: str):\n    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]\n    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]\n    return \"\".join(groups)",
+        "passed": false,
+        "result": "failed: NameError: name 'encode_cyclic' is not defined"
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Objective\nDecode a string that was encoded using the `encode_cyclic` function, which cycles groups of three characters.\n\n#### Steps\n\n1. **Split the String into Groups**\n   - Split the input string into groups of three characters.\n   - Use list comprehension to create groups.\n   - Ensure the last group is handled correctly if it contains fewer than three characters.\n\n2. **Cycle Elements in Each Group**\n   - For each group, cycle the elements such that the first character moves to the end.\n   - If a group has fewer than three characters, leave it unchanged.\n\n3. **Join the Groups Back Together**\n   - Concatenate all the groups back into a single string.\n\n4. **Reverse the Cycles**\n   - To decode, reverse the process of cycling the elements.\n   - For each group, move the last character to the front.\n   - Handle groups with fewer than three characters appropriately.\n\n5. **Return the Decoded String**\n   - Join the reversed groups and return the result.\n\n#### Detailed Plan\n\n**Step 1: Split the String into Groups**\n```python\ngroups = [s[(3 * i):min((3 * i + 3), len(s))]",
+    "before_completion": "def decode_cyclic(s: str):\n    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]\n    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]\n    return \"\".join(groups)",
+    "after_completion": "def decode_cyclic(s: str):\n    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]\n    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]\n    return \"\".join(groups)",
+    "problem_prompt": "\n\ndef encode_cyclic(s: str):\n    \"\"\"\n    returns encoded string by cycling groups of three characters.\n    \"\"\"\n    # split string to groups. Each of length 3.\n    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]\n    # cycle elements in each group. Unless group has fewer elements than 3.\n    groups = [(group[1:] + group[0]) if len(group) == 3 else group for group in groups]\n    return \"\".join(groups)\n\n\ndef decode_cyclic(s: str):\n    \"\"\"\n    takes as input string encoded with encode_cyclic function. Returns decoded string.\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/50",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: NameError: name 'encode_shift' is not defined",
+    "after_result": "failed: NameError: name 'encode_shift' is not defined",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def decode_shift(s: str):\n    return \"\".join([chr(((ord(ch) - 5 - ord(\"a\")) % 26) + ord(\"a\")) for ch in s])",
+        "passed": false,
+        "result": "failed: NameError: name 'encode_shift' is not defined"
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Objective\nThe objective is to create a `decode_shift` function that reverses the encoding done by the `encode_shift` function, effectively shifting each character in the input string back by 5 positions in the alphabet.\n\n#### Analysis\n1. **Understanding Encoding**:\n   - The `encode_shift` function shifts each character in the input string by 5 positions forward in the alphabet.\n   - This can be represented mathematically as: \n     \\[\n     \\text{encoded\\_char} = (\\text{original\\_char} + 5 - \\text{offset}) \\% 26 + \\text{offset}\n     \\]\n     where \\(\\text{offset}\\) is the ASCII value of 'a'.\n\n2. **Reversing the Shift**:\n   - To decode, we need to shift each character in the encoded string back by 5 positions.\n   - Mathematically, this can be represented as:\n     \\[\n     \\text{decoded\\_char} = (\\text{encoded\\_char} - 5 - \\text{offset}) \\% 26 + \\text{offset}\n     \\]\n\n3. **Implementation**:\n   - We will iterate over",
+    "before_completion": "def decode_shift(s: str):\n    return \"\".join([chr(((ord(ch) - 5 - ord(\"a\")) % 26) + ord(\"a\")) for ch in s])",
+    "after_completion": "def decode_shift(s: str):\n    return \"\".join([chr(((ord(ch) - 5 - ord(\"a\")) % 26) + ord(\"a\")) for ch in s])",
+    "problem_prompt": "\n\ndef encode_shift(s: str):\n    \"\"\"\n    returns encoded string by shifting every character by 5 in the alphabet.\n    \"\"\"\n    return \"\".join([chr(((ord(ch) + 5 - ord(\"a\")) % 26) + ord(\"a\")) for ch in s])\n\n\ndef decode_shift(s: str):\n    \"\"\"\n    takes as input string encoded with encode_shift function. Returns decoded string.\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/65",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 2,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : circular_shift(12, 2)\n  Expected   : \"12\"\n  Actual     : '21'",
+        "completion": "def circular_shift(x, shift):\n    s = str(x)\n    n = len(s)\n    if shift >= n:\n        return s[::-1]\n    effective_shift = shift % n\n    return s[-effective_shift:] + s[:-effective_shift]",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Convert the integer x to a string to easily manipulate its digits.\n2. Determine the length of the string representation of x.\n3. Check if the shift is greater than the number of digits:\n   - If true, reverse the string and return it.\n   - If false, proceed with the circular shift.\n4. Calculate the effective shift needed by taking shift modulo the number of digits.\n5. Perform the circular shift by slicing the string at the calculated position and concatenating the two parts in reverse order.\n6. Return the resulting string after the circular shift.",
+    "before_completion": "def circular_shift(x, shift):\n    s = str(x)\n    n = len(s)\n    if shift >= n:\n        return s[::-1]\n    effective_shift = shift % n\n    return s[-effective_shift:] + s[:-effective_shift]",
+    "after_completion": "def circular_shift(x, shift):\n    s = str(x)\n    n = len(s)\n    if shift >= n:\n        return s[::-1]\n    effective_shift = shift % n\n    return s[-effective_shift:] + s[:-effective_shift]",
+    "problem_prompt": "\ndef circular_shift(x, shift):\n    \"\"\"Circular shift the digits of the integer x, shift the digits right by shift\n    and return the result as a string.\n    If shift > number of digits, return digits reversed.\n    >>> circular_shift(12, 1)\n    \"21\"\n    >>> circular_shift(12, 2)\n    \"12\"\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/75",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 1,
+        "public_tests_passed_before_fix": true,
+        "feedback": "All 1 public docstring example(s) passed, but your solution failed on hidden edge-case tests. Check boundary conditions (empty inputs, negative numbers, duplicates, ordering, or missing imports).",
+        "completion": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\ndef is_multiply_prime(a):\n    if a < 2:\n        return False\n    prime_factors_count = 0\n    for i in range(2, int(a**0.5) + 1):\n        if is_prime(i) and a % i == 0:\n            prime_factors_count += 1\n            while a % i == 0:\n                a //= i\n    if a > 1:\n        prime_factors_count += 1\n    return prime_factors_count == 3",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Step 1: Define Helper Function to Check Prime Numbers\n- **Branch**: Create a helper function `is_prime(n)` to check if a number `n` is prime.\n  - **Loop**: Iterate from 2 to the square root of `n` to check for factors.\n  - **Condition**: If any factor is found, return `False`; otherwise, return `True`.\n\n#### Step 2: Initialize Counter for Prime Factors\n- **Variable**: Initialize a counter `prime_factors_count` to zero.\n\n#### Step 3: Iterate Through Possible Prime Multipliers\n- **Loop**: Iterate through possible prime multipliers starting from 2 up to the square root of `a`.\n  - **Condition**: For each number, check if it is prime using the `is_prime` function.\n  - **Condition**: If the number is prime and divides `a` without a remainder, increment the `prime_factors_count`.\n\n#### Step 4: Check the Number of Prime Factors\n- **Condition**: After the loop, check if `prime_factors_count` equals 3.\n  - **Return**: Return `True` if `prime_factors_count` is 3; otherwise, return `False`.",
+    "before_completion": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\ndef is_multiply_prime(a):\n    prime_factors_count = 0\n    for i in range(2, int(a**0.5) + 1):\n        if is_prime(i) and a % i == 0:\n            prime_factors_count += 1\n    return prime_factors_count == 3",
+    "after_completion": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\ndef is_multiply_prime(a):\n    if a < 2:\n        return False\n    prime_factors_count = 0\n    for i in range(2, int(a**0.5) + 1):\n        if is_prime(i) and a % i == 0:\n            prime_factors_count += 1\n            while a % i == 0:\n                a //= i\n    if a > 1:\n        prime_factors_count += 1\n    return prime_factors_count == 3",
+    "problem_prompt": "\ndef is_multiply_prime(a):\n    \"\"\"Write a function that returns true if the given number is the multiplication of 3 prime numbers\n    and false otherwise.\n    Knowing that (a) is less then 100. \n    Example:\n    is_multiply_prime(30) == True\n    30 = 2 * 3 * 5\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/77",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: TypeError: type complex doesn't define __round__ method",
+    "after_result": "failed: TypeError: type complex doesn't define __round__ method",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 6,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : iscube(1)\n  Expected   : > True\n  Actual     : True",
+        "completion": "def iscube(a):\n    cube_root = round(a ** (1/3))\n    return cube_root ** 3 == a",
+        "passed": false,
+        "result": "failed: TypeError: type complex doesn't define __round__ method"
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Define the function `iscube` with parameter `a`.\n2. Calculate the cube root of `a` and store it in a variable `cube_root`.\n3. Check if `cube_root` is an integer by comparing it to its rounded value.\n4. Return `True` if `cube_root` is an integer, otherwise return `False`.\n\nBranch:\n- If `cube_root` is an integer:\n  - Return `True`\n- Else:\n  - Return `False`\n\nLoop:\n- No explicit loop needed for this problem.",
+    "before_completion": "def iscube(a):\n    cube_root = round(a ** (1/3))\n    return cube_root ** 3 == a",
+    "after_completion": "def iscube(a):\n    cube_root = round(a ** (1/3))\n    return cube_root ** 3 == a",
+    "problem_prompt": "\ndef iscube(a):\n    '''\n    Write a function that takes an integer a and returns True \n    if this ingeger is a cube of some integer number.\n    Note: you may assume the input is always valid.\n    Examples:\n    iscube(1) ==> True\n    iscube(2) ==> False\n    iscube(-1) ==> True\n    iscube(64) ==> True\n    iscube(0) ==> True\n    iscube(180) ==> False\n    '''\n"
+  },
+  {
+    "task_id": "HumanEval/81",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def numerical_letter_grade(grades):\n    letter_grades = []\n    for gpa in grades:\n        if gpa == 4.0:\n            letter_grades.append('A+')\n        elif gpa > 3.7:\n            letter_grades.append('A')\n        elif gpa > 3.3:\n            letter_grades.append('A-')\n        elif gpa > 3.0:\n            letter_grades.append('B+')\n        elif gpa > 2.7:\n            letter_grades.append('B')\n        elif gpa > 2.3:\n            letter_grades.append('B-')\n        elif gpa > 2.0:\n            letter_grades.append('C+')\n        elif gpa > 1.7:\n            letter_grades.append('C')\n        elif gpa > 1.3:\n            letter_grades.append('C-')\n        elif gpa > 1.0:\n            letter_grades.append('D+')\n        elif gpa > 0.7:\n            letter_grades.append('D')\n        elif gpa >= 0.0:\n            letter_grades.append('D-')\n        else:\n            letter_grades.append('E')\n    return letter_grades",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Sequence\n1. Initialize an empty list `letter_grades` to store the resulting letter grades.\n2. Iterate through each GPA in the input list `grades`.\n3. For each GPA, determine the corresponding letter grade based on the provided table.\n4. Append the determined letter grade to the `letter_grades` list.\n5. Return the `letter_grades` list after iterating through all GPAs.\n\n#### Branch\n- If GPA == 4.0, assign 'A+'.\n- If GPA > 3.7, assign 'A'.\n- If GPA > 3.3, assign 'A-'.\n- If GPA > 3.0, assign 'B+'.\n- If GPA > 2.7, assign 'B'.\n- If GPA > 2.3, assign 'B-'.\n- If GPA > 2.0, assign 'C+'.\n- If GPA > 1.7, assign 'C'.\n- If GPA > 1.3, assign 'C-'.\n- If GPA > 1.0, assign 'D+'.\n- If GPA > 0.7, assign 'D'.\n- If GPA > 0.0",
+    "before_completion": "def numerical_letter_grade(grades):\n    letter_grades = []\n    for gpa in grades:\n        if gpa == 4.0:\n            letter_grades.append('A+')\n        elif gpa > 3.7:\n            letter_grades.append('A')\n        elif gpa > 3.3:\n            letter_grades.append('A-')\n        elif gpa > 3.0:\n            letter_grades.append('B+')\n        elif gpa > 2.7:\n            letter_grades.append('B')\n        elif gpa > 2.3:\n            letter_grades.append('B-')\n        elif gpa > 2.0:\n            letter_grades.append('C+')\n        elif gpa > 1.7:\n            letter_grades.append('C')\n        elif gpa > 1.3:\n            letter_grades.append('C-')\n        elif gpa > 1.0:\n            letter_grades.append('D+')\n        elif gpa > 0.7:\n            letter_grades.append('D')\n        elif gpa > 0.0:\n            letter_grades.append('D-')\n        else:\n            letter_grades.append('E')",
+    "after_completion": "def numerical_letter_grade(grades):\n    letter_grades = []\n    for gpa in grades:\n        if gpa == 4.0:\n            letter_grades.append('A+')\n        elif gpa > 3.7:\n            letter_grades.append('A')\n        elif gpa > 3.3:\n            letter_grades.append('A-')\n        elif gpa > 3.0:\n            letter_grades.append('B+')\n        elif gpa > 2.7:\n            letter_grades.append('B')\n        elif gpa > 2.3:\n            letter_grades.append('B-')\n        elif gpa > 2.0:\n            letter_grades.append('C+')\n        elif gpa > 1.7:\n            letter_grades.append('C')\n        elif gpa > 1.3:\n            letter_grades.append('C-')\n        elif gpa > 1.0:\n            letter_grades.append('D+')\n        elif gpa > 0.7:\n            letter_grades.append('D')\n        elif gpa >= 0.0:\n            letter_grades.append('D-')\n        else:\n            letter_grades.append('E')\n    return letter_grades",
+    "problem_prompt": "\ndef numerical_letter_grade(grades):\n    \"\"\"It is the last week of the semester and the teacher has to give the grades\n    to students. The teacher has been making her own algorithm for grading.\n    The only problem is, she has lost the code she used for grading.\n    She has given you a list of GPAs for some students and you have to write \n    a function that can output a list of letter grades using the following table:\n             GPA       |    Letter grade\n              4.0                A+\n            > 3.7                A \n            > 3.3                A- \n            > 3.0                B+\n            > 2.7                B \n            > 2.3                B-\n            > 2.0                C+\n            > 1.7                C\n            > 1.3                C-\n            > 1.0                D+ \n            > 0.7                D \n            > 0.0                D-\n              0.0                E\n    \n\n    Example:\n    grade_equation([4.0, 3, 1.7, 2, 3.5]) ==> ['A+', 'B', 'C-', 'C', 'A-']\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/83",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def starts_one_ends(n):\n    if n == 1:\n        return 1\n    return 2 * 10**(n-1) - 10**(n-2)",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Objective\nGiven a positive integer \\( n \\), determine the count of \\( n \\)-digit positive integers that either start or end with the digit 1.\n\n#### Analysis\n1. **Understanding the Range**:\n   - The range of \\( n \\)-digit numbers is from \\( 10^{(n-1)} \\) to \\( 10^n - 1 \\).\n   \n2. **Counting Numbers Starting with 1**:\n   - A number starting with 1 can be represented as \\( 1xxxx...x \\) where each 'x' can be any digit from 0 to 9.\n   - There are \\( 10^{(n-1)} \\) such numbers because the first digit is fixed as 1 and the remaining \\( n-1 \\) digits can vary independently.\n\n3. **Counting Numbers Ending with 1**:\n   - A number ending with 1 can be represented as \\( xxxx...x1 \\) where each 'x' can be any digit from 0 to 9 except for the first digit which cannot be 0 (since it's an \\( n \\)-digit number).\n   - For \\( n =",
+    "before_completion": "def starts_one_ends(n):\n    if n == 1:\n        return 1\n    return 2 * 10**(n-1) - 10**(n-2)",
+    "after_completion": "def starts_one_ends(n):\n    if n == 1:\n        return 1\n    return 2 * 10**(n-1) - 10**(n-2)",
+    "problem_prompt": "\ndef starts_one_ends(n):\n    \"\"\"\n    Given a positive integer n, return the count of the numbers of n-digit\n    positive integers that start or end with 1.\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/93",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: This prints if this assert fails 1 (good for debugging!)",
+    "after_result": "failed: AssertionError: This prints if this assert fails 1 (good for debugging!)",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 2,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : encode('test')\n  Expected   : 'TGST'\n  Actual     : 'TdST'",
+        "completion": "def encode(message):\n    encoded = \"\"\n    for char in message:\n        if char.isalpha():\n            swapped_char = char.swapcase()\n            if swapped_char.lower() in \"aeiou\":\n                index = \"aeiou\".index(swapped_char.lower())\n                new_char = chr(ord(\"a\") + (index + 2) % 26)\n                encoded += new_char.upper() if char.islower() else new_char.lower()\n            else:\n                encoded += swapped_char\n        else:\n            encoded += char\n    return encoded",
+        "passed": false,
+        "result": "failed: AssertionError: This prints if this assert fails 1 (good for debugging!)"
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Initialize an empty string to store the encoded message.\n2. Iterate through each character in the input message.\n3. For each character, check if it's a letter.\n4. If it's a letter, swap its case.\n5. Check if the swapped case character is a vowel.\n6. If it's a vowel, replace it with the letter that appears 2 places ahead in the English alphabet.\n7. Append the modified character to the encoded message string.\n8. Return the encoded message string.\n\nBranch:\n- Is the character a letter?\n- Is the character a vowel?\n\nLoop:\n- Iterate through each character in the input message.",
+    "before_completion": "def encode(message):\n    encoded = \"\"\n    for char in message:\n        if char.isalpha():\n            swapped_char = char.swapcase()\n            if swapped_char.lower() in \"aeiou\":\n                index = \"aeiou\".index(swapped_char.lower())\n                new_char = chr(ord(\"a\") + (index + 2) % 26)\n                encoded += new_char.upper() if char.isupper() else new_char.lower()\n            else:\n                encoded += swapped_char\n        else:\n            encoded += char\n    return encoded",
+    "after_completion": "def encode(message):\n    encoded = \"\"\n    for char in message:\n        if char.isalpha():\n            swapped_char = char.swapcase()\n            if swapped_char.lower() in \"aeiou\":\n                index = \"aeiou\".index(swapped_char.lower())\n                new_char = chr(ord(\"a\") + (index + 2) % 26)\n                encoded += new_char.upper() if char.islower() else new_char.lower()\n            else:\n                encoded += swapped_char\n        else:\n            encoded += char\n    return encoded",
+    "problem_prompt": "\ndef encode(message):\n    \"\"\"\n    Write a function that takes a message, and encodes in such a \n    way that it swaps case of all letters, replaces all vowels in \n    the message with the letter that appears 2 places ahead of that \n    vowel in the english alphabet. \n    Assume only letters. \n    \n    Examples:\n    >>> encode('test')\n    'TGST'\n    >>> encode('This is a message')\n    'tHKS KS C MGSSCGG'\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/99",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: Test 1",
+    "after_result": "failed: AssertionError: Test 1",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 2,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : closest_integer(\"10\")\n  Expected   : 10\n  Actual     : 11",
+        "completion": "def closest_integer(value):\n    num = float(value)\n    if abs(num) >= abs(num % 1) + 0.5:\n        return int(num // 1) + (1 if num > 0 else -1)\n    else:\n        return int(num)",
+        "passed": false,
+        "result": "failed: AssertionError: Test 1"
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Convert the input string to a float.\n2. Check if the absolute value of the float is greater than or equal to its fractional part plus 0.5.\n3. If true, round the float towards infinity.\n4. If false, round the float towards zero.\n5. Return the rounded integer.\n\nBranch:\n- Is the absolute value of the float >= fractional part + 0.5?\n\nLoop:\n- No loop needed for this problem.",
+    "before_completion": "def closest_integer(value):\n    num = float(value)\n    if abs(num) >= abs(num % 1) + 0.5:\n        return int(num // 1) + (1 if num > 0 else -1)\n    else:\n        return int(num)",
+    "after_completion": "def closest_integer(value):\n    num = float(value)\n    if abs(num) >= abs(num % 1) + 0.5:\n        return int(num // 1) + (1 if num > 0 else -1)\n    else:\n        return int(num)",
+    "problem_prompt": "\ndef closest_integer(value):\n    '''\n    Create a function that takes a value (string) representing a number\n    and returns the closest integer to it. If the number is equidistant\n    from two integers, round it away from zero.\n\n    Examples\n    >>> closest_integer(\"10\")\n    10\n    >>> closest_integer(\"15.3\")\n    15\n\n    Note:\n    Rounding away from zero means that if the given number is equidistant\n    from two integers, the one you should return is the one that is the\n    farthest from zero. For example closest_integer(\"14.5\") should\n    return 15 and closest_integer(\"-14.5\") should return -15.\n    '''\n"
+  },
+  {
+    "task_id": "HumanEval/115",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: Error",
+    "after_result": "failed: AssertionError: Error",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "import math\n\ndef max_fill(grid, capacity):\n    total_water = 0\n    for row in grid:\n        total_water += sum(row)\n    return math.ceil(total_water / capacity)",
+        "passed": false,
+        "result": "failed: AssertionError: Error"
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Step 1: Initialize Variables\n- `total_water`: Sum of all units of water in the grid.\n- `buckets_needed`: Number of buckets required to empty the wells.\n\n#### Step 2: Calculate Total Water\n- Iterate through each cell in the grid.\n- If the cell contains water (`grid[i][j] == 1`), increment `total_water`.\n\n#### Step 3: Determine Buckets Needed\n- Divide `total_water` by `bucket_capacity`.\n- Use ceiling division to ensure all water is accounted for even if there's a remainder.\n\n#### Step 4: Return Result\n- The result is the number of buckets needed, which corresponds to the number of times buckets must be lowered.\n\n### Detailed Steps\n\n1. **Initialize Variables**\n   - `total_water = 0`\n   - `buckets_needed = 0`\n\n2. **Calculate Total Water**\n   ```python\n   for i in range(len(grid)):\n       for j in range(len(grid[0])):\n           if grid[i][j] == 1:\n               total_water += 1\n   ```\n\n3. **Determine Buckets Needed**\n   ```python\n   import math\n   buckets_needed =",
+    "before_completion": "import math\n\ndef max_fill(grid, capacity):\n    total_water = 0\n    for row in grid:\n        total_water += sum(row)\n    return math.ceil(total_water / capacity)",
+    "after_completion": "import math\n\ndef max_fill(grid, capacity):\n    total_water = 0\n    for row in grid:\n        total_water += sum(row)\n    return math.ceil(total_water / capacity)",
+    "problem_prompt": "\ndef max_fill(grid, capacity):\n    import math\n    \"\"\"\n    You are given a rectangular grid of wells. Each row represents a single well,\n    and each 1 in a row represents a single unit of water.\n    Each well has a corresponding bucket that can be used to extract water from it, \n    and all buckets have the same capacity.\n    Your task is to use the buckets to empty the wells.\n    Output the number of times you need to lower the buckets.\n\n    Example 1:\n        Input: \n            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]\n            bucket_capacity : 1\n        Output: 6\n\n    Example 2:\n        Input: \n            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]\n            bucket_capacity : 2\n        Output: 5\n    \n    Example 3:\n        Input: \n            grid : [[0,0,0], [0,0,0]]\n            bucket_capacity : 5\n        Output: 0\n\n    Constraints:\n        * all wells have the same length\n        * 1 <= grid.length <= 10^2\n        * 1 <= grid[:,1].length <= 10^2\n        * grid[i][j] -> 0 | 1\n        * 1 <= capacity <= 10\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/116",
+    "was_scot_regression": true,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 2,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : sort_array([1, 5, 2, 3, 4])\n  Expected   : [1, 2, 3, 4, 5]\n  Actual     : [1, 2, 4, 3, 5]",
+        "completion": "def sort_array(arr):\n    if not arr or all(x < 0 for x in arr):\n        return arr\n    return sorted(arr, key=lambda x: (bin(x).count('1'), x))",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Define the function `sort_array` that takes an array `arr` as input.\n2. Check if the array is empty or contains only negative numbers. If so, return the array as is since it's already sorted by default.\n3. Convert each integer in the array to its binary representation and count the number of ones.\n4. Sort the array first by the count of ones in the binary representation and then by the decimal value for ties.\n5. Return the sorted array.\n\nBranch:\n- If the array is empty or contains only negative numbers, return the array as is.\n\nLoop:\n- Iterate through the array to convert each integer to binary and count the ones.\n- Use a sorting algorithm that can handle custom sorting criteria (count of ones and decimal value).",
+    "before_completion": "def sort_array(arr):\n    if not arr or all(x < 0 for x in arr):\n        return arr\n    return sorted(arr, key=lambda x: (bin(x).count('1'), x))",
+    "after_completion": "def sort_array(arr):\n    if not arr or all(x < 0 for x in arr):\n        return arr\n    return sorted(arr, key=lambda x: (bin(x).count('1'), x))",
+    "problem_prompt": "\ndef sort_array(arr):\n    \"\"\"\n    In this Kata, you have to sort an array of non-negative integers according to\n    number of ones in their binary representation in ascending order.\n    For similar number of ones, sort based on decimal value.\n\n    It must be implemented like this:\n    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]\n    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]\n    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/127",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 3,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : intersection((1, 2), (2, 3))\n  Expected   : > \"NO\"\n  Actual     : 'NO'",
+        "completion": "def intersection(interval1, interval2):\n    def is_prime(n):\n        if n <= 1:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    start = max(interval1[0], interval2[0])\n    end = min(interval1[1], interval2[1])\n\n    if start > end:\n        return \"NO\"\n\n    length = end - start + 1\n    return \"YES\" if is_prime(length) else \"NO\"",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Input Understanding\n- Two intervals, each represented as a tuple `(start, end)`.\n\n#### Output Requirements\n- Determine if the length of their intersection is a prime number.\n- Return `\"YES\"` if the length is prime, otherwise `\"NO\"`.\n- If there is no intersection, return `\"NO\"`.\n\n#### Steps to Solve\n1. **Determine Intersection**:\n   - Calculate the start and end of the intersection.\n   - If `interval1[1] < interval2[0]` or `interval2[1] < interval1[0]`, there is no intersection.\n   - Otherwise, the intersection starts at `max(interval1[0], interval2[0])` and ends at `min(interval1[1], interval2[1])`.\n\n2. **Calculate Length of Intersection**:\n   - Compute the length of the intersection as `end_of_intersection - start_of_intersection + 1`.\n\n3. **Check for Prime Number**:\n   - Define a helper function to check if a number is prime.\n   - Use this function to check if the length of the intersection is prime.\n\n4. **Return Result**:\n   - If the length is prime, return",
+    "before_completion": "def intersection(interval1, interval2):\n    def is_prime(n):\n        if n <= 1:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    start = max(interval1[0], interval2[0])\n    end = min(interval1[1], interval2[1])\n\n    if start > end:\n        return \"NO\"\n\n    length = end - start + 1\n    return \"YES\" if is_prime(length) else \"NO\"",
+    "after_completion": "def intersection(interval1, interval2):\n    def is_prime(n):\n        if n <= 1:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    start = max(interval1[0], interval2[0])\n    end = min(interval1[1], interval2[1])\n\n    if start > end:\n        return \"NO\"\n\n    length = end - start + 1\n    return \"YES\" if is_prime(length) else \"NO\"",
+    "problem_prompt": "\ndef intersection(interval1, interval2):\n    \"\"\"You are given two intervals,\n    where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).\n    The given intervals are closed which means that the interval (start, end)\n    includes both start and end.\n    For each given interval, it is assumed that its start is less or equal its end.\n    Your task is to determine whether the length of intersection of these two \n    intervals is a prime number.\n    Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)\n    which its length is 1, which not a prime number.\n    If the length of the intersection is a prime number, return \"YES\",\n    otherwise, return \"NO\".\n    If the two intervals don't intersect, return \"NO\".\n\n\n    [input/output] samples:\n    intersection((1, 2), (2, 3)) ==> \"NO\"\n    intersection((-1, 1), (0, 4)) ==> \"NO\"\n    intersection((-3, -1), (-5, 5)) ==> \"YES\"\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/129",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: _ExecTimeout: Execution timed out",
+    "after_result": "failed: _ExecTimeout: Execution timed out",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "from heapq import heappop, heappush\n\ndef minPath(grid, k):\n    N = len(grid)\n    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n    pq = []\n    \n    for i in range(N):\n        for j in range(N):\n            heappush(pq, ([grid[i][j]], i, j))\n    \n    while pq:\n        path, x, y = heappop(pq)\n        if k == 1:\n            return path\n        \n        for dx, dy in directions:\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < N and 0 <= ny < N:\n                new_path = path + [grid[nx][ny]]\n                heappush(pq, (new_path, nx, ny))\n                \n    return []",
+        "passed": false,
+        "result": "failed: _ExecTimeout: Execution timed out"
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Step 1: Understand the Problem\n- **Grid**: \\( N \\times N \\) matrix where \\( N \\geq 2 \\).\n- **Values**: Each cell contains a unique integer from \\( 1 \\) to \\( N^2 \\).\n- **Path Length**: Exactly \\( k \\) steps.\n- **Movement**: Can move to adjacent cells (up, down, left, right).\n- **Lexicographical Order**: Find the path whose sequence of values is lexicographically smallest.\n\n#### Step 2: Define Variables\n- `grid`: The input grid.\n- `k`: The required path length.\n- `N`: Size of the grid.\n- `min_path`: List to store the minimum path.\n\n#### Step 3: Initialize Data Structures\n- Use a priority queue to explore paths in lexicographical order.\n- Track visited cells to avoid revisiting.\n\n#### Step 4: Implement BFS\n- Start BFS from every cell in the grid.\n- For each cell, explore all possible moves (up, down, left, right).\n- Maintain a priority queue to ensure paths are explored in lexicographical order.\n\n#### Step 5: Explore Paths\n- For each",
+    "before_completion": "from heapq import heappop, heappush\n\ndef minPath(grid, k):\n    N = len(grid)\n    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n    pq = []\n    \n    for i in range(N):\n        for j in range(N):\n            heappush(pq, (grid[i][j], i, j))\n    \n    while pq:\n        val, x, y = heappop(pq)\n        if k == 1:\n            return [val]\n        \n        for dx, dy in directions:\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < N and 0 <= ny < N:\n                heappush(pq, (val * 10 + grid[nx][ny], nx, ny))\n                \n    return []",
+    "after_completion": "from heapq import heappop, heappush\n\ndef minPath(grid, k):\n    N = len(grid)\n    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n    pq = []\n    \n    for i in range(N):\n        for j in range(N):\n            heappush(pq, ([grid[i][j]], i, j))\n    \n    while pq:\n        path, x, y = heappop(pq)\n        if k == 1:\n            return path\n        \n        for dx, dy in directions:\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < N and 0 <= ny < N:\n                new_path = path + [grid[nx][ny]]\n                heappush(pq, (new_path, nx, ny))\n                \n    return []",
+    "problem_prompt": "\ndef minPath(grid, k):\n    \"\"\"\n    Given a grid with N rows and N columns (N >= 2) and a positive integer k, \n    each cell of the grid contains a value. Every integer in the range [1, N * N]\n    inclusive appears exactly once on the cells of the grid.\n\n    You have to find the minimum path of length k in the grid. You can start\n    from any cell, and in each step you can move to any of the neighbor cells,\n    in other words, you can go to cells which share an edge with you current\n    cell.\n    Please note that a path of length k means visiting exactly k cells (not\n    necessarily distinct).\n    You CANNOT go off the grid.\n    A path A (of length k) is considered less than a path B (of length k) if\n    after making the ordered lists of the values on the cells that A and B go\n    through (let's call them lst_A and lst_B), lst_A is lexicographically less\n    than lst_B, in other words, there exist an integer index i (1 <= i <= k)\n    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have\n    lst_A[j] = lst_B[j].\n    It is guaranteed that the answer is unique.\n    Return an ordered list of the values on the cells that the minimum path go through.\n\n    Examples:\n\n        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3\n        Output: [1, 2, 1]\n\n        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1\n        Output: [1]\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/132",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: This prints if this assert fails 1 (good for debugging!)",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def is_nested(string):\n    count = 0\n    has_nested = False\n    for char in string:\n        if char == '[':\n            count += 1\n        elif char == ']':\n            count -= 1\n        if count < 0:\n            return False\n        if count > 1:\n            has_nested = True\n    return has_nested",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Initialize a counter to keep track of open brackets.\n2. Iterate through each character in the string.\n3. For each opening bracket, increment the counter.\n4. For each closing bracket, decrement the counter.\n5. If the counter becomes negative at any point, return False.\n6. After iterating through the string, check if the counter is zero.\n7. If the counter is zero, return False; otherwise, return True.\n\nBranch:\n- If the counter becomes negative during iteration, return False immediately.\n\nLoop:\n- Iterate through each character in the string once.",
+    "before_completion": "def is_nested(string):\n    count = 0\n    for char in string:\n        if char == '[':\n            count += 1\n        elif char == ']':\n            count -= 1\n        if count < 0:\n            return False\n    return count > 0",
+    "after_completion": "def is_nested(string):\n    count = 0\n    has_nested = False\n    for char in string:\n        if char == '[':\n            count += 1\n        elif char == ']':\n            count -= 1\n        if count < 0:\n            return False\n        if count > 1:\n            has_nested = True\n    return has_nested",
+    "problem_prompt": "\ndef is_nested(string):\n    '''\n    Create a function that takes a string as input which contains only square brackets.\n    The function should return True if and only if there is a valid subsequence of brackets \n    where at least one bracket in the subsequence is nested.\n\n    is_nested('[[]]') ➞ True\n    is_nested('[]]]]]]][[[[[]') ➞ False\n    is_nested('[][]') ➞ False\n    is_nested('[]') ➞ False\n    is_nested('[[][]]') ➞ True\n    is_nested('[[]][[') ➞ True\n    '''\n"
+  },
+  {
+    "task_id": "HumanEval/134",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def check_if_last_char_is_a_letter(txt):\n    if not txt:\n        return False\n    txt = txt.rstrip()\n    words = txt.split()\n    if not words:\n        return False\n    last_word = words[-1]\n    return len(last_word) == 1 and last_word.isalpha()",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Check if the input string `txt` is empty.\n2. If the string is empty, return False.\n3. Strip any trailing spaces from the string.\n4. Split the string into words based on spaces.\n5. Get the last word in the list.\n6. Check if the last word has exactly one character.\n7. Verify if the single character is an alphabetical letter.\n8. Return True if all conditions are met; otherwise, return False.",
+    "before_completion": "def check_if_last_char_is_a_letter(txt):\n    if not txt:\n        return False\n    txt = txt.rstrip()\n    words = txt.split()\n    last_word = words[-1]\n    return len(last_word) == 1 and last_word.isalpha()",
+    "after_completion": "def check_if_last_char_is_a_letter(txt):\n    if not txt:\n        return False\n    txt = txt.rstrip()\n    words = txt.split()\n    if not words:\n        return False\n    last_word = words[-1]\n    return len(last_word) == 1 and last_word.isalpha()",
+    "problem_prompt": "\ndef check_if_last_char_is_a_letter(txt):\n    '''\n    Create a function that returns True if the last character\n    of a given string is an alphabetical character and is not\n    a part of a word, and False otherwise.\n    Note: \"word\" is a group of characters separated by space.\n\n    Examples:\n    check_if_last_char_is_a_letter(\"apple pie\") ➞ False\n    check_if_last_char_is_a_letter(\"apple pi e\") ➞ True\n    check_if_last_char_is_a_letter(\"apple pi e \") ➞ False\n    check_if_last_char_is_a_letter(\"\") ➞ False \n    '''\n"
+  },
+  {
+    "task_id": "HumanEval/135",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def can_arrange(arr): \n    result = -1\n    for i in range(1, len(arr)): \n        if arr[i] < arr[i - 1]: \n            result = i \n            break \n    return result",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Initialize a variable `result` to -1.\n2. Iterate through the array from the second element to the last element.\n3. For each element, check if it is less than the element immediately before it.\n4. If the condition is met, update `result` with the current index and break out of the loop.\n5. Return the value of `result`.\n\nBranch:\n- Check if the current element is less than the previous element.\n\nLoop:\n- Iterate through the array starting from the second element to the last element.",
+    "before_completion": "def can_arrange(arr):\n    result = -1\n    for i in range(1, len(arr)):\n        if arr[i] < arr[i - 1]:\n            result = i\n            break\n    return result",
+    "after_completion": "def can_arrange(arr): \n    result = -1\n    for i in range(1, len(arr)): \n        if arr[i] < arr[i - 1]: \n            result = i \n            break \n    return result",
+    "problem_prompt": "\ndef can_arrange(arr):\n    \"\"\"Create a function which returns the largest index of an element which\n    is not greater than or equal to the element immediately preceding it. If\n    no such element exists then return -1. The given array will not contain\n    duplicate values.\n\n    Examples:\n    can_arrange([1,2,4,3,5]) = 3\n    can_arrange([1,2,3]) = -1\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/145",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 2,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : order_by_points([1, 11, -1, -11, -12])\n  Expected   : [-1, -11, 1, -12, 11]\n  Actual     : [1, -1, 11, -11, -12]",
+        "completion": "def order_by_points(nums):\n    def sum_of_digits(n):\n        return sum(int(digit) for digit in str(abs(n)))\n    \n    return sorted(nums, key=lambda x: (sum_of_digits(x), nums.index(x)))",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Define a helper function `sum_of_digits` that calculates the sum of digits of a number.\n2. Use Python's built-in `sorted()` function with a custom key.\n3. The custom key should be a tuple `(sum_of_digits(num), nums.index(num))`.\n4. Return the sorted list.\n\nBranch:\n- If the input list is empty, return an empty list immediately.\n\nLoop:\n- No explicit loop needed, as `sorted()` handles the sorting internally.",
+    "before_completion": "def order_by_points(nums):\n    def sum_of_digits(n):\n        return sum(int(digit) for digit in str(abs(n)))\n    \n    return sorted(nums, key=lambda x: (sum_of_digits(x), nums.index(x)))",
+    "after_completion": "def order_by_points(nums):\n    def sum_of_digits(n):\n        return sum(int(digit) for digit in str(abs(n)))\n    \n    return sorted(nums, key=lambda x: (sum_of_digits(x), nums.index(x)))",
+    "problem_prompt": "\ndef order_by_points(nums):\n    \"\"\"\n    Write a function which sorts the given list of integers\n    in ascending order according to the sum of their digits.\n    Note: if there are several items with similar sum of their digits,\n    order them based on their index in original list.\n\n    For example:\n    >>> order_by_points([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]\n    >>> order_by_points([]) == []\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/159",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: Error",
+    "after_result": "failed: AssertionError: Error",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 4,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : eat(5, 6, 10)\n  Expected   : [11, 4]\n  Actual     : [15, 0]",
+        "completion": "def eat(number, need, remaining):\n    total_needed = number + need\n    if remaining >= total_needed:\n        return [total_needed, remaining - total_needed]\n    else:\n        return [number + remaining, 0]",
+        "passed": false,
+        "result": "failed: AssertionError: Error"
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Calculate the total number of carrots needed by adding the number already eaten (`number`) and the additional carrots required (`need`).\n2. Determine if the remaining carrots are sufficient to meet the total need.\n3. If the remaining carrots are less than or equal to the total need, update the total number of eaten carrots to include all remaining carrots and set the remaining carrots to zero.\n4. If the remaining carrots are greater than the total need, subtract the total need from the remaining carrots and update the total number of eaten carrots accordingly.\n5. Return the updated total number of eaten carrots and the remaining carrots as a list.",
+    "before_completion": "def eat(number, need, remaining):\n    total_needed = number + need\n    if remaining >= total_needed:\n        return [total_needed, remaining - total_needed]\n    else:\n        return [number + remaining, 0]",
+    "after_completion": "def eat(number, need, remaining):\n    total_needed = number + need\n    if remaining >= total_needed:\n        return [total_needed, remaining - total_needed]\n    else:\n        return [number + remaining, 0]",
+    "problem_prompt": "\ndef eat(number, need, remaining):\n    \"\"\"\n    You're a hungry rabbit, and you already have eaten a certain number of carrots,\n    but now you need to eat more carrots to complete the day's meals.\n    you should return an array of [ total number of eaten carrots after your meals,\n                                    the number of carrots left after your meals ]\n    if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.\n    \n    Example:\n    * eat(5, 6, 10) -> [11, 4]\n    * eat(4, 8, 9) -> [12, 1]\n    * eat(1, 10, 10) -> [11, 0]\n    * eat(2, 11, 5) -> [7, 0]\n    \n    Variables:\n    @number : integer\n        the number of carrots that you have eaten.\n    @need : integer\n        the number of carrots that you need to eat.\n    @remaining : integer\n        the number of remaining carrots thet exist in stock\n    \n    Constrain:\n    * 0 <= number <= 1000\n    * 0 <= need <= 1000\n    * 0 <= remaining <= 1000\n\n    Have fun :)\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/160",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: ",
+    "after_result": "failed: AssertionError: ",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 0,
+        "public_tests_passed_before_fix": false,
+        "feedback": "No runnable docstring examples were found, but your solution failed hidden evaluation tests. Carefully check the problem specification, imports, and edge cases.",
+        "completion": "def do_algebra(operator, operand):\n    result = operand[0]\n    for i in range(len(operator)):\n        if operator[i] == '+':\n            result += operand[i + 1]\n        elif operator[i] == '-':\n            result -= operand[i + 1]\n        elif operator[i] == '*':\n            result *= operand[i + 1]\n        elif operator[i] == '//':\n            result //= operand[i + 1]\n        elif operator[i] == '**':\n            result **= operand[i + 1]\n    return result",
+        "passed": false,
+        "result": "failed: AssertionError: "
+      }
+    ],
+    "scot_reasoning": "### Structured Chain of Thought (SCoT)\n\n#### Input Understanding\n1. **operator**: A list of strings representing algebraic operations (`+`, `-`, `*`, `//`, `**`).\n2. **operand**: A list of integers on which the operations will be performed.\n3. **Constraints**:\n   - Length of `operator` is one less than the length of `operand`.\n   - `operand` contains non-negative integers.\n   - Both `operator` and `operand` have valid inputs as per constraints.\n\n#### Output\n- Evaluate the algebraic expression formed by combining `operator` and `operand`.\n\n#### Steps to Solve\n1. **Initialize Result**:\n   - Start with the first operand as the initial value for the result.\n\n2. **Iterate Through Operators**:\n   - For each operator in the `operator` list:\n     - Retrieve the corresponding operand from the `operand` list.\n     - Perform the operation between the current result and the retrieved operand.\n     - Update the result with the outcome of the operation.\n\n3. **Return Final Result**:\n   - After processing all operators, the result holds the evaluated expression.\n\n#### Detailed Steps\n1. Initialize `result` with the first element of `operand`.",
+    "before_completion": "def do_algebra(operator, operand):\n    result = operand[0]\n    for i in range(len(operator)):\n        if operator[i] == '+':\n            result += operand[i + 1]\n        elif operator[i] == '-':\n            result -= operand[i + 1]\n        elif operator[i] == '*':\n            result *= operand[i + 1]\n        elif operator[i] == '//':\n            result //= operand[i + 1]\n        elif operator[i] == '**':\n            result **= operand[i + 1]\n    return result",
+    "after_completion": "def do_algebra(operator, operand):\n    result = operand[0]\n    for i in range(len(operator)):\n        if operator[i] == '+':\n            result += operand[i + 1]\n        elif operator[i] == '-':\n            result -= operand[i + 1]\n        elif operator[i] == '*':\n            result *= operand[i + 1]\n        elif operator[i] == '//':\n            result //= operand[i + 1]\n        elif operator[i] == '**':\n            result **= operand[i + 1]\n    return result",
+    "problem_prompt": "\ndef do_algebra(operator, operand):\n    \"\"\"\n    Given two lists operator, and operand. The first list has basic algebra operations, and \n    the second list is a list of integers. Use the two given lists to build the algebric \n    expression and return the evaluation of this expression.\n\n    The basic algebra operations:\n    Addition ( + ) \n    Subtraction ( - ) \n    Multiplication ( * ) \n    Floor division ( // ) \n    Exponentiation ( ** ) \n\n    Example:\n    operator['+', '*', '-']\n    array = [2, 3, 4, 5]\n    result = 2 + 3 * 4 - 5\n    => result = 9\n\n    Note:\n        The length of operator list is equal to the length of operand list minus one.\n        Operand is a list of of non-negative integers.\n        Operator list has at least one operator, and operand list has at least two operands.\n\n    \"\"\"\n"
+  },
+  {
+    "task_id": "HumanEval/163",
+    "was_scot_regression": false,
+    "before_passed": false,
+    "after_passed": false,
+    "before_result": "failed: AssertionError: Test 1",
+    "after_result": "failed: AssertionError: Test 1",
+    "debug_steps": [
+      {
+        "step": 1,
+        "public_tests_count": 3,
+        "public_tests_passed_before_fix": false,
+        "feedback": "Public unit test failed with wrong output:\n  Test Input : generate_integers(10, 14)\n  Expected   : []\n  Actual     : [10, 12, 14]",
+        "completion": "def generate_integers(a, b):\n    if a > b:\n        a, b = b, a\n    return [x for x in range(a, b + 1) if x % 2 == 0]",
+        "passed": false,
+        "result": "failed: AssertionError: Test 1"
+      }
+    ],
+    "scot_reasoning": "Sequence:\n1. Determine the lower and upper bounds for iteration.\n2. Iterate through the range from the lower bound to the upper bound.\n3. Check if each number is even.\n4. Collect all even numbers in a list.\n5. Return the list of even numbers.\n\nBranch:\n- If a > b, swap a and b to ensure correct iteration direction.\n\nLoop:\n- Iterate through the range from min(a, b) to max(a, b).",
+    "before_completion": "def generate_integers(a, b):\n    if a > b:\n        a, b = b, a\n    return [x for x in range(a, b + 1) if x % 2 == 0]",
+    "after_completion": "def generate_integers(a, b):\n    if a > b:\n        a, b = b, a\n    return [x for x in range(a, b + 1) if x % 2 == 0]",
+    "problem_prompt": "\ndef generate_integers(a, b):\n    \"\"\"\n    Given two positive integers a and b, return the even digits between a\n    and b, in ascending order.\n\n    For example:\n    generate_integers(2, 8) => [2, 4, 6, 8]\n    generate_integers(8, 2) => [2, 4, 6, 8]\n    generate_integers(10, 14) => []\n    \"\"\"\n"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "strategy": "Strategy 1: Simple Feedback (E2)",
+  "total_tasks": 164,
+  "before_scot_pass": 114,
+  "before_scot_pass_rate": 69.51,
+  "after_s1_pass": 122,
+  "after_s1_pass_rate": 74.39,
+  "net_gain_tasks": 8,
+  "net_gain_pp": 4.88,
+  "transitions": {
+    "wrong_to_right": 8,
+    "wrong_to_wrong": 42,
+    "right_to_right": 114,
+    "right_to_wrong": 0
+  },
+  "recovered_scot_regressions": [
+    "HumanEval/54"
+  ]
+}
